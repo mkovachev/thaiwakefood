@@ -1,11 +1,11 @@
 import React from 'react';
-import { FlatList, StyleSheet, Image, ImageSourcePropType } from 'react-native';
+import { FlatList, StyleSheet, Image } from 'react-native';
 import { Text, View } from './Themed';
 import { useGetFoodItemList } from '../hooks/getFoodItemList';
 import { FoodItem } from '../data/FoodItem';
 
 
-export default function FoodItemList({ path }: { path: string }) {
+export default function FoodItemList() {
   const { data: foodItems, isLoading: isLoadingFoodItems } = useGetFoodItemList()
 
   if (!foodItems || isLoadingFoodItems) {
@@ -14,7 +14,7 @@ export default function FoodItemList({ path }: { path: string }) {
 
   const renderFoodItem = ({ item }: { item: FoodItem }) => (
     <View>
-      <Image style={styles.foodItemImage} source={item.image as ImageSourcePropType} />
+      <Image style={styles.foodItemImage} source={item.image as any} />
       <Text>{item.title}</Text>
     </View>
   )
@@ -27,7 +27,7 @@ export default function FoodItemList({ path }: { path: string }) {
             data={foodItems}
             renderItem={renderFoodItem}
             keyExtractor={(item: FoodItem) => item.id.toString()}
-            horizontal={true}
+            horizontal={false}
           />
         </View>
       </View>

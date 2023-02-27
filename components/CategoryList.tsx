@@ -5,7 +5,7 @@ import { useGetCategoryList } from '../hooks/getCategoryList';
 import { CategoryItem } from '../data/CategoryItem';
 
 
-export default function CategoryList({ path }: { path: string }) {
+export default function CategoryList() {
   const { data: categories, isLoading: isLoadingCategories } = useGetCategoryList()
 
   if (!categories || isLoadingCategories) {

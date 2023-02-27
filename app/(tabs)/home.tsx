@@ -10,8 +10,8 @@ export default function HomeScreen() {
   return (
     <View style={styles.container}>
       <Search />
-      <CategoryList path={'components/CategoryList.tsx'} />
-      <FoodItemList path={'components/FoodItemList.tsx'} />
+      <CategoryList />
+      <FoodItemList />
     </View>
   );
 }
