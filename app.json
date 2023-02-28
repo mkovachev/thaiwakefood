@@ -1,14 +1,14 @@
 {
   "expo": {
-    "name": "thaiwakefood",
+    "name": "thai wake food",
     "slug": "thaiwakefood",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
+    "icon": "./assets/images/logoTWP.png",
+    "scheme": "twp",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/images/splash.png",
+      "image": "./assets/images/logoTWP.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -20,18 +20,18 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/logoTWP.png",
         "backgroundColor": "#ffffff"
       }
     },
     "web": {
       "bundler": "metro",
-      "favicon": "./assets/images/favicon.png",
+      "favicon": "./assets/images/logoTWP.png",
       "build": {
         "babel": {
-          "include": [
-            "deprecated-react-native-listview"
-          ]
+          // "include": [
+          //   "deprecated-react-native-listview"
+          // ]
         }
       }
     }

@@ -9,7 +9,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
-} from 'expo-router';
+} from 'expo-router'
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
@@ -18,7 +18,7 @@ export const unstable_settings = {
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { retry: 2 } },
-});
+})
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
@@ -28,12 +28,12 @@ export default function RootLayout() {
     MontserratSemiBold: require('../assets/fonts/Montserrat-SemiBold.ttf'),
     MontserratBold: require('../assets/fonts/Montserrat-Bold.ttf'),
     ...FontAwesome.font,
-  });
+  })
 
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
   useEffect(() => {
-    if (error) throw error;
-  }, [error]);
+    if (error) throw error
+  }, [error])
 
   return (
     <>
@@ -41,7 +41,7 @@ export default function RootLayout() {
       {!loaded && <SplashScreen />}
       {loaded && <RootLayoutNav />}
     </>
-  );
+  )
 }
 
 function RootLayoutNav() {
@@ -58,5 +58,5 @@ function RootLayoutNav() {
         </ThemeProvider>
       </QueryClientProvider>
     </>
-  );
+  )
 }

@@ -1,13 +1,14 @@
 import { StyleSheet } from 'react-native';
 import { Text, View } from '../../components/Themed';
+import colors from '../../constants/colors';
 
 export default function ShoppingCartScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Shopping cart</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+      <View style={styles.separator} lightColor={colors.grey} darkColor={colors.black} />
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -25,4 +26,4 @@ const styles = StyleSheet.create({
     height: 1,
     width: '80%',
   },
-});
+})

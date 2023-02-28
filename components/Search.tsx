@@ -1,12 +1,12 @@
 import { Feather } from "@expo/vector-icons";
 import { StyleSheet } from 'react-native';
-import Colors from "../constants/Colors";
+import colors from "../constants/colors";
 import { View, Text } from './Themed';
 
 export default function Search() {
   return (
     <View style={styles.container}>
-      <Feather name='search' size={16} color={Colors.black} />
+      <Feather name='search' size={16} color={colors.black} />
       <View style={styles.search}>
         <Text style={styles.searchText}>Search...</Text>
       </View>
@@ -23,13 +23,13 @@ const styles = StyleSheet.create({
   search: {
     flex: 1,
     marginLeft: 10,
-    borderBottomColor: Colors.grey,
+    borderBottomColor: colors.grey,
     borderBottomWidth: 1
   },
   searchText: {
     fontFamily: 'MontserratSemiBold',
     fontSize: 14,
     marginBottom: 5,
-    color: Colors.grey
+    color: colors.grey
   }
 });
