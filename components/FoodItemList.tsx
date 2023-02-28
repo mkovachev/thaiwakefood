@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, StyleSheet, Image } from 'react-native';
+import { FlatList, StyleSheet, Image, ImageSourcePropType } from 'react-native';
 import { Text, View } from './Themed';
 import { useGetFoodItemList } from '../hooks/getFoodItemList';
 import { FoodItem } from '../data/FoodItem';
@@ -12,9 +12,11 @@ export default function FoodItemList() {
     return null
   }
 
+  //console.log(foodItems)
+
   const renderFoodItem = ({ item }: { item: FoodItem }) => (
     <View>
-      <Image style={styles.foodItemImage} source={item.image as any} />
+      <Image style={styles.foodItemImage} source={{ uri: item.image }} />
       <Text>{item.title}</Text>
     </View>
   )
@@ -37,7 +39,7 @@ export default function FoodItemList() {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'column',
+    flexDirection: 'row',
     marginTop: 10,
     fontFamily: 'MontserratBold',
     fontSize: 16,
@@ -47,7 +49,8 @@ const styles = StyleSheet.create({
 
   },
   foodItemImage: {
-
+    width: 200,
+    height: 200
   },
 });
 

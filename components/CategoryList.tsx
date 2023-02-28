@@ -14,7 +14,7 @@ export default function CategoryList() {
 
   const renderCategoryItem = ({ item }: { item: CategoryItem }) => (
     <View>
-      <Image style={styles.categoryItemImage} source={item.image as ImageSourcePropType} />
+      <Image style={styles.categoryItemImage} source={{ uri: item.image }} />
       <Text>{item.title}</Text>
     </View>
   )
@@ -46,7 +46,8 @@ const styles = StyleSheet.create({
 
   },
   categoryItemImage: {
-
+    width: 100, 
+    height: 100
   },
   foodItemList: {
 

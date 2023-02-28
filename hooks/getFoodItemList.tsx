@@ -2,19 +2,16 @@ import axios from 'axios'
 import { useQuery } from 'react-query'
 import { FoodItem } from '../data/FoodItem'
 import { parseFoodItemList } from '../utils/parseFoodItemList'
+import { URL, SHEET_ID, SHEET_MENU, API_KEY } from '@env'
+import { formatData } from '../utils/formatData'
 
 
 const getFoodItemList = async (): Promise<FoodItem[]> => {
-  const url = `${process.env.SHEETSON_URL}/${process.env.SPREADSHEET_MENU}`
-  const params = {
-    apiKey: process.env.API_KEY,
-    spreadsheetId: process.env.SPREADSHEET_ID
-  }
-
-  const res = await axios.get(url, { params })
-  const foodItems = parseFoodItemList(res.data.results)
+  const url = `${URL}/${SHEET_ID}/values/${SHEET_MENU}?valueRenderOption=FORMATTED_VALUE&key=${API_KEY}`
+  const res = await axios.get(url)
+  const foodItems = parseFoodItemList(formatData(res.data))
   return foodItems
-};
+}
 
 export const useGetFoodItemList = () => {
   return useQuery<FoodItem[], Error>(
