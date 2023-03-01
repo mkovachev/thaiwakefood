@@ -4,27 +4,34 @@ import { View } from './Themed'
 import { FoodItemDto } from '../data/FoodItemDto'
 import FoodItemDetails from './FoodItemDetails'
 import FoodItem from './FoodItem'
+import { CategoryItem } from '../data/CategoryItem'
 
 interface Props {
   foodItems: FoodItemDto[]
+  category: CategoryItem | null
 }
 
-export default function FoodItemList({ foodItems }: Props) {
+export default function FoodItemList({ foodItems, category }: Props) {
   const [selectedFoodItem, setSelectedFoodItem] = useState<FoodItemDto>(foodItems[0])
-  const [modalVisible, setModalVisible] = useState(false)
 
   return (
     <SafeAreaView>
       <ScrollView style={{ padding: 10 }}>
         <View>
           <View style={styles.container}>
-            {foodItems.map((foodItem) => (
-              <FoodItem key={foodItem.id} foodItem={foodItem} />
-            ))}
+            {foodItems.filter((item: FoodItemDto) => {
+              if (item.category === null) {
+                return true
+              }
+              return item.category === category?.title
+            })
+              .map((foodItem) => (
+                <FoodItem key={foodItem.id} foodItem={foodItem} />
+              ))}
           </View>
-          {modalVisible &&
+          {false &&
             <View>
-              <FoodItemDetails foodItem={selectedFoodItem} visible={modalVisible} />
+              <FoodItemDetails foodItem={selectedFoodItem} visible={false} />
             </View>
           }
         </View>

@@ -6,17 +6,18 @@ import colors from "../constants/colors"
 
 interface Props {
   categories: CategoryItem[]
+  setActiveCategory: (category : CategoryItem) => void
 }
 
-export default function CategoryList({ categories }: Props) {
-  const [selected, setSelected] = useState<CategoryItem | null>(null)
+export default function CategoryList({ categories, setActiveCategory }: Props) {
+  const [active, setActive] = useState<CategoryItem | null>(null)
 
   const renderCategoryItem = ({ item }: { item: CategoryItem }) => (
-    <TouchableOpacity onPress={() => { setSelected(item) }}>
+    <TouchableOpacity onPress={() => { setActive(item), setActiveCategory(item) }}>
       <View style={[
         styles.categoryItem,
         {
-          backgroundColor: item === selected ? colors.yellow : colors.white,
+          backgroundColor: item === active ? colors.yellow : colors.white,
         },
       ]}>
         <Image style={styles.categoryItemImage} source={{ uri: item.image }} />

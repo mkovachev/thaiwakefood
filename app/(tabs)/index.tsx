@@ -6,12 +6,18 @@ import CategoryList from '../../components/CategoryList'
 import Header from '../../components/Header'
 import { useGetCategoryList } from '../../hooks/getCategoryList'
 import { useGetFoodItemList } from '../../hooks/getFoodItemList'
+import { useState } from 'react'
+import { CategoryItem } from '../../data/CategoryItem'
 
 export default function HomeScreen() {
   const { data: categories, isLoading: isLoadingCategories } = useGetCategoryList()
   const { data: foodItems, isLoading: isLoadingFoodItems } = useGetFoodItemList()
+  const [ activeCategory, setActiveCategory] = useState<CategoryItem | null>(null)
 
   if (!categories || isLoadingCategories || !foodItems || isLoadingFoodItems) return null
+
+  console.log(activeCategory)
+  
   
   return (
     <View style={styles.container}>
@@ -19,9 +25,9 @@ export default function HomeScreen() {
         contentInsetAdjustmentBehavior="automatic"
         showsVerticalScrollIndicator={false}>
         <Header />
-        <CategoryList categories={categories} />
+        <CategoryList categories={categories} setActiveCategory={setActiveCategory} />
         <Search />
-        <FoodItemList foodItems={foodItems} />
+        <FoodItemList foodItems={foodItems} category={activeCategory} />
       </ScrollView>
     </View>
   )
