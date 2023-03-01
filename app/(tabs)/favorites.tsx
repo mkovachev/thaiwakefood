@@ -1,10 +1,11 @@
 import { StyleSheet } from 'react-native';
 import { Text, View } from '../../components/Themed';
+import colors from '../../constants/colors';
 
-export default function ShoppingCartScreen() {
+export default function FavoritesScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Shopping cart</Text>
+      <Text style={styles.title}>Favorites</Text>
     </View>
   )
 }

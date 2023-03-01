@@ -1,8 +1,8 @@
-import { View, Text } from "./Themed";
-import { StyleSheet, Image } from 'react-native';
-import { SafeAreaView } from "react-native-safe-area-context";
-import { Feather } from "@expo/vector-icons";
-import colors from "../constants/colors";
+import { View, Text } from "./Themed"
+import { StyleSheet, Image } from 'react-native'
+import { SafeAreaView } from "react-native-safe-area-context"
+import { Feather } from "@expo/vector-icons"
+import colors from "../constants/colors"
 
 export default function Header() {
 
@@ -21,7 +21,7 @@ export default function Header() {
         </View>
       </View>
     </SafeAreaView>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -48,4 +48,4 @@ const styles = StyleSheet.create({
   menu: {
     justifyContent: 'flex-end'
   }
-});
+})
