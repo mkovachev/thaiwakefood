@@ -4,11 +4,11 @@ import { Text, View } from './Themed'
 import { CategoryItem } from '../data/CategoryItem'
 import colors from "../constants/colors"
 
-interface CategoryListProps {
+interface Props {
   categories: CategoryItem[]
 }
 
-export default function CategoryList({ categories }: CategoryListProps) {
+export default function CategoryList({ categories }: Props) {
   const [selected, setSelected] = useState<CategoryItem | null>(null)
 
   const renderCategoryItem = ({ item }: { item: CategoryItem }) => (

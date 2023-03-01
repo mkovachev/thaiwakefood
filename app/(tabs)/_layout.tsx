@@ -1,16 +1,7 @@
-import FontAwesome from '@expo/vector-icons/FontAwesome'
+import { Feather } from '@expo/vector-icons';
 import { Tabs } from 'expo-router'
-import { ComponentProps } from 'react'
 import { useColorScheme } from 'react-native'
 import colors from '../../constants/colors'
-
-
-function TabBarIcon(props: {
-  name: ComponentProps<typeof FontAwesome>['name']
-  color: string;
-}) {
-  return <FontAwesome size={28} style={{ marginBottom: -10 }} {...props} />
-}
 
 export default function TabLayout() {
   const colorScheme = useColorScheme()
@@ -23,25 +14,25 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'home',
+          title: '',
           headerShown: false,
-          tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
+          tabBarIcon: ({ color }) => <Feather size={24} name="home" color={color} />,
         }}
       />
       <Tabs.Screen
         name="favorites"
         options={{
-          title: 'favorites',
+          title: '',
           headerShown: false,
-          tabBarIcon: ({ color }) => <TabBarIcon name="heart-o" color={color} />,
+          tabBarIcon: ({ color }) => <Feather size={24} name="heart" color={color} />,
         }}
       />
       <Tabs.Screen
         name="shoppingCart"
         options={{
-          title: 'Shopping cart',
+          title: '',
           headerShown: false,
-          tabBarIcon: ({ color }) => <TabBarIcon name="shopping-cart" color={color} />,
+          tabBarIcon: ({ color }) => <Feather size={24} name="shopping-cart" color={color} />,
         }}
       />
     </Tabs>

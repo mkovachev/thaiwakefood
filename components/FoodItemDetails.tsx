@@ -1,60 +1,83 @@
 import { StatusBar } from 'expo-status-bar'
-import { Modal, Platform, StyleSheet, Image } from 'react-native'
-import { Text, View } from './Themed'
+import { Platform, StyleSheet, Image, Pressable } from 'react-native'
+import { Modal, Portal, Provider, Text } from 'react-native-paper';
+import { View } from './Themed'
 import colors from "../constants/colors"
 import { FoodItem } from '../data/FoodItem'
 import { useState } from 'react'
+import { Feather } from '@expo/vector-icons';
+import { parseShoppingCartItem } from '../utils/parseShoppingCartItem';
 
-interface FoodItemDetailsProps {
+interface Props {
   foodItem: FoodItem
   visible: boolean
 }
 
-export default function FoodItemDetails({ foodItem, visible }: FoodItemDetailsProps) {
+export default function FoodItemDetails({ foodItem, visible }: Props) {
   const [, setVisible] = useState(visible)
 
+  const addToCart = (foodItem: FoodItem) => {
+    const shoppingCartItem = parseShoppingCartItem(foodItem)
+    console.log(shoppingCartItem)
+  }
+
+  const addToFavorites = (foodItem: FoodItem) => {
+    const shoppingCartItem = parseShoppingCartItem(foodItem)
+    console.log(shoppingCartItem)
+  }
 
   return (
-    <Modal
-      animationType="fade"
-      transparent={true}
-      visible={visible}
-      onRequestClose={() => {
-        setVisible(!visible);
-      }}>
-      <View style={styles.container}>
+    <View style={styles.container}>
+      <View style={styles.details}>
         <Image style={styles.foodItemImage} source={{ uri: foodItem.image }} />
-        <Text style={styles.foodItemTitle}>{foodItem.title}</Text>
+        <Text style={styles.title}>{foodItem.title}</Text>
+        <Text style={styles.description}>{foodItem.description}</Text>
+
         {/* Use a light status bar on iOS to account for the black space above the modal */}
         <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
       </View>
-    </Modal>
+      <View style={styles.actions}>
+        <Pressable onPressIn={() => addToCart(foodItem)}>
+          <Feather name="heart" size={24} />
+        </Pressable>
+        <Pressable onPressIn={() => addToFavorites(foodItem)}>
+          <Feather name="shopping-cart" size={24} />
+        </Pressable>
+      </View>
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: colors.transparent,
+  },
+  details: {
+    alignItems: 'center',
   },
   title: {
-    fontSize: 20,
-    fontWeight: 'bold',
+    fontFamily: 'MontserratMedium',
+    fontSize: 18,
   },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
-  foodItemImage: {
-    width: 300,
-    height: 300,
-  },
-  foodItemTitle: {
+  description: {
     fontFamily: 'MontserratMedium',
     fontSize: 14,
-    textAlign: 'center',
     marginTop: 10,
+    textAlign: 'center',
+  },
+  foodItemImage: {
+    width: 200,
+    height: 200,
+    marginHorizontal: 10,
+    marginVertical: 10,
+    borderRadius: 15
+  },
+  actions: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   }
 })

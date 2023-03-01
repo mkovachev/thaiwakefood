@@ -1,19 +1,17 @@
 module.exports = function (api) {
   api.cache(true);
   return {
-    presets: ["babel-preset-expo"],
-    plugins: [
-      require.resolve("expo-router/babel"),
-    ],
-    plugins: [
-      ["module:react-native-dotenv", {
-        "envName": "APP_ENV",
-        "moduleName": "@env",
-        "path": ".env",
-        "safe": false,
-        "allowUndefined": true,
-        "verbose": false
-      }]
-    ]
+    presets: ['babel-preset-expo', 'module:metro-react-native-babel-preset'],
+    env: {
+      production: {
+        plugins: ['react-native-paper/babel'],
+      },
+      development: {
+        plugins: [
+          require.resolve('expo-router/babel'),
+          ['module:react-native-dotenv']
+        ]
+      }
+    },
   };
 };

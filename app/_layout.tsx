@@ -5,6 +5,8 @@ import { SplashScreen, Stack } from 'expo-router';
 import { useEffect } from 'react';
 import { useColorScheme } from 'react-native';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { Provider as PaperProvider } from 'react-native-paper';
+import { FontAwesome5 } from '@expo/vector-icons';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -27,7 +29,7 @@ export default function RootLayout() {
     MontserratMedium: require('../assets/fonts/Montserrat-Medium.ttf'),
     MontserratSemiBold: require('../assets/fonts/Montserrat-SemiBold.ttf'),
     MontserratBold: require('../assets/fonts/Montserrat-Bold.ttf'),
-    ...FontAwesome.font,
+    ...FontAwesome5.font,
   })
 
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
@@ -50,12 +52,14 @@ function RootLayoutNav() {
   return (
     <>
       <QueryClientProvider client={queryClient}>
-        <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-          <Stack>
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            {/* <Stack.Screen name="foodItemDetails" options={{ presentation: 'modal' }} /> */}
-          </Stack>
-        </ThemeProvider>
+        <PaperProvider>
+          <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+            <Stack>
+              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+              <Stack.Screen name="details" />
+            </Stack>
+          </ThemeProvider>
+        </PaperProvider>
       </QueryClientProvider>
     </>
   )

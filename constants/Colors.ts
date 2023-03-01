@@ -25,4 +25,5 @@ export default {
   yellow: '#F5CA48',
   red: '#F26C68',
   orange: '#E4723C',
+  transparent: 'transparent',
 };
