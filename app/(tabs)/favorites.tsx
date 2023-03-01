@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native'
 import { Text, View } from '../../components/Themed'
-import colors from '../../constants/colors'
 
 export default function FavoritesScreen() {
   return (

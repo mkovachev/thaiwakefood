@@ -1,27 +1,27 @@
 import { StatusBar } from 'expo-status-bar'
 import { Platform, StyleSheet, Image, Pressable } from 'react-native'
-import { Modal, Portal, Provider, Text } from 'react-native-paper';
+import { Text } from 'react-native-paper';
 import { View } from './Themed'
 import colors from "../constants/colors"
-import { FoodItem } from '../data/FoodItem'
+import { FoodItemDto } from '../data/FoodItemDto'
 import { useState } from 'react'
 import { Feather } from '@expo/vector-icons';
 import { parseShoppingCartItem } from '../utils/parseShoppingCartItem';
 
 interface Props {
-  foodItem: FoodItem
+  foodItem: FoodItemDto
   visible: boolean
 }
 
 export default function FoodItemDetails({ foodItem, visible }: Props) {
   const [, setVisible] = useState(visible)
 
-  const addToCart = (foodItem: FoodItem) => {
+  const addToCart = (foodItem: FoodItemDto) => {
     const shoppingCartItem = parseShoppingCartItem(foodItem)
     console.log(shoppingCartItem)
   }
 
-  const addToFavorites = (foodItem: FoodItem) => {
+  const addToFavorites = (foodItem: FoodItemDto) => {
     const shoppingCartItem = parseShoppingCartItem(foodItem)
     console.log(shoppingCartItem)
   }
