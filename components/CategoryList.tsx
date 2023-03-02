@@ -61,8 +61,8 @@ const styles = StyleSheet.create({
     marginHorizontal: Platform.OS === 'web' ? sizes.px10 : 0,
     paddingVertical: sizes.px5,
     borderRadius: sizes.px20,
-    width: Platform.OS === 'web' ? width / 6 : width / 4,
-    height: Platform.OS === 'web' ? width / 6 : width / 4,
+    width: Platform.OS === 'web' ? width / 6 : 100,
+    height: Platform.OS === 'web' ? width / 6 : 100,
   },
   categoryItemImage: {
     width: Platform.OS === 'web' ? '70%' : '70%',

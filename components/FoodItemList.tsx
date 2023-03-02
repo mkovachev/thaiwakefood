@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { StyleSheet, SafeAreaView, FlatList, Platform, Dimensions } from 'react-native'
+import { StyleSheet, SafeAreaView, FlatList, Platform, Dimensions, ScrollView } from 'react-native'
 import { FoodItemDto } from '../data/FoodItemDto'
 import FoodItem from './FoodItem'
 import { CategoryItem } from '../data/CategoryItem'
@@ -26,40 +26,28 @@ export default function FoodItemList({ foodItems, category }: Props) {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* <ScrollView style={{ padding: 10 }}>
+      <ScrollView>
         <View style={styles.container}>
-            {foodItems.filter((item: FoodItemDto) => {
-              if (category === null) return true
-              return item.category === category?.title
-            })
-              .map((foodItem) => (
-                <FoodItem key={foodItem.id} foodItem={foodItem} />
-              ))}
-          </View>
-      </ScrollView> */}
-      <View style={styles.view}>
-        <FlatList
-          data={data}
-          numColumns={Platform.OS === 'web' ? 4 : 2}
-          renderItem={({ item }) => <FoodItem foodItem={item} />}
-        />
-      </View>
+          {foodItems.filter((item: FoodItemDto) => {
+            if (category === null) return true
+            return item.category === category?.title
+          })
+            .map((foodItem) => (
+              <FoodItem key={foodItem.id} foodItem={foodItem} />
+            ))}
+        </View>
+      </ScrollView>
     </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    //flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    flex: 1,
+    flexDirection: "row",
+    flexWrap: "wrap",
     justifyContent: "space-between",
     gap: sizes.px10,
-    marginHorizontal: sizes.px10,
-    marginVertical: sizes.px20,
-  },
-  view: {
-    flex: 1
   }
 })
 
