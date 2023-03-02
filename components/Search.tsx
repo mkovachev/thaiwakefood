@@ -1,6 +1,6 @@
 import { Feather } from "@expo/vector-icons";
 import { StyleSheet } from 'react-native';
-import colors from "../constants/colors";
+import colors from "../ui/colors";
 import { View, Text } from './Themed';
 
 export default function Search() {

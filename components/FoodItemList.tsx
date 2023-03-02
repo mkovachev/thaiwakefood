@@ -20,9 +20,7 @@ export default function FoodItemList({ foodItems, category }: Props) {
         <View>
           <View style={styles.container}>
             {foodItems.filter((item: FoodItemDto) => {
-              if (category === null) {
-                return true
-              }
+              if (category === null) return true
               return item.category === category?.title
             })
               .map((foodItem) => (
@@ -43,10 +41,10 @@ export default function FoodItemList({ foodItems, category }: Props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: (Platform.OS === 'ios') ? 20 : 0,
+    paddingTop: (Platform.OS === 'web') ? 0 : 20,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: "space-between",
+    justifyContent: "center",
     marginHorizontal: 10,
     marginVertical: 20,
   },

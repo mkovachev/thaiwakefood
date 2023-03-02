@@ -2,7 +2,7 @@ import { View, Text } from "./Themed"
 import { StyleSheet, Image } from 'react-native'
 import { SafeAreaView } from "react-native-safe-area-context"
 import { Feather } from "@expo/vector-icons"
-import colors from "../constants/colors"
+import colors from "../ui/colors"
 
 export default function Header() {
 

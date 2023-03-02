@@ -1,7 +1,7 @@
 import { Feather } from '@expo/vector-icons';
 import { Tabs } from 'expo-router'
 import { useColorScheme } from 'react-native'
-import colors from '../../constants/colors'
+import colors from '../../ui/colors'
 
 export default function TabLayout() {
   const colorScheme = useColorScheme()

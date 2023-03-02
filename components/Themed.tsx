@@ -5,7 +5,7 @@
 
 import { Text as DefaultText, useColorScheme, View as DefaultView } from 'react-native';
 
-import colors from '../constants/colors';
+import colors from '../ui/colors';
 
 export function useThemeColor(
   props: { light?: string; dark?: string },

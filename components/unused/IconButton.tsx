@@ -1,7 +1,7 @@
 import { Pressable, StyleSheet } from 'react-native'
 import { Text } from '../Themed'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
-import colors from '../../constants/colors'
+import colors from '../../ui/colors'
 import { ComponentProps } from 'react'
 import { FontAwesome5 } from '@expo/vector-icons'
 
