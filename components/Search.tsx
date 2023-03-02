@@ -1,5 +1,5 @@
 import { Feather } from "@expo/vector-icons"
-import { Platform, StyleSheet } from 'react-native'
+import { Platform, StyleSheet, TextInput } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import colors from "../ui/colors"
 import sizes from '../ui/sizes'

@@ -11,7 +11,7 @@ interface Props {
   foodItem: FoodItemDto
 }
 
-const { width } = Dimensions.get("window")
+const { width } = Dimensions.get('window')
 
 export default function FoodItem({ foodItem }: Props) {
 
@@ -106,6 +106,7 @@ export default function FoodItem({ foodItem }: Props) {
 
 const styles = StyleSheet.create({
   container: {
+    flexDirection:'column',
     justifyContent: 'space-between',
     padding: Platform.OS === 'web' ? sizes.px20 : sizes.px5,
     border: shapes.borderYellow,

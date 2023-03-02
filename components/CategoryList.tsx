@@ -19,7 +19,6 @@ export default function CategoryList({ categories, setActiveCategory }: Props) {
   const setCategory = (category: CategoryItem | null) => {
     setActive(category)
     setActiveCategory(category)
-    console.log(category)
   }
 
   const renderCategoryItem = ({ item }: { item: CategoryItem }) => (
@@ -43,6 +42,7 @@ export default function CategoryList({ categories, setActiveCategory }: Props) {
           renderItem={renderCategoryItem}
           keyExtractor={(item: CategoryItem) => item.id.toString()}
           horizontal={true}
+          showsHorizontalScrollIndicator={false}
         />
       </View>
     </SafeAreaView>
@@ -61,12 +61,12 @@ const styles = StyleSheet.create({
     marginHorizontal: Platform.OS === 'web' ? sizes.px10 : 0,
     paddingVertical: sizes.px5,
     borderRadius: sizes.px20,
-    width: Platform.OS === 'web' ? width / 8 : width / 4,
-    height: Platform.OS === 'web' ? width / 8 : width / 4,
+    width: Platform.OS === 'web' ? width / 6 : width / 4,
+    height: Platform.OS === 'web' ? width / 6 : width / 4,
   },
   categoryItemImage: {
-    width: Platform.OS === 'web' ? '85%' : '70%',
-    height: Platform.OS === 'web' ? '95%' : '85%',
+    width: Platform.OS === 'web' ? '70%' : '70%',
+    height: Platform.OS === 'web' ? '80%' : '85%',
   },
   categoryItemTitle: {
     fontFamily: 'MontserratMedium',
