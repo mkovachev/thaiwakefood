@@ -1,20 +1,17 @@
 import { Feather } from "@expo/vector-icons"
 import { Platform, StyleSheet, TextInput } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import colors from "../ui/colors"
 import sizes from '../ui/sizes'
 import { View, Text } from '../ui/Themed'
 
 export default function Search() {
   return (
-    <SafeAreaView>
-      <View style={styles.container}>
-        <Feather name='search' size={24} color={colors.black} />
-        <View style={styles.search}>
-          <Text style={styles.searchText}>Search...</Text>
-        </View>
+    <View style={styles.container}>
+      <Feather name='search' size={24} color={colors.black} />
+      <View style={styles.search}>
+        <Text style={styles.searchText}>Search...</Text>
       </View>
-    </SafeAreaView>
+    </View>
   )
 }
 

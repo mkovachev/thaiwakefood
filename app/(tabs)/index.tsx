@@ -1,5 +1,4 @@
 import { ScrollView, StyleSheet } from 'react-native'
-import { View } from '../../ui/Themed'
 import Search from '../../components/Search'
 import FoodItemList from '../../components/FoodItemList'
 import CategoryList from '../../components/CategoryList'
@@ -8,7 +7,6 @@ import { useGetCategoryList } from '../../hooks/getCategoryList'
 import { useGetFoodItemList } from '../../hooks/getFoodItemList'
 import { useState } from 'react'
 import { CategoryItem } from '../../data/CategoryItem'
-import { SafeAreaView } from 'react-native-safe-area-context'
 
 export default function HomeScreen() {
   const { data: categories, isLoading: isLoadingCategories } = useGetCategoryList()
@@ -18,17 +16,13 @@ export default function HomeScreen() {
   if (!categories || isLoadingCategories || !foodItems || isLoadingFoodItems) return null
 
   return (
-    <View style={styles.container}>
+    <ScrollView>
       <Header />
       <CategoryList categories={categories} setActiveCategory={setActiveCategory} />
       <Search />
-      <FoodItemList foodItems={foodItems} category={activeCategory} />
-    </View>
+      <FoodItemList items={foodItems} category={activeCategory} />
+    </ScrollView>
   )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-})
+const styles = StyleSheet.create({})

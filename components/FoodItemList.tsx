@@ -1,38 +1,31 @@
 import React, { useState } from 'react'
-import { StyleSheet, SafeAreaView, FlatList, Platform, Dimensions, ScrollView } from 'react-native'
+import { StyleSheet, Platform, Dimensions } from 'react-native'
 import { FoodItemDto } from '../data/FoodItemDto'
 import FoodItem from './FoodItem'
 import { CategoryItem } from '../data/CategoryItem'
-import colors from '../ui/colors'
-import sizes from '../ui/sizes'
 import { View } from '../ui/Themed'
 
 interface Props {
-  foodItems: FoodItemDto[]
+  items: FoodItemDto[]
   category: CategoryItem | null
 }
 
 const { width } = Dimensions.get('window')
-const columnWidth = width / 4
 
-export default function FoodItemList({ foodItems, category }: Props) {
-  const [selectedFoodItem, setSelectedFoodItem] = useState<FoodItemDto>(foodItems[0])
+export default function FoodItemList({ items, category }: Props) {
+  const [selectedFoodItem, setSelectedFoodItem] = useState<FoodItemDto>(items[0])
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView>
-        <View style={styles.container}>
-          {foodItems
-            .filter((item: FoodItemDto) => {
-              if (category === null) return true
-              return item.category === category?.title
-            })
-            .map((foodItem) => (
-              <FoodItem key={foodItem.id} foodItem={foodItem} />
-            ))}
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <View style={styles.container}>
+      {items
+        .filter((item: FoodItemDto) => {
+          if (category === null) return true
+          return item.category === category?.title
+        })
+        .map((item) => (
+          <FoodItem key={item.id} item={item} />
+        ))}
+    </View>
   )
 }
 
@@ -41,7 +34,8 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
+    gap: 20,
     marginHorizontal: Platform.OS === 'web' ? 10 : 5,
   }
 })

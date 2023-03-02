@@ -8,36 +8,36 @@ import sizes from '../ui/sizes'
 import shapes from '../ui/shapes'
 
 interface Props {
-  foodItem: FoodItemDto
+  item: FoodItemDto
 }
 
 const { width } = Dimensions.get('window')
 
-export default function FoodItem({ foodItem }: Props) {
+export default function FoodItem({ item }: Props) {
 
   const showDetails = (id: number) => {
     console.log(id)
   }
 
   return (
-    <View key={foodItem.id} style={styles.container}>
+    <View key={item.id} style={styles.container}>
       <TouchableOpacity style={styles.touchableImage}>
-        <Image source={{ uri: foodItem.image }} style={styles.image} />
+        <Image source={{ uri: item.image }} style={styles.image} />
       </TouchableOpacity>
       <Feather style={styles.favoriteIcon} name="heart" size={24} />
       <Text numberOfLines={1} style={styles.id}>
-        # {foodItem.id}
+        # {item.id}
       </Text>
-      <Text numberOfLines={1} style={styles.title}>
-        {foodItem.title}
+      <Text numberOfLines={3} style={styles.title}>
+        {item.title}
       </Text>
-      <Text numberOfLines={2} style={styles.description}>
-        {foodItem.description}
+      <Text numberOfLines={4} style={styles.description}>
+        {item.description}
       </Text>
       <Text style={styles.price}>
-        Price from {foodItem.prices?.[0]} THB
+        Price from {item.prices?.[0]} THB
       </Text>
-      <TouchableOpacity style={styles.showMore} onPress={() => showDetails(foodItem.id)}>
+      <TouchableOpacity style={styles.touchableShowMore} onPress={() => showDetails(item.id)}>
         <Text style={styles.showMoreText}>
           show details
         </Text>
@@ -52,8 +52,8 @@ const styles = StyleSheet.create({
     padding: 20,
     border: shapes.borderYellow,
     borderRadius: 20,
-    overflow: "hidden",
     marginVertical: 10,
+    overflow: "hidden",
   },
   touchableImage: {
     width: (Platform.OS === 'web') ? 250 : 150,
@@ -77,20 +77,24 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   title: {
-    fontFamily: 'MontserratSemiBold',
-    fontSize: Platform.OS === 'web' ? 20 : 15,
+    fontFamily: 'MontserratBold',
+    fontSize: Platform.OS === 'web' ? 20 : 12,
+    maxWidth: 150,
     marginTop: 10,
     marginBottom: 5,
   },
   description: {
-    fontSize: Platform.OS === 'web' ? 15 : 12,
+    fontFamily: 'MontserratSemiBold',
+    fontSize: Platform.OS === 'web' ? 15 : 11,
+    maxWidth: 150,
   },
   price: {
     marginRight: 5,
-    fontSize: Platform.OS === 'web' ? 15 : 12,
+    fontSize: Platform.OS === 'web' ? 15 : 11,
     marginTop: 20,
+    maxWidth: 150,
   },
-  showMore: {
+  touchableShowMore: {
     alignSelf: 'center',
     paddingHorizontal: 10,
     paddingVertical: 10,
@@ -99,6 +103,7 @@ const styles = StyleSheet.create({
     border: shapes.borderYellow,
   },
   showMoreText: {
+    fontFamily: 'MontserratMedium',
     marginRight: 5,
     fontSize: Platform.OS === 'web' ? 15 : 12,
   }

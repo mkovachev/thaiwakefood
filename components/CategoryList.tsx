@@ -22,40 +22,38 @@ export default function CategoryList({ categories, setActiveCategory }: Props) {
   }
 
   const renderCategoryItem = ({ item }: { item: CategoryItem }) => (
-    <TouchableOpacity
-      onPress={() => item.id !== active?.id ? setCategory(item) : setCategory(null)}>
-      <View style={[
-        styles.categoryItem,
-        { backgroundColor: item === active ? colors.yellow : colors.white },
-      ]}>
-        <Image style={styles.categoryItemImage} source={{ uri: item.image }} />
-        <Text style={styles.categoryItemTitle}>{item.title}</Text>
-      </View>
-    </TouchableOpacity>
+    <View style={[
+      styles.item,
+      { backgroundColor: item === active ? colors.yellow : colors.white },
+    ]}>
+      <TouchableOpacity
+        onPress={() => item.id !== active?.id ? setCategory(item) : setCategory(null)}>
+        <Image style={styles.image} source={{ uri: item.image }} />
+      </TouchableOpacity>
+      <Text style={styles.title}>{item.title}</Text>
+    </View>
   )
 
   return (
-    <SafeAreaView>
-      <View style={styles.container}>
-        <FlatList
-          data={categories}
-          renderItem={renderCategoryItem}
-          keyExtractor={(item: CategoryItem) => item.id.toString()}
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
-        />
-      </View>
-    </SafeAreaView>
+    <View style={styles.container}>
+      <FlatList
+        data={categories}
+        renderItem={renderCategoryItem}
+        keyExtractor={(item: CategoryItem) => item.id.toString()}
+        horizontal
+      //showsHorizontalScrollIndicator={false}
+      />
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexDirection: 'row',
     paddingHorizontal: sizes.px5,
     marginHorizontal: sizes.px10,
   },
-  categoryItem: {
+  item: {
     justifyContent: 'space-between',
     alignItems: 'center',
     marginHorizontal: Platform.OS === 'web' ? sizes.px10 : 0,
@@ -64,11 +62,11 @@ const styles = StyleSheet.create({
     width: Platform.OS === 'web' ? width / 6 : 100,
     height: Platform.OS === 'web' ? width / 6 : 100,
   },
-  categoryItemImage: {
+  image: {
     width: Platform.OS === 'web' ? '70%' : '70%',
     height: Platform.OS === 'web' ? '80%' : '85%',
   },
-  categoryItemTitle: {
+  title: {
     fontFamily: 'MontserratMedium',
     fontSize: Platform.OS === 'web' ? 16 : 12,
   }
