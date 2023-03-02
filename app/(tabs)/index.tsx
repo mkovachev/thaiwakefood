@@ -12,13 +12,10 @@ import { CategoryItem } from '../../data/CategoryItem'
 export default function HomeScreen() {
   const { data: categories, isLoading: isLoadingCategories } = useGetCategoryList()
   const { data: foodItems, isLoading: isLoadingFoodItems } = useGetFoodItemList()
-  const [ activeCategory, setActiveCategory] = useState<CategoryItem | null>(null)
+  const [activeCategory, setActiveCategory] = useState<CategoryItem | null>(null)
 
   if (!categories || isLoadingCategories || !foodItems || isLoadingFoodItems) return null
 
-  console.log(activeCategory)
-  
-  
   return (
     <View style={styles.container}>
       <ScrollView

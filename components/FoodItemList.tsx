@@ -20,7 +20,7 @@ export default function FoodItemList({ foodItems, category }: Props) {
         <View>
           <View style={styles.container}>
             {foodItems.filter((item: FoodItemDto) => {
-              if (item.category === null) {
+              if (category === null) {
                 return true
               }
               return item.category === category?.title

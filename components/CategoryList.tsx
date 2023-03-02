@@ -6,7 +6,7 @@ import colors from "../constants/colors"
 
 interface Props {
   categories: CategoryItem[]
-  setActiveCategory: (category : CategoryItem) => void
+  setActiveCategory: (category: CategoryItem) => void
 }
 
 export default function CategoryList({ categories, setActiveCategory }: Props) {
