@@ -12,7 +12,7 @@ export default function Header() {
         <View style={styles.containerLogoTitle}>
           <Image
             style={styles.logo}
-            source={{ uri: './assets/images/logoTWP.png' }}
+            source={{ uri: '../assets/images/logoTWP.png' }}
           />
           <Text style={styles.title}>THAI WAKE PARK - TWP Lumlukka</Text>
         </View>

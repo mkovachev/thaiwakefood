@@ -1,14 +1,17 @@
 import React, { useState } from 'react'
-import { FlatList, StyleSheet, Image, TouchableOpacity } from 'react-native'
+import { FlatList, StyleSheet, Image, TouchableOpacity, Dimensions, Platform } from 'react-native'
 import { Text, View } from '../ui/Themed'
 import { CategoryItem } from '../data/CategoryItem'
 import colors from "../ui/colors"
 import sizes from '../ui/sizes'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 interface Props {
   categories: CategoryItem[]
   setActiveCategory: (category: CategoryItem | null) => void
 }
+
+const { width } = Dimensions.get('window')
 
 export default function CategoryList({ categories, setActiveCategory }: Props) {
   const [active, setActive] = useState<CategoryItem | null>(null)
@@ -16,6 +19,7 @@ export default function CategoryList({ categories, setActiveCategory }: Props) {
   const setCategory = (category: CategoryItem | null) => {
     setActive(category)
     setActiveCategory(category)
+    console.log(category)
   }
 
   const renderCategoryItem = ({ item }: { item: CategoryItem }) => (
@@ -32,43 +36,41 @@ export default function CategoryList({ categories, setActiveCategory }: Props) {
   )
 
   return (
-    <View>
+    <SafeAreaView>
       <View style={styles.container}>
-        <View style={styles.categoriesList}>
-          <FlatList
-            data={categories}
-            renderItem={renderCategoryItem}
-            keyExtractor={(item: CategoryItem) => item.id.toString()}
-            horizontal={true}
-          />
-        </View>
+        <FlatList
+          data={categories}
+          renderItem={renderCategoryItem}
+          keyExtractor={(item: CategoryItem) => item.id.toString()}
+          horizontal={true}
+        />
       </View>
-    </View>
+    </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-  },
-  categoriesList: {
-    paddingHorizontal: 5
+    flex: 1,
+    paddingHorizontal: sizes.px5,
+    marginHorizontal: sizes.px10,
   },
   categoryItem: {
-    backgroundColor: colors.white,
-    marginHorizontal: 5,
-    paddingHorizontal: 10,
-    paddingVertical: 10,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginHorizontal: Platform.OS === 'web' ? sizes.px10 : 0,
+    paddingVertical: sizes.px5,
     borderRadius: sizes.px20,
+    width: Platform.OS === 'web' ? width / 8 : width / 4,
+    height: Platform.OS === 'web' ? width / 8 : width / 4,
   },
   categoryItemImage: {
-    width: 60,
-    height: 60,
+    width: Platform.OS === 'web' ? '85%' : '70%',
+    height: Platform.OS === 'web' ? '95%' : '85%',
   },
   categoryItemTitle: {
     fontFamily: 'MontserratMedium',
-    fontSize: 14,
-    textAlign: 'center',
-    marginTop: 10,
+    fontSize: Platform.OS === 'web' ? 16 : 12,
   }
 })
 

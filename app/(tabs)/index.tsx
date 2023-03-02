@@ -8,6 +8,7 @@ import { useGetCategoryList } from '../../hooks/getCategoryList'
 import { useGetFoodItemList } from '../../hooks/getFoodItemList'
 import { useState } from 'react'
 import { CategoryItem } from '../../data/CategoryItem'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 export default function HomeScreen() {
   const { data: categories, isLoading: isLoadingCategories } = useGetCategoryList()
@@ -18,14 +19,10 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        showsVerticalScrollIndicator={false}>
-        <Header />
-        <CategoryList categories={categories} setActiveCategory={setActiveCategory} />
-        <Search />
-        <FoodItemList foodItems={foodItems} category={activeCategory} />
-      </ScrollView>
+      <Header />
+      <CategoryList categories={categories} setActiveCategory={setActiveCategory} />
+      <Search />
+      <FoodItemList foodItems={foodItems} category={activeCategory} />
     </View>
   )
 }
