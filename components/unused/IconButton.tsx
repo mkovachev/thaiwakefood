@@ -1,5 +1,5 @@
 import { Pressable, StyleSheet } from 'react-native'
-import { Text } from '../Themed'
+import { Text } from '../../ui/Themed'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 import colors from '../../ui/colors'
 import { ComponentProps } from 'react'

@@ -1,13 +1,13 @@
 import { StatusBar } from 'expo-status-bar'
 import { Platform, StyleSheet, Image, Pressable } from 'react-native'
-import { Text } from 'react-native-paper';
-import { View } from './Themed'
+import { View } from '../ui/Themed'
 import colors from "../ui/colors"
 import { FoodItemDto } from '../data/FoodItemDto'
 import { useState } from 'react'
-import { Feather } from '@expo/vector-icons';
-import { parseShoppingCartItem } from '../utils/parseShoppingCartItem';
-import shapes from '../ui/shapes';
+import { Feather } from '@expo/vector-icons'
+import { parseShoppingCartItem } from '../utils/parseShoppingCartItem'
+import sizes from '../ui/sizes'
+import { Text } from '../ui/Themed'
 
 interface Props {
   foodItem: FoodItemDto
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     height: 200,
     marginHorizontal: 10,
     marginVertical: 10,
-    borderRadius: shapes.borderRadius15
+    borderRadius: sizes.px15
   },
   actions: {
     flex: 1,

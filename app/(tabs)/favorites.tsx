@@ -1,10 +1,9 @@
-import { StyleSheet } from 'react-native'
-import { Text, View } from '../../components/Themed'
+import { Platform, StyleSheet } from 'react-native'
+import { Text, View } from '../../ui/Themed'
 
 export default function FavoritesScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Favorites</Text>
     </View>
   )
 }
@@ -12,11 +11,5 @@ export default function FavoritesScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  title: {
-    fontFamily: 'MontserratSemiBold',
-    fontSize: 20,
-    marginHorizontal: 20,
-    marginVertical: 20
   },
 })

@@ -1,5 +1,5 @@
 import { ScrollView, StyleSheet } from 'react-native'
-import { View } from '../../components/Themed'
+import { View } from '../../ui/Themed'
 import Search from '../../components/Search'
 import FoodItemList from '../../components/FoodItemList'
 import CategoryList from '../../components/CategoryList'

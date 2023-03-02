@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { FlatList, StyleSheet, Image, TouchableOpacity } from 'react-native'
-import { Text, View } from './Themed'
+import { Text, View } from '../ui/Themed'
 import { CategoryItem } from '../data/CategoryItem'
 import colors from "../ui/colors"
-import shapes from '../ui/shapes'
+import sizes from '../ui/sizes'
 
 interface Props {
   categories: CategoryItem[]
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     paddingHorizontal: 10,
     paddingVertical: 10,
-    borderRadius: shapes.borderRadius20,
+    borderRadius: sizes.px20,
   },
   categoryItemImage: {
     width: 60,

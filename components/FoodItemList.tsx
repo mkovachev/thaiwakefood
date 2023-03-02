@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { StyleSheet, Platform, SafeAreaView, ScrollView } from 'react-native'
-import { View } from './Themed'
+import { View } from '../ui/Themed'
 import { FoodItemDto } from '../data/FoodItemDto'
 import FoodItemDetails from './FoodItemDetails'
 import FoodItem from './FoodItem'
@@ -41,7 +41,7 @@ export default function FoodItemList({ foodItems, category }: Props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: (Platform.OS === 'web') ? 0 : 20,
+    //paddingTop: (Platform.OS === 'web') ? 0 : 20,
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: "center",

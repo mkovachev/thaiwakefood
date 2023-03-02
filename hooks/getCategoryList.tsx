@@ -8,7 +8,7 @@ const getCategoryList = async (): Promise<CategoryItem[]> => {
   const url = `${URL}/${SHEET_ID}/values/${SHEET_CATEGORIES}?valueRenderOption=FORMATTED_VALUE&key=${API_KEY}`
   const res = await axios.get(url)
   return formatData(res.data)
-};
+}
 
 export const useGetCategoryList = () => {
   return useQuery<CategoryItem[], Error>(

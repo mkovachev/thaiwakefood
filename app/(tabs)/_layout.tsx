@@ -1,7 +1,8 @@
-import { Feather } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons'
 import { Tabs } from 'expo-router'
 import { useColorScheme } from 'react-native'
 import colors from '../../ui/colors'
+
 
 export default function TabLayout() {
   const colorScheme = useColorScheme()
@@ -14,7 +15,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: '',
+          title: 'home',
           headerShown: false,
           tabBarIcon: ({ color }) => <Feather size={24} name="home" color={color} />,
         }}
@@ -22,16 +23,16 @@ export default function TabLayout() {
       <Tabs.Screen
         name="favorites"
         options={{
-          title: '',
-          headerShown: false,
+          title: 'Favorites',
+          headerShown: true,
           tabBarIcon: ({ color }) => <Feather size={24} name="heart" color={color} />,
         }}
       />
       <Tabs.Screen
         name="shoppingCart"
         options={{
-          title: '',
-          headerShown: false,
+          title: 'Shopping Cart',
+          headerShown: true,
           tabBarIcon: ({ color }) => <Feather size={24} name="shopping-cart" color={color} />,
         }}
       />

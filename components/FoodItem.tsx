@@ -1,11 +1,12 @@
-import { Feather } from "@expo/vector-icons";
-import { BlurView } from "expo-blur";
-import { FoodItemDto } from "../data/FoodItemDto";
-import { Image, StyleSheet, View, TouchableOpacity, Dimensions, Platform } from "react-native";
-import { Text } from './Themed';
-import colors from "../ui/colors";
-import React from "react";
-import shapes from "../ui/shapes";
+import { Feather } from "@expo/vector-icons"
+import { BlurView } from "expo-blur"
+import { FoodItemDto } from "../data/FoodItemDto"
+import { Image, StyleSheet, View, TouchableOpacity, Dimensions, Platform } from "react-native"
+import { Text } from '../ui/Themed'
+import colors from "../ui/colors"
+import React from "react"
+import sizes from "../ui/sizes"
+import shapes from "../ui/shapes"
 
 interface Props {
   foodItem: FoodItemDto
@@ -14,9 +15,14 @@ interface Props {
 const { width } = Dimensions.get("window")
 
 export default function FoodItem({ foodItem }: Props) {
+
+  const showDetails = (id: number) => {
+
+  }
+
   return (
     <View key={foodItem.id} style={styles.foodItem}>
-      <BlurView tint="default" intensity={90} style={{ padding: shapes.spacing10 }}>
+      <BlurView tint="default" intensity={90} style={{ padding: sizes.px10 }}>
         <TouchableOpacity style={styles.touchableFoodItem}>
           <Image source={{ uri: foodItem.image }} style={styles.image} />
           <View style={styles.favoriteIcon}>
@@ -33,9 +39,9 @@ export default function FoodItem({ foodItem }: Props) {
           <Text style={styles.price}>
             price
           </Text>
-          <TouchableOpacity style={styles.showMore}>
+          <TouchableOpacity style={styles.showMore} onPress={() => showDetails(foodItem.id)}>
             <Text style={styles.price}>
-              show more
+              show details
             </Text>
           </TouchableOpacity>
         </View>
@@ -51,51 +57,55 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   foodItem: {
-    marginHorizontal: shapes.spacing10,
-    marginVertical: shapes.spacing10,
-    border: `1px solid ${colors.black}`,
-    borderRadius: shapes.borderRadius20,
+    marginHorizontal: sizes.px10,
+    marginVertical: sizes.px10,
+    border: shapes.borderYellow,
+    borderRadius: sizes.px20,
     overflow: "hidden",
   },
   touchableFoodItem: {
-    width: (Platform.OS === 'web') ? 300 : width / 2 - shapes.spacing10 * 2,
-    height: (Platform.OS === 'web') ? 200 : width / 2 - shapes.spacing10 * 2,
+    width: (Platform.OS === 'web') ? 250 : width / 2 - sizes.px10 * 2,
+    height: (Platform.OS === 'web') ? 200 : width / 2 - sizes.px10 * 2,
     overflow: "hidden",
   },
   image: {
     width: "100%",
     height: "100%",
-    borderRadius: shapes.borderRadius15,
+    borderRadius: sizes.px15,
   },
   favoriteIcon: {
     position: "absolute",
-    right: shapes.spacing10,
+    right: sizes.px10,
     overflow: "hidden",
   },
   title: {
+    fontFamily: 'MontserratSemiBold',
     color: colors.black,
-    fontWeight: "600",
-    fontSize: shapes.spacing10 * 1.7,
+    fontSize: sizes.px10 * 1.7,
     marginTop: 10,
-    marginBottom: shapes.spacing10 / 2,
+    marginBottom: sizes.px10 / 2,
   },
   description: {
     color: colors.black,
-    fontSize: shapes.spacing10 * 1.2
+    fontSize: sizes.px10 * 1.2
   },
   actions: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginVertical: shapes.spacing10 / 2,
+    marginVertical: sizes.px10 / 2,
   },
   price: {
     color: colors.black,
-    marginRight: shapes.spacing10 / 2,
-    fontSize: shapes.spacing10 * 1.6,
+    marginRight: sizes.px10 / 2,
+    fontSize: sizes.px10 * 1.6,
   },
   showMore: {
-    padding: shapes.spacing10 / 2,
-    borderRadius: shapes.borderRadius15,
+    paddingHorizontal: sizes.px10,
+    paddingVertical: sizes.px10,
+    borderRadius: sizes.px15,
+    border: shapes.borderYellow,
+    elevation: 8,
+    backgroundColor: colors.transparent,
   }
-});
+})

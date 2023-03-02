@@ -1,5 +1,7 @@
+import colors from "./colors"
+
 export default {
-  borderRadius20: 20,
-  borderRadius15: 15,
-  spacing10: 10,
+  borderBlack: `1px solid ${colors.black}`,
+  borderBlue: `1px solid ${colors.blue}`,
+  borderYellow: `1px solid ${colors.yellow}`,
 }

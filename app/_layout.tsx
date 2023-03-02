@@ -1,12 +1,11 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { SplashScreen, Stack } from 'expo-router';
-import { useEffect } from 'react';
-import { useColorScheme } from 'react-native';
-import { QueryClient, QueryClientProvider } from 'react-query';
-import { Provider as PaperProvider } from 'react-native-paper';
-import { FontAwesome5 } from '@expo/vector-icons';
+import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native'
+import { useFonts } from 'expo-font'
+import { SplashScreen, Stack } from 'expo-router'
+import { useEffect } from 'react'
+import { useColorScheme } from 'react-native'
+import { QueryClient, QueryClientProvider } from 'react-query'
+import { FontAwesome5 } from '@expo/vector-icons'
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -16,7 +15,7 @@ export {
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
   initialRouteName: '(tabs)',
-};
+}
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { retry: 2 } },
@@ -52,14 +51,12 @@ function RootLayoutNav() {
   return (
     <>
       <QueryClientProvider client={queryClient}>
-        <PaperProvider>
           <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
             <Stack>
               <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
               <Stack.Screen name="details" />
             </Stack>
           </ThemeProvider>
-        </PaperProvider>
       </QueryClientProvider>
     </>
   )

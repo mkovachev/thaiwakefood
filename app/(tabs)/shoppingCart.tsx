@@ -1,10 +1,9 @@
 import { StyleSheet } from 'react-native';
-import { Text, View } from '../../components/Themed';
+import { Text, View } from '../../ui/Themed';
 
 export default function ShoppingCartScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Shopping cart</Text>
     </View>
   )
 }
@@ -12,11 +11,5 @@ export default function ShoppingCartScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginHorizontal: 20,
-    marginVertical: 20
   },
 })

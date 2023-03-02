@@ -29,9 +29,6 @@
       "favicon": "./assets/images/logoTWP.png",
       "build": {
         "babel": {
-          // "include": [
-          //   "deprecated-react-native-listview"
-          // ]
         }
       }
     }
