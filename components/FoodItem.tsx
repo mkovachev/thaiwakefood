@@ -1,12 +1,11 @@
-import { Feather } from "@expo/vector-icons"
-import { BlurView } from "expo-blur"
-import { FoodItemDto } from "../data/FoodItemDto"
-import { Image, StyleSheet, View, TouchableOpacity, Dimensions, Platform } from "react-native"
+import { Feather } from '@expo/vector-icons'
+import { FoodItemDto } from '../data/FoodItemDto'
+import { Image, StyleSheet, View, TouchableOpacity, Dimensions, Platform } from 'react-native'
 import { Text } from '../ui/Themed'
-import colors from "../ui/colors"
-import React from "react"
-import sizes from "../ui/sizes"
-import shapes from "../ui/shapes"
+import colors from '../ui/colors'
+import React from 'react'
+import sizes from '../ui/sizes'
+import shapes from '../ui/shapes'
 
 interface Props {
   foodItem: FoodItemDto
@@ -21,91 +20,86 @@ export default function FoodItem({ foodItem }: Props) {
   }
 
   return (
-    <View key={foodItem.id} style={styles.foodItem}>
-      <BlurView tint="default" intensity={90} style={{ padding: sizes.px10 }}>
-        <TouchableOpacity style={styles.touchableFoodItem}>
-          <Image source={{ uri: foodItem.image }} style={styles.image} />
-          <View style={styles.favoriteIcon}>
-            <Feather name="heart" size={24} />
-          </View>
-        </TouchableOpacity>
-        <Text numberOfLines={2} style={styles.title}>
-          {foodItem.title}
-        </Text>
-        <Text numberOfLines={2} style={styles.description}>
-          {foodItem.description}
-        </Text>
-        <View style={styles.actions}>
-          <Text style={styles.price}>
-            price
-          </Text>
-          <TouchableOpacity style={styles.showMore} onPress={() => showDetails(foodItem.id)}>
-            <Text style={styles.price}>
-              show details
-            </Text>
-          </TouchableOpacity>
+    <View key={foodItem.id} style={styles.container}>
+      <TouchableOpacity style={styles.touchableImage}>
+        <Image source={{ uri: foodItem.image }} style={styles.image} />
+        <View style={styles.favoriteIcon}>
+          <Feather name="heart" size={24} />
         </View>
-      </BlurView>
+      </TouchableOpacity>
+
+      <Text numberOfLines={1} style={styles.title}>
+        {foodItem.title}
+      </Text>
+      <Text numberOfLines={2} style={styles.description}>
+        {foodItem.description}
+      </Text>
+
+      <View style={styles.actions}>
+        <Text style={styles.price}>
+          Price from {foodItem.prices?.[0]} THB
+        </Text>
+        <TouchableOpacity style={styles.showMore} onPress={() => showDetails(foodItem.id)}>
+          <Text style={styles.showMoreText}>
+            show details
+          </Text>
+        </TouchableOpacity>
+      </View>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "center",
-  },
-  foodItem: {
-    marginHorizontal: sizes.px10,
-    marginVertical: sizes.px10,
+    height: (Platform.OS === 'web') ? 400 : width / 2 - sizes.px20,
+    justifyContent: 'space-between',
+    padding: sizes.px20,
     border: shapes.borderYellow,
     borderRadius: sizes.px20,
     overflow: "hidden",
   },
-  touchableFoodItem: {
-    width: (Platform.OS === 'web') ? 250 : width / 2 - sizes.px10 * 2,
-    height: (Platform.OS === 'web') ? 200 : width / 2 - sizes.px10 * 2,
+  touchableImage: {
+    width: (Platform.OS === 'web') ? 250 : width / 2 - sizes.px20,
+    height: (Platform.OS === 'web') ? 200 : width / 2 - sizes.px20,
     overflow: "hidden",
   },
   image: {
-    width: "100%",
-    height: "100%",
-    borderRadius: sizes.px15,
+    width: (Platform.OS === 'web') ? '90%' : 150,
+    height: (Platform.OS === 'web') ? '100%' : 100,
   },
   favoriteIcon: {
     position: "absolute",
-    right: sizes.px10,
+    right: sizes.px5,
     overflow: "hidden",
   },
   title: {
     fontFamily: 'MontserratSemiBold',
-    color: colors.black,
-    fontSize: sizes.px10 * 1.7,
-    marginTop: 10,
-    marginBottom: sizes.px10 / 2,
+    fontSize: sizes.px20,
+    marginTop: sizes.px10,
+    marginBottom: sizes.px5,
   },
   description: {
-    color: colors.black,
-    fontSize: sizes.px10 * 1.2
+    fontSize: sizes.px15
   },
   actions: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginVertical: sizes.px10 / 2,
+    marginTop: sizes.px10,
   },
   price: {
-    color: colors.black,
-    marginRight: sizes.px10 / 2,
-    fontSize: sizes.px10 * 1.6,
+    marginRight: sizes.px5,
+    fontSize: sizes.px10,
   },
   showMore: {
     paddingHorizontal: sizes.px10,
     paddingVertical: sizes.px10,
     borderRadius: sizes.px15,
     border: shapes.borderYellow,
-    elevation: 8,
     backgroundColor: colors.transparent,
+  },
+  showMoreText: {
+    marginRight: sizes.px5,
+    fontSize: sizes.px10,
   }
 })

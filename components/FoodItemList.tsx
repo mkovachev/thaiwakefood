@@ -5,6 +5,7 @@ import { FoodItemDto } from '../data/FoodItemDto'
 import FoodItemDetails from './FoodItemDetails'
 import FoodItem from './FoodItem'
 import { CategoryItem } from '../data/CategoryItem'
+import sizes from '../ui/sizes'
 
 interface Props {
   foodItems: FoodItemDto[]
@@ -41,11 +42,11 @@ export default function FoodItemList({ foodItems, category }: Props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    //paddingTop: (Platform.OS === 'web') ? 0 : 20,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: "center",
-    marginHorizontal: 10,
-    marginVertical: 20,
+    justifyContent: "space-between",
+    gap: sizes.px10,
+    marginHorizontal: sizes.px10,
+    marginVertical: sizes.px20,
   },
 })
