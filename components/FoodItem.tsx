@@ -41,7 +41,6 @@ export default function FoodItem({ foodItem }: Props) {
           show details
         </Text>
       </TouchableOpacity>
-
     </View>
   )
 }
@@ -49,10 +48,11 @@ export default function FoodItem({ foodItem }: Props) {
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'space-between',
-    padding: sizes.px20,
+    padding: 20,
     border: shapes.borderYellow,
-    borderRadius: sizes.px20,
+    borderRadius: 20,
     overflow: "hidden",
+    marginVertical: 10,
   },
   touchableImage: {
     width: (Platform.OS === 'web') ? 250 : 150,
@@ -65,85 +65,33 @@ const styles = StyleSheet.create({
   },
   favoriteIcon: {
     position: "absolute",
-    right: sizes.px5,
+    right: 0,
     overflow: "hidden",
   },
   title: {
     fontFamily: 'MontserratSemiBold',
-    fontSize: Platform.OS === 'web' ? sizes.px20 : sizes.px15,
-    marginTop: sizes.px10,
-    marginBottom: sizes.px5,
+    fontSize: Platform.OS === 'web' ? 20 : 15,
+    marginTop: 10,
+    marginBottom: 5,
   },
   description: {
-    fontSize: Platform.OS === 'web' ? sizes.px15 : 12,
+    fontSize: Platform.OS === 'web' ? 15 : 12,
   },
   price: {
-    marginRight: sizes.px5,
-    fontSize: Platform.OS === 'web' ? sizes.px15 : 12,
-    marginTop: sizes.px20,
+    marginRight: 5,
+    fontSize: Platform.OS === 'web' ? 15 : 12,
+    marginTop: 20,
   },
   showMore: {
     alignSelf: 'center',
-    paddingHorizontal: sizes.px10,
-    paddingVertical: sizes.px10,
-    marginTop: sizes.px20,
-    borderRadius: sizes.px15,
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    marginTop: 20,
+    borderRadius: 15,
     border: shapes.borderYellow,
   },
   showMoreText: {
-    marginRight: sizes.px5,
-    fontSize: Platform.OS === 'web' ? sizes.px15 : 12,
+    marginRight: 5,
+    fontSize: Platform.OS === 'web' ? 15 : 12,
   }
 })
-
-// const styles = StyleSheet.create({
-//   container: {
-//     padding: Platform.OS === 'web' ? sizes.px20 : sizes.px5,
-//     border: shapes.borderYellow,
-//     borderRadius: sizes.px20,
-//   },
-//   touchableImage: {
-
-//   },
-//   image: {
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//     height: (Platform.OS === 'web') ? 200 : 150,
-//     width: (Platform.OS === 'web') ? '85%' : '85%',
-//   },
-//   favoriteIcon: {
-//     position: "absolute",
-//     right: sizes.px5,
-//     overflow: "hidden",
-//   },
-//   title: {
-//     fontFamily: 'MontserratSemiBold',
-//     fontSize: Platform.OS === 'web' ? sizes.px20 : sizes.px10,
-//     marginTop: sizes.px10,
-//     marginBottom: sizes.px5,
-//   },
-//   description: {
-//     fontSize: Platform.OS === 'web' ? sizes.px15 : sizes.px10,
-//   },
-//   actions: {
-//     flexDirection: "row",
-//     justifyContent: "space-between",
-//     alignItems: "center",
-//     marginTop: sizes.px10,
-//   },
-//   price: {
-//     marginRight: sizes.px5,
-//     fontSize: Platform.OS === 'web' ? sizes.px15 : sizes.px10,
-//   },
-//   showMore: {
-//     paddingHorizontal: sizes.px10,
-//     paddingVertical: sizes.px10,
-//     borderRadius: sizes.px15,
-//     border: shapes.borderYellow,
-//     backgroundColor: colors.transparent,
-//   },
-//   showMoreText: {
-//     marginRight: sizes.px5,
-//     fontSize: Platform.OS === 'web' ? sizes.px15 : sizes.px10,
-//   },
-// })

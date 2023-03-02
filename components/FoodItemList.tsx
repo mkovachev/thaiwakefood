@@ -18,20 +18,15 @@ const columnWidth = width / 4
 export default function FoodItemList({ foodItems, category }: Props) {
   const [selectedFoodItem, setSelectedFoodItem] = useState<FoodItemDto>(foodItems[0])
 
-  // filter per category
-  const data = foodItems.filter((item: FoodItemDto) => {
-    if (category === null) return true
-    return item.category === category?.title
-  })
-
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <View style={styles.container}>
-          {foodItems.filter((item: FoodItemDto) => {
-            if (category === null) return true
-            return item.category === category?.title
-          })
+          {foodItems
+            .filter((item: FoodItemDto) => {
+              if (category === null) return true
+              return item.category === category?.title
+            })
             .map((foodItem) => (
               <FoodItem key={foodItem.id} foodItem={foodItem} />
             ))}
@@ -44,10 +39,10 @@ export default function FoodItemList({ foodItems, category }: Props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "space-between",
-    gap: sizes.px10,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    marginHorizontal: Platform.OS === 'web' ? 10 : 5,
   }
 })
 
