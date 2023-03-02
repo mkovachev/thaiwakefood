@@ -23,10 +23,11 @@ export default function FoodItem({ foodItem }: Props) {
     <View key={foodItem.id} style={styles.container}>
       <TouchableOpacity style={styles.touchableImage}>
         <Image source={{ uri: foodItem.image }} style={styles.image} />
-        <View style={styles.favoriteIcon}>
-          <Feather name="heart" size={24} />
-        </View>
       </TouchableOpacity>
+      <Feather style={styles.favoriteIcon} name="heart" size={24} />
+      <Text numberOfLines={1} style={styles.id}>
+        # {foodItem.id}
+      </Text>
       <Text numberOfLines={1} style={styles.title}>
         {foodItem.title}
       </Text>
@@ -63,9 +64,16 @@ const styles = StyleSheet.create({
     width: (Platform.OS === 'web') ? '90%' : '100%',
     height: (Platform.OS === 'web') ? '100%' : '90%',
   },
+  id: {
+    fontFamily: 'MontserratSemiBold',
+    fontSize: 20,
+    position: "absolute",
+    left: 10,
+    overflow: "hidden",
+  },
   favoriteIcon: {
     position: "absolute",
-    right: 0,
+    right: 10,
     overflow: "hidden",
   },
   title: {

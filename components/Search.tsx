@@ -28,12 +28,12 @@ const styles = StyleSheet.create({
   search: {
     flex: 1,
     marginLeft: 10,
-    borderBottomColor: colors.grey,
+    borderBottomColor: colors.black,
     borderBottomWidth: 1
   },
   searchText: {
     fontFamily: 'MontserratSemiBold',
-    fontSize: Platform.OS === 'web' ? 24 : 14,
+    fontSize: Platform.OS === 'web' ? 20 : 14,
     marginBottom: sizes.px5,
     color: colors.grey
   }
