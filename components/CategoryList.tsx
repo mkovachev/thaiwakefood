@@ -7,19 +7,23 @@ import sizes from '../ui/sizes'
 
 interface Props {
   categories: CategoryItem[]
-  setActiveCategory: (category: CategoryItem) => void
+  setActiveCategory: (category: CategoryItem | null) => void
 }
 
 export default function CategoryList({ categories, setActiveCategory }: Props) {
   const [active, setActive] = useState<CategoryItem | null>(null)
 
+  const setCategory = (category: CategoryItem | null) => {
+    setActive(category)
+    setActiveCategory(category)
+  }
+
   const renderCategoryItem = ({ item }: { item: CategoryItem }) => (
-    <TouchableOpacity onPress={() => { setActive(item), setActiveCategory(item) }}>
+    <TouchableOpacity
+      onPress={() => item.id !== active?.id ? setCategory(item) : setCategory(null)}>
       <View style={[
         styles.categoryItem,
-        {
-          backgroundColor: item === active ? colors.yellow : colors.white,
-        },
+        { backgroundColor: item === active ? colors.yellow : colors.white },
       ]}>
         <Image style={styles.categoryItemImage} source={{ uri: item.image }} />
         <Text style={styles.categoryItemTitle}>{item.title}</Text>
