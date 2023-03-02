@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { StyleSheet, Platform, SafeAreaView, ScrollView } from 'react-native'
+import { StyleSheet, SafeAreaView, ScrollView } from 'react-native'
 import { View } from '../ui/Themed'
 import { FoodItemDto } from '../data/FoodItemDto'
 import FoodItemDetails from './FoodItemDetails'
