@@ -7,7 +7,7 @@ import FoodItemCard from './FoodItemCard'
 interface Props {
   data: FoodItemDto[]
   category?: CategoryItem | null
-  handleShowDetails: (item: FoodItemDto) => void
+  handleShowDetails?: (item: FoodItemDto) => void
 }
 
 const MenuGrid = ({ data, category }: Props) => {
