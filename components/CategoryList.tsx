@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { FlatList, StyleSheet, Image, TouchableOpacity, Dimensions, Platform } from 'react-native'
 import { Text, View } from '../ui/Themed'
 import { CategoryItem } from '../data/CategoryItem'
-import colors from "../ui/colors"
+import colors from '../ui/colors'
 import sizes from '../ui/sizes'
 
 interface Props {
@@ -11,6 +11,7 @@ interface Props {
 }
 
 const { width } = Dimensions.get('window')
+const isWeb = Platform.OS === 'web'
 
 const CategoryList = ({ categories, onActiveCategory }: Props) => {
   const [activeCategory, setActiveCategory] = useState<CategoryItem | null>(null)
@@ -42,23 +43,17 @@ const CategoryList = ({ categories, onActiveCategory }: Props) => {
         renderItem={renderItem}
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.contentContainer}
-        getItemLayout={(data, index) => ({
-          length: Platform.OS === 'web' ? width / 6 : 100,
-          offset: Platform.OS === 'web' ? (width / 6 + 10) * index : (100 + 10) * index,
-          index,
-        })}
-        initialNumToRender={5}
-        maxToRenderPerBatch={5}
       />
     </View>
   )
 }
+
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     paddingHorizontal: 5,
     marginHorizontal: 5,
-    overflow: 'scroll',
+    overflow: isWeb ? 'scroll' : undefined,
   },
   contentContainer: {
     paddingHorizontal: 10,
@@ -69,23 +64,22 @@ const styles = StyleSheet.create({
     marginHorizontal: sizes.px5,
     paddingVertical: sizes.px5,
     borderRadius: sizes.px20,
-    width: Platform.OS === 'web' ? width / 6 : 'auto',
-    height: Platform.OS === 'web' ? width / 6 : 100,
+    width: isWeb ? width / 6 : 'auto',
+    height: isWeb ? width / 6 : 100,
     minWidth: 70,
   },
   image: {
-    width: Platform.OS === 'web' ? '70%' : '60%',
-    height: Platform.OS === 'web' ? '80%' : '70%',
+    width: isWeb ? '70%' : '60%',
+    height: isWeb ? '80%' : '70%',
     resizeMode: 'contain',
     marginBottom: 5,
   },
   title: {
     fontFamily: 'MontserratMedium',
-    fontSize: Platform.OS === 'web' ? 16 : 12,
+    fontSize: isWeb ? 16 : 12,
     textAlign: 'center',
     maxWidth: '100%',
-  }
+  },
 })
-
 
 export default CategoryList
