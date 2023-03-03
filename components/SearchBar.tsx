@@ -23,7 +23,7 @@ const SearchBar = ({ items }: Props) => {
         value={searchInput}
         placeholder="Search..."
       />
-      {searchInput && <GridMenu items={filteredItems} />}
+      {searchInput && <GridMenu data={filteredItems} />}
     </>
   )
 }

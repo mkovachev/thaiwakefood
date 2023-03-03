@@ -48,15 +48,15 @@ const FoodItem = ({ item }: Props) => {
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'space-between',
-    padding: 20,
-    borderWidth: 2,
+    padding: 10,
+    borderWidth: .2,
     border: shapes.borderYellow,
     borderRadius: 20,
-    marginVertical: 10,
+    margin: 10
   },
   touchableImage: {
-    width: Platform.OS === 'web' ? 250 : 150,
-    height: Platform.OS === 'web' ? 200 : 150,
+    width: 150,
+    height: 150,
   },
   image: {
     width: '90%',
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
   },
   id: {
     fontFamily: 'MontserratSemiBold',
-    fontSize: 20,
+    fontSize: 18,
     position: "absolute",
     left: 10,
   },
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
   },
   description: {
     fontFamily: 'MontserratSemiBold',
-    fontSize: Platform.OS === 'web' ? 15 : 11,
+    fontSize: Platform.OS === 'web' ? 15 : 10,
     maxWidth: 150,
   },
   touchableShowMore: {
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
   showMoreText: {
     fontFamily: 'MontserratMedium',
     marginRight: 5,
-    fontSize: Platform.OS === 'web' ? 15 : 12,
+    fontSize: Platform.OS === 'web' ? 15 : 14,
   }
 })
 

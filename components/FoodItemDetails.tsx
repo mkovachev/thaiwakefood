@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
   },
   description: {
     fontSize: 16,
-    fontFamily: 'MontserratRegular',
+    fontFamily: 'Montserrat',
     marginBottom: 8,
   },
   price: {

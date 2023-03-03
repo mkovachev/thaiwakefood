@@ -22,7 +22,7 @@ export default function HomeScreen() {
       <Header />
       <CategoryList categories={categories} onActiveCategory={setActiveCategory} />
       <SearchBar items={foodItems} />
-      <GridMenu items={foodItems} category={activeCategory} />
+      <GridMenu data={foodItems} category={activeCategory} />
     </View>
   )
 }
