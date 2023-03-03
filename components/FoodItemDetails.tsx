@@ -4,7 +4,6 @@ import { FoodItemDto } from '../data/FoodItemDto'
 
 interface Props {
   item: FoodItemDto
-  onClose: () => void
 }
 
 const FoodItemDetails = ({ item }: Props) => {
