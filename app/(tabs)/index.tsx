@@ -1,12 +1,13 @@
-import { ScrollView, StyleSheet } from 'react-native'
-import Search from '../../components/Search'
-import FoodItemList from '../../components/FoodItemList'
+import { StyleSheet } from 'react-native'
+import GridMenu from '../../components/GridMenu'
 import CategoryList from '../../components/CategoryList'
 import Header from '../../components/Header'
 import { useGetCategoryList } from '../../hooks/getCategoryList'
 import { useGetFoodItemList } from '../../hooks/getFoodItemList'
 import { useState } from 'react'
 import { CategoryItem } from '../../data/CategoryItem'
+import { View } from '../../ui/Themed'
+import SearchBar from '../../components/SearchBar'
 
 export default function HomeScreen() {
   const { data: categories, isLoading: isLoadingCategories } = useGetCategoryList()
@@ -15,13 +16,14 @@ export default function HomeScreen() {
 
   if (!categories || isLoadingCategories || !foodItems || isLoadingFoodItems) return null
 
+
   return (
-    <ScrollView>
+    <View>
       <Header />
-      <CategoryList categories={categories} setActiveCategory={setActiveCategory} />
-      <Search />
-      <FoodItemList items={foodItems} category={activeCategory} />
-    </ScrollView>
+      <CategoryList categories={categories} onActiveCategory={setActiveCategory} />
+      <SearchBar items={foodItems} />
+      <GridMenu items={foodItems} category={activeCategory} />
+    </View>
   )
 }
 

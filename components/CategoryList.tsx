@@ -4,72 +4,88 @@ import { Text, View } from '../ui/Themed'
 import { CategoryItem } from '../data/CategoryItem'
 import colors from "../ui/colors"
 import sizes from '../ui/sizes'
-import { SafeAreaView } from 'react-native-safe-area-context'
 
 interface Props {
   categories: CategoryItem[]
-  setActiveCategory: (category: CategoryItem | null) => void
+  onActiveCategory: (category: CategoryItem | null) => void
 }
 
 const { width } = Dimensions.get('window')
 
-export default function CategoryList({ categories, setActiveCategory }: Props) {
-  const [active, setActive] = useState<CategoryItem | null>(null)
+const CategoryList = ({ categories, onActiveCategory }: Props) => {
+  const [activeCategory, setActiveCategory] = useState<CategoryItem | null>(null)
 
-  const setCategory = (category: CategoryItem | null) => {
-    setActive(category)
+  const handleActiveCategory = (category: CategoryItem | null) => {
     setActiveCategory(category)
+    onActiveCategory(category)
   }
 
-  const renderCategoryItem = ({ item }: { item: CategoryItem }) => (
-    <View style={[
-      styles.item,
-      { backgroundColor: item === active ? colors.yellow : colors.white },
-    ]}>
-      <TouchableOpacity
-        onPress={() => item.id !== active?.id ? setCategory(item) : setCategory(null)}>
-        <Image style={styles.image} source={{ uri: item.image }} />
-      </TouchableOpacity>
+  const renderItem = ({ item }: { item: CategoryItem }) => (
+    <TouchableOpacity
+      onPress={() => item.id !== activeCategory?.id ? handleActiveCategory(item) : handleActiveCategory(null)}
+      activeOpacity={0.7}
+      style={[
+        styles.itemContainer,
+        { backgroundColor: item === activeCategory ? colors.yellow : colors.white },
+      ]}>
+      <Image style={styles.image} source={{ uri: item.image }} />
       <Text style={styles.title}>{item.title}</Text>
-    </View>
+    </TouchableOpacity>
   )
 
   return (
     <View style={styles.container}>
       <FlatList
-        data={categories}
-        renderItem={renderCategoryItem}
-        keyExtractor={(item: CategoryItem) => item.id.toString()}
         horizontal
-      //showsHorizontalScrollIndicator={false}
+        data={categories}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={renderItem}
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.contentContainer}
+        getItemLayout={(data, index) => ({
+          length: Platform.OS === 'web' ? width / 6 : 100,
+          offset: Platform.OS === 'web' ? (width / 6 + 10) * index : (100 + 10) * index,
+          index,
+        })}
+        initialNumToRender={5}
+        maxToRenderPerBatch={5}
       />
     </View>
   )
 }
-
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    paddingHorizontal: sizes.px5,
-    marginHorizontal: sizes.px10,
+    paddingHorizontal: 5,
+    marginHorizontal: 5,
+    overflow: 'scroll',
   },
-  item: {
+  contentContainer: {
+    paddingHorizontal: 10,
+  },
+  itemContainer: {
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginHorizontal: Platform.OS === 'web' ? sizes.px10 : 0,
+    marginHorizontal: sizes.px5,
     paddingVertical: sizes.px5,
     borderRadius: sizes.px20,
-    width: Platform.OS === 'web' ? width / 6 : 100,
+    width: Platform.OS === 'web' ? width / 6 : 'auto',
     height: Platform.OS === 'web' ? width / 6 : 100,
+    minWidth: 70,
   },
   image: {
-    width: Platform.OS === 'web' ? '70%' : '70%',
-    height: Platform.OS === 'web' ? '80%' : '85%',
+    width: Platform.OS === 'web' ? '70%' : '60%',
+    height: Platform.OS === 'web' ? '80%' : '70%',
+    resizeMode: 'contain',
+    marginBottom: 5,
   },
   title: {
     fontFamily: 'MontserratMedium',
     fontSize: Platform.OS === 'web' ? 16 : 12,
+    textAlign: 'center',
+    maxWidth: '100%',
   }
 })
 
 
+export default CategoryList
