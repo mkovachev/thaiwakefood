@@ -1,19 +1,23 @@
 import React, { } from 'react'
-import { StyleSheet, FlatList, Platform, TouchableOpacity, Dimensions } from 'react-native'
+import { StyleSheet, FlatList, Platform, Dimensions, Linking } from 'react-native'
 import { FoodItemDto } from '../data/FoodItemDto'
 import { CategoryItem } from '../data/CategoryItem'
-import FoodItem from './FoodItem'
+import FoodItemCard from './FoodItemCard'
 
 interface Props {
   data: FoodItemDto[]
   category?: CategoryItem | null
+  handleShowDetails: (item: FoodItemDto) => void
 }
 
-const GridMenu = ({ data, category }: Props) => {
+const MenuGrid = ({ data, category }: Props) => {
 
   const filteredMenu = category ? data.filter(item => item.category === category.title) : data
 
-  const renderItem = ({ item }: { item: FoodItemDto }) => <FoodItem item={item} />
+  const handleShowDetails = (item: FoodItemDto) => {
+    Linking.openURL(`details://${item.id}`)
+  }
+
   const { width } = Dimensions.get('window')
   const numColumns = Math.floor(width / 150) // calculate number of columns dynamically based on screen width
 
@@ -21,7 +25,9 @@ const GridMenu = ({ data, category }: Props) => {
     <FlatList
       data={filteredMenu}
       numColumns={numColumns}
-      renderItem={renderItem}
+      renderItem={({ item }) => (
+        <FoodItemCard item={item} handleShowDetails={() => handleShowDetails(item)} />
+      )}
       keyExtractor={(item) => item.id.toString()}
       contentContainerStyle={styles.container}
     />
@@ -35,4 +41,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default GridMenu
+export default MenuGrid

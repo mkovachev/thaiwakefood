@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { TextInput, StyleSheet } from 'react-native'
 import { FoodItemDto } from '../data/FoodItemDto'
 import colors from '../ui/colors'
-import GridMenu from './GridMenu'
+import MenuGrid from './MenuGrid'
 
 interface Props {
   items: FoodItemDto[]
@@ -23,7 +23,7 @@ const SearchBar = ({ items }: Props) => {
         value={searchInput}
         placeholder="Search..."
       />
-      {searchInput && <GridMenu data={filteredItems} />}
+      {searchInput && <MenuGrid data={filteredItems} />}
     </>
   )
 }

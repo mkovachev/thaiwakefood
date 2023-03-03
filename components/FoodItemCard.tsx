@@ -1,28 +1,30 @@
 import { Feather } from '@expo/vector-icons'
 import { FoodItemDto } from '../data/FoodItemDto'
-import { Image, StyleSheet, View, TouchableOpacity, Platform } from 'react-native'
+import { Image, StyleSheet, View, Platform, Pressable } from 'react-native'
 import { Text } from '../ui/Themed'
-import React, { useState } from 'react'
+import React from 'react'
 import shapes from '../ui/shapes'
-import FoodItemDetails from './FoodItemDetails'
+import { Link } from 'expo-router'
+import * as Linking from 'expo-linking'
+
 
 interface Props {
   item: FoodItemDto
+  handleShowDetails: (item: FoodItemDto) => void
 }
 
-const FoodItem = ({ item }: Props) => {
-  const [showDetails, setShowDetails] = useState(false)
-
-  const handlePress = () => {
-    setShowDetails(true)
-  }
+const FoodItemCard = ({ item, handleShowDetails }: Props) => {
+  const url = Linking.useURL()
 
   return (
     <View key={item.id} style={styles.container}>
-      <TouchableOpacity style={styles.touchableImage} onPress={handlePress} accessibilityLabel={item.title}>
-        <Image source={{ uri: item.image }} style={styles.image} />
-      </TouchableOpacity>
-      <Feather style={styles.favoriteIcon} name="heart" size={24} accessibilityHint="Favorite this item" />
+      <Image style={styles.image} source={{ uri: item.image }} />
+      <Feather
+        style={styles.favoriteIcon}
+        name="heart"
+        size={24}
+        accessibilityHint="Favorite this item"
+      />
       <Text numberOfLines={1} style={styles.id}>
         # {item.id}
       </Text>
@@ -32,15 +34,14 @@ const FoodItem = ({ item }: Props) => {
       <Text numberOfLines={4} style={styles.description}>
         {item.description}
       </Text>
-      <TouchableOpacity
-        style={styles.touchableShowMore}
-        onPress={handlePress}
-        accessibilityLabel={`Show details for ${item.title}`}>
-        <Text style={styles.showMoreText}>
-          show details
-        </Text>
-      </TouchableOpacity>
-      {showDetails && <FoodItemDetails item={item} onClose={() => setShowDetails(false)} />}
+      <Link href="/details">
+        <Pressable
+          style={styles.touchableShowMore}
+          onPress={() => handleShowDetails(item)}
+          accessibilityLabel={`Show details for ${item.title}`}>
+          <Text style={styles.showMoreText}>show details</Text>
+        </Pressable>
+      </Link>
     </View>
   )
 }
@@ -54,13 +55,9 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     margin: 10
   },
-  touchableImage: {
+  image: {
     width: 150,
     height: 150,
-  },
-  image: {
-    width: '90%',
-    height: '95%',
   },
   id: {
     fontFamily: 'MontserratSemiBold',
@@ -98,4 +95,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default FoodItem
+export default FoodItemCard

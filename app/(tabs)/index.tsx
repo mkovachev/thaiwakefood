@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native'
-import GridMenu from '../../components/GridMenu'
+import MenuGrid from '../../components/MenuGrid'
 import CategoryList from '../../components/CategoryList'
 import Header from '../../components/Header'
 import { useGetCategoryList } from '../../hooks/getCategoryList'
@@ -22,7 +22,7 @@ export default function HomeScreen() {
       <Header />
       <CategoryList categories={categories} onActiveCategory={setActiveCategory} />
       <SearchBar items={foodItems} />
-      <GridMenu data={foodItems} category={activeCategory} />
+      <MenuGrid data={foodItems} category={activeCategory} />
     </View>
   )
 }
