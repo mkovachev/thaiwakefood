@@ -1,10 +1,10 @@
-import FoodItemDetails from '../../components/FoodItemDetails'
 import { View } from '../../ui/Themed'
 import { Stack, useSearchParams } from 'expo-router'
 import { useEffect, useState } from 'react'
 import { FoodItemDto } from '../../data/FoodItemDto'
 import NotFoundScreen from '../[...missing]'
 import useStorage from '../../context/storage'
+import FoodItemDetails from '../../components/FoodItemDetails'
 
 
 const FoodItem = () => {
