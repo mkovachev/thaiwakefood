@@ -1,4 +1,3 @@
-import FontAwesome from '@expo/vector-icons/FontAwesome'
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native'
 import { useFonts } from 'expo-font'
 import { SplashScreen, Stack } from 'expo-router'
@@ -7,6 +6,8 @@ import { useColorScheme } from 'react-native'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { FontAwesome5 } from '@expo/vector-icons'
 import { MenuProvider } from '../context/menu'
+import { AuthProvider } from "../context/auth"
+
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -50,16 +51,16 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme()
 
   return (
-    <>
+    // <AuthProvider>
+    <MenuProvider>
       <QueryClientProvider client={queryClient}>
         <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-          <MenuProvider>
-            <Stack>
-              <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
-            </Stack>
-          </MenuProvider>
+          <Stack>
+            <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
+          </Stack>
         </ThemeProvider>
       </QueryClientProvider>
-    </>
+    </MenuProvider>
+    // </AuthProvider>
   )
 }

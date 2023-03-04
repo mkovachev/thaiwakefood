@@ -31,7 +31,7 @@ const FoodItemCard = ({ item }: Props) => {
       <Text numberOfLines={4} style={styles.description}>
         {item.description}
       </Text>
-      <Link href={`fooditem/${item.id}`}>
+      <Link href={`menu/${item.id}`}>
         <Pressable
           style={styles.touchableShowMore}
           accessibilityLabel={`Show details for ${item.title}`}>

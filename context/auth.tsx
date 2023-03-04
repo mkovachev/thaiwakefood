@@ -38,7 +38,7 @@ function useProtectedRoute(user: any) {
   }, [user, rootSegment])
 }
 
-export function Provider(props: any) {
+export function AuthProvider(props: any) {
   const { getItem, setItem, removeItem } = useAsyncStorage('user')
   const [user, setUser] = useState(null)
 
