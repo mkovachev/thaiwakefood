@@ -1,5 +1,5 @@
 import { CategoryEnum } from "./CategoryEnum"
-import { Option } from "../components/Option"
+import { Option } from "./Option"
 
 export interface FoodItemDto {
   id: string
