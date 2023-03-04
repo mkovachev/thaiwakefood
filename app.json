@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "thai wake food",
+    "name": "thaiwakefood",
     "slug": "thaiwakefood",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/logoTWP.png",
-    "scheme": "twp",
+    "scheme": "thaiwakefood",
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/images/logoTWP.png",
@@ -28,8 +28,7 @@
       "bundler": "metro",
       "favicon": "./assets/images/logoTWP.png",
       "build": {
-        "babel": {
-        }
+        "babel": {}
       }
     }
   }
