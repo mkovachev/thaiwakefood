@@ -1,26 +1,24 @@
 import FoodItemDetails from '../../components/FoodItemDetails'
 import { View } from '../../ui/Themed'
-import { Stack, useSearchParams } from "expo-router"
-import { useEffect } from 'react'
+import { Stack, useSearchParams } from 'expo-router'
+import { useEffect, useState } from 'react'
 import { FoodItemDto } from '../../data/FoodItemDto'
 import NotFoundScreen from '../[...missing]'
-import { StyleSheet } from 'react-native'
-import { useMenu } from '../../context/menu'
+import useStorage from '../../context/storage'
 
 
 const FoodItem = () => {
   const { id } = useSearchParams()
-
-  //console.log(id)
+  const { getItem } = useStorage<FoodItemDto>('menu')
+  const [item, setItem] = useState<FoodItemDto | null>(null)
 
   useEffect(() => {
-    if (!id) return
+    const getItemById = async () => {
+      const item = await getItem(id) || null
+      setItem(item)
+    }
+    if (id) getItemById()
   }, [id])
-
-  const data = useMenu()
-  const item = data.items.find((item: FoodItemDto) => item.id === id)
-
-  //console.log(item)
 
   if (!item) return <NotFoundScreen />
 
@@ -35,5 +33,3 @@ const FoodItem = () => {
 }
 
 export default FoodItem
-
-const styles = StyleSheet.create({})
