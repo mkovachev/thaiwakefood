@@ -1,20 +1,17 @@
 import { Feather } from '@expo/vector-icons'
 import { FoodItemDto } from '../data/FoodItemDto'
-import { Image, StyleSheet, View, Platform, Pressable } from 'react-native'
-import { Text } from '../ui/Themed'
+import { Image, StyleSheet, Platform, Pressable } from 'react-native'
+import { Text, View } from '../ui/Themed'
 import React from 'react'
 import shapes from '../ui/shapes'
 import { Link } from 'expo-router'
-import * as Linking from 'expo-linking'
 
 
 interface Props {
   item: FoodItemDto
-  handleShowDetails: (item: FoodItemDto) => void
 }
 
-const FoodItemCard = ({ item, handleShowDetails }: Props) => {
-  const url = Linking.useURL()
+const FoodItemCard = ({ item }: Props) => {
 
   return (
     <View key={item.id} style={styles.container}>
@@ -34,10 +31,9 @@ const FoodItemCard = ({ item, handleShowDetails }: Props) => {
       <Text numberOfLines={4} style={styles.description}>
         {item.description}
       </Text>
-      <Link href="/details">
+      <Link href={`fooditem/${item.id}`}>
         <Pressable
           style={styles.touchableShowMore}
-          onPress={() => handleShowDetails(item)}
           accessibilityLabel={`Show details for ${item.title}`}>
           <Text style={styles.showMoreText}>show details</Text>
         </Pressable>

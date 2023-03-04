@@ -6,6 +6,7 @@ import { useEffect } from 'react'
 import { useColorScheme } from 'react-native'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { FontAwesome5 } from '@expo/vector-icons'
+import { MenuProvider } from '../context/menu'
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -52,10 +53,11 @@ function RootLayoutNav() {
     <>
       <QueryClientProvider client={queryClient}>
         <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-          <Stack>
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            <Stack.Screen name="details" options={{ headerShown: false }} />
-          </Stack>
+          <MenuProvider>
+            <Stack>
+              <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
+            </Stack>
+          </MenuProvider>
         </ThemeProvider>
       </QueryClientProvider>
     </>

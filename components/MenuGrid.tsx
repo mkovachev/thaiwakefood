@@ -14,10 +14,6 @@ const MenuGrid = ({ data, category }: Props) => {
 
   const filteredMenu = category ? data.filter(item => item.category === category.title) : data
 
-  const handleShowDetails = (item: FoodItemDto) => {
-    Linking.openURL(`details://${item.id}`)
-  }
-
   const { width } = Dimensions.get('window')
   const numColumns = Math.floor(width / 150) // calculate number of columns dynamically based on screen width
 
@@ -25,9 +21,7 @@ const MenuGrid = ({ data, category }: Props) => {
     <FlatList
       data={filteredMenu}
       numColumns={numColumns}
-      renderItem={({ item }) => (
-        <FoodItemCard item={item} handleShowDetails={() => handleShowDetails(item)} />
-      )}
+      renderItem={({ item }) => (<FoodItemCard item={item} />)}
       keyExtractor={(item) => item.id.toString()}
       contentContainerStyle={styles.container}
     />

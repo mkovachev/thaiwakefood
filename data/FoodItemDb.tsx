@@ -1,7 +1,7 @@
 import { CategoryEnum } from "./CategoryEnum"
 
 export interface FoodItemDb {
-  id: number
+  id: string
   title: string
   description: string
   category: CategoryEnum
