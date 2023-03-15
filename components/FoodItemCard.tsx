@@ -69,6 +69,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignSelf: 'center',
     fontFamily: 'MontserratSemiBold',
+    color: colors.black5,
     fontSize: Platform.OS === 'web' ? 24 : 14,
     maxWidth: Platform.OS === 'web' ? 300 : 150,
     marginTop: 10,

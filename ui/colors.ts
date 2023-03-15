@@ -20,6 +20,7 @@ export default {
   },
   white: '#F9F9FB',
   black: '#313234',
+  black5: 'rgb(49, 50, 52, .5)',
   grey: '#CDCDCD',
   blue: '#2f95dc',
   yellow: '#F5CA48',

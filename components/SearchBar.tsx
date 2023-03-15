@@ -39,10 +39,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 30,
     marginVertical: 10,
     padding: 10,
-    color: colors.blue,
+    color: colors.grey,
     borderRadius: 15,
     borderWidth: .5,
-    borderColor: colors.blue,
+    borderColor: colors.yellow,
     borderStyle: 'solid',
   }
 })
