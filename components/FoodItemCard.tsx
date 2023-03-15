@@ -66,6 +66,7 @@ const styles = StyleSheet.create({
     color: colors.blue
   },
   title: {
+    flex: 1,
     alignSelf: 'center',
     fontFamily: 'MontserratSemiBold',
     fontSize: Platform.OS === 'web' ? 24 : 14,
