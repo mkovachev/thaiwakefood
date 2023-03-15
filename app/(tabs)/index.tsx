@@ -13,14 +13,14 @@ import storageKeys from '../../constants/storageKeys'
 
 
 export default function HomeScreen() {
-  // Step 1: Declare state variables and other non-data-fetching Hooks.
+  // state variables and non-data-fetching Hooks
   const [activeCategory, setActiveCategory] = useState<CategoryItem | null>(null)
 
-  // Step 2: Declare data-fetching Hooks.
+  // data-fetching hooks
   const { data: categories, isLoading: isLoadingCategories } = useGetCategoryList()
   const { data: menu, isLoading: isLoadingMenu } = useGetFoodItemList()
 
-  // Step 3: Declare remaining Hooks that modify state or perform side-effects.
+  // hooks that modify state
   useEffect(() => {
     if (categories && !isLoadingCategories) {
       AsyncStorage.setItem(storageKeys.CATEGORIES_KEY, JSON.stringify(categories))
@@ -46,7 +46,6 @@ export default function HomeScreen() {
     </View>
   )
 }
-
 
 const styles = StyleSheet.create({
   container: {
