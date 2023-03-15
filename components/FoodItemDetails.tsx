@@ -1,19 +1,29 @@
 import React, { useState } from "react"
 import { FoodItemDto } from "../data/FoodItemDto"
-import { StyleSheet, Image } from "react-native"
+import { StyleSheet, Image, Platform } from "react-native"
 import { RadioButton } from "react-native-paper"
 import { View, Text } from "../ui/Themed"
+import { Link } from 'expo-router'
 import colors from '../ui/colors'
+import { Ionicons } from '@expo/vector-icons'
+import { SafeAreaView } from 'react-native-safe-area-context'
+
 
 type Props = {
   item: FoodItemDto
 }
 
 const FoodItemDetails = ({ item }: Props) => {
-  const [selectedOption, setSelectedOption] = useState("")
+  const [selectedOption, setSelectedOption] = useState('')
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.header}>
+        <Link href="/" style={styles.backButton}>
+          <Ionicons name="arrow-back" size={24} color="white" />
+          <Text style={styles.backButtonText}>Back to Home</Text>
+        </Link>
+      </View>
       <Image source={{ uri: item.image }} style={styles.image} />
       <View style={styles.detailsContainer}>
         <Text style={styles.title}>{item.title}</Text>
@@ -23,10 +33,10 @@ const FoodItemDetails = ({ item }: Props) => {
         {item.options && item.options.length > 0 ? (
           <View style={styles.optionsContainer}>
             {item.options.map((option, index) => (
-              <View key={`${item.id}-${option.value}`} style={styles.optionContainer}>
+              <View key={index} style={styles.optionContainer}>
                 <RadioButton
                   value={option.label}
-                  status={selectedOption === option.label ? "checked" : "unchecked"}
+                  status={selectedOption === option.label ? 'checked' : 'unchecked'}
                   color={colors.yellow}
                   uncheckedColor={colors.blue}
                   onPress={() => setSelectedOption(option.label)}
@@ -50,14 +60,14 @@ const FoodItemDetails = ({ item }: Props) => {
           <View style={styles.spicyContainer}>
             <Text style={styles.spicyLabel}>Spicy:</Text>
             {item.spicy.map((level, index) => (
-              <Text key={`${item.id}-${level}`} style={styles.spicy}>
+              <Text key={index} style={styles.spicy}>
                 {level}
               </Text>
             ))}
           </View>
         )}
       </View>
-    </View>
+    </SafeAreaView>
   )
 }
 
@@ -68,6 +78,23 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.white,
   },
+  header: {
+    backgroundColor: colors.yellow,
+    flexDirection: 'row',
+    alignItems: 'center',
+    height: 56,
+    paddingLeft: 16,
+  },
+  backButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginRight: 16,
+  },
+  backButtonText: {
+    color: 'white',
+    fontSize: 16,
+    marginLeft: 8,
+  },
   image: {
     height: 200,
     resizeMode: "cover",
@@ -77,13 +104,11 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    fontWeight: "bold",
     marginTop: 16,
     marginBottom: 8,
   },
   category: {
     fontSize: 16,
-    fontWeight: "bold",
     color: colors.grey,
     marginBottom: 16,
   },
@@ -106,7 +131,6 @@ const styles = StyleSheet.create({
   },
   optionValue: {
     fontSize: 16,
-    fontWeight: "bold",
   },
   pricesContainer: {
     marginTop: 16,
@@ -125,13 +149,11 @@ const styles = StyleSheet.create({
   },
   spicyLabel: {
     fontSize: 16,
-    fontWeight: 'bold',
     marginRight: 8,
   },
   spicy: {
     fontSize: 16,
-    fontWeight: 'bold',
     marginRight: 8,
-    color: '#888',
+    color: colors.blue,
   },
 })

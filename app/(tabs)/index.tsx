@@ -38,7 +38,7 @@ export default function HomeScreen() {
   }
 
   return (
-    <View>
+    <View style={styles.container}>
       <Header />
       <CategoryList categories={categories} onActiveCategory={setActiveCategory} />
       <SearchBar items={menu} />
@@ -46,3 +46,10 @@ export default function HomeScreen() {
     </View>
   )
 }
+
+
+const styles = StyleSheet.create({
+  container: {
+    height: '100%'
+  }
+})

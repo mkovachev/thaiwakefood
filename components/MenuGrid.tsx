@@ -11,21 +11,18 @@ interface Props {
 }
 
 const MenuGrid = ({ data, category }: Props) => {
+  const { width } = Dimensions.get('window')
+  const columns = Math.floor(width / 150)
 
   const filteredMenu = category ? data.filter(item => item.category === category.title) : data
-
-  const { width } = Dimensions.get('window')
-
-  // calculate number of columns dynamically based on screen width
-  const numColumns = Math.floor(width / 150)
 
   return (
     <FlatList
       data={filteredMenu}
-      numColumns={numColumns}
+      numColumns={columns}
       renderItem={({ item }) => (<FoodItemCard item={item} />)}
       keyExtractor={(item) => item.id.toString()}
-      contentContainerStyle={styles.container}
+      contentContainerStyle={[styles.container, Platform.OS === 'web' && styles.webContainer]}
     />
   )
 }
@@ -33,8 +30,11 @@ const MenuGrid = ({ data, category }: Props) => {
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 20,
-    paddingBottom: Platform.OS === 'web' ? 100 : 20, // added padding bottom for web
+    paddingBottom: Platform.OS === 'web' ? 100 : 20,
   },
+  webContainer: {
+    overflow: 'scroll'
+  }
 })
 
 export default MenuGrid

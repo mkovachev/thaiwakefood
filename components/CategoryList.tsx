@@ -64,8 +64,8 @@ const styles = StyleSheet.create({
     marginHorizontal: sizes.px5,
     paddingVertical: sizes.px5,
     borderRadius: sizes.px20,
-    width: isWeb ? width / 6 : 'auto',
-    height: isWeb ? width / 6 : 100,
+    width: isWeb ? width / 10 : 'auto',
+    height: isWeb ? width / 10 : 100,
     minWidth: 70,
   },
   image: {
