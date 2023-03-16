@@ -11,6 +11,7 @@ import { ShoppingCartItem } from '../data/ShoppingCartItem'
 import { useToast } from 'react-native-toast-notifications'
 import storageKeys from '../constants/storageKeys'
 import useStorage from '../context/storage'
+import { parseShoppingCartItem } from '../utils/parseShoppingCartItem'
 
 
 type Props = {
@@ -19,43 +20,13 @@ type Props = {
 
 const FoodItemDetails = ({ item }: Props) => {
   const toast = useToast();
-  const { setItem } = useStorage<ShoppingCartItem>(storageKeys.SHOPPING_CART_KEY)
+  const { addItem } = useStorage<ShoppingCartItem>(storageKeys.SHOPPING_CART_KEY)
   const [selectedOption, setSelectedOption] = useState('')
 
   const handleAddToCart = () => {
-    let cartItem: ShoppingCartItem = {
-      id: item.id,
-      title: item.title,
-      quantity: 1,
-      image: item.image,
-    };
-
-    switch (true) {
-      case !selectedOption && (!item.prices || item.prices.length === 0):
-        break;
-      case selectedOption !== '':
-        const option = item.options?.find((o) => o.label === selectedOption)
-        cartItem = {
-          ...cartItem,
-          option: option?.label,
-          price: option?.value,
-          spicy: item.spicy?.[0],
-        };
-        break;
-      case item.prices && item.prices.length > 0:
-        cartItem = {
-          ...cartItem,
-          option: undefined,
-          price: item.prices?.[0],
-          spicy: item.spicy?.[0],
-        };
-        break;
-      default:
-        break;
-    }
-    setItem(cartItem.id, cartItem)
-    console.log(cartItem)
-    toast.show(`${cartItem.title} added to cart!`, { type: "success" })
+    const shoppingCartItem = parseShoppingCartItem(item, selectedOption)
+    addItem(shoppingCartItem, storageKeys.SHOPPING_CART_KEY)
+    toast.show(`${shoppingCartItem.title} added to cart!`, { type: "success" })
   };
 
 

@@ -1,5 +1,5 @@
 export interface ShoppingCartItem {
-  id: string;
+  id: string
   title: string
   quantity: number
   image: string
