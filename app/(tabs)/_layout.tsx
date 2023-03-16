@@ -29,7 +29,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="shoppingCart"
+        name="shopping-cart"
         options={{
           title: 'Shopping Cart',
           headerShown: true,

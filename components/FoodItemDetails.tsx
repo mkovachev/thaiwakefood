@@ -1,12 +1,15 @@
-import React, { useState } from "react"
+import React, { useContext, useState } from "react"
 import { FoodItemDto } from "../data/FoodItemDto"
-import { StyleSheet, Image, Platform } from "react-native"
+import { StyleSheet, Image, Platform, TouchableOpacity } from "react-native"
 import { RadioButton } from "react-native-paper"
 import { View, Text } from "../ui/Themed"
 import { Link } from 'expo-router'
 import colors from '../ui/colors'
 import { Ionicons } from '@expo/vector-icons'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { ShoppingCartItem } from '../data/ShoppingCartItem'
+import { useToast } from 'react-native-toast-notifications'
+import { ShoppingCartContext } from '../app/_layout'
 
 
 type Props = {
@@ -14,7 +17,46 @@ type Props = {
 }
 
 const FoodItemDetails = ({ item }: Props) => {
+  const shoppingCart = useContext(ShoppingCartContext);
+  const toast = useToast();
   const [selectedOption, setSelectedOption] = useState('')
+
+  const handleAddToCart = () => {
+    let shoppingCartItem: ShoppingCartItem = {
+      id: item.id,
+      title: item.title,
+      quantity: 1,
+      image: item.image,
+    };
+
+    switch (true) {
+      case !selectedOption && (!item.prices || item.prices.length === 0):
+        break;
+      case selectedOption !== '':
+        const option = item.options?.find((o) => o.label === selectedOption);
+        shoppingCartItem = {
+          ...shoppingCartItem,
+          option: option?.label,
+          price: option?.value,
+          spicy: item.spicy?.[0],
+        };
+        break;
+      case item.prices && item.prices.length > 0:
+        shoppingCartItem = {
+          ...shoppingCartItem,
+          option: undefined,
+          price: item.prices?.[0],
+          spicy: item.spicy?.[0],
+        };
+        break;
+      default:
+        break;
+    }
+
+    shoppingCart?.addToCart(shoppingCartItem);
+    toast.show(`${item.title} added to cart!`);
+  };
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -27,9 +69,7 @@ const FoodItemDetails = ({ item }: Props) => {
       <Image source={{ uri: item.image }} style={styles.image} />
       <View style={styles.detailsContainer}>
         <Text style={styles.title}>{item.title}</Text>
-        <Text style={styles.category}>{item.category}</Text>
         <Text style={styles.description}>{item.description}</Text>
-
         {item.options && item.options.length > 0 ? (
           <View style={styles.optionsContainer}>
             {item.options.map((option, index) => (
@@ -42,7 +82,7 @@ const FoodItemDetails = ({ item }: Props) => {
                   onPress={() => setSelectedOption(option.label)}
                 />
                 <Text style={styles.optionLabel}>{option.label}</Text>
-                <Text style={styles.optionValue}>{option.value}</Text>
+                <Text style={styles.optionPrice}>{option.value}</Text>
               </View>
             ))}
           </View>
@@ -67,6 +107,11 @@ const FoodItemDetails = ({ item }: Props) => {
           </View>
         )}
       </View>
+
+      <TouchableOpacity onPress={handleAddToCart} style={styles.addToCart}>
+        <Text style={styles.addToCartText}>Add to Cart</Text>
+      </TouchableOpacity>
+
     </SafeAreaView>
   )
 }
@@ -125,11 +170,10 @@ const styles = StyleSheet.create({
     marginVertical: 8,
   },
   optionLabel: {
-    flex: 1,
     fontSize: 16,
-    marginLeft: 8,
+    margin: 8,
   },
-  optionValue: {
+  optionPrice: {
     fontSize: 16,
   },
   pricesContainer: {
@@ -156,4 +200,18 @@ const styles = StyleSheet.create({
     marginRight: 8,
     color: colors.blue,
   },
+  addToCart: {
+    alignSelf: 'center',
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    borderRadius: 15,
+    borderWidth: 1,
+    borderColor: colors.yellow,
+    borderStyle: 'solid',
+  },
+  addToCartText: {
+    fontFamily: 'MontserratMedium',
+    marginRight: 5,
+    fontSize: Platform.OS === 'web' ? 16 : 14,
+  }
 })

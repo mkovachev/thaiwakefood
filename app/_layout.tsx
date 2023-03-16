@@ -1,11 +1,14 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native'
 import { useFonts } from 'expo-font'
 import { SplashScreen, Stack } from 'expo-router'
-import { useEffect } from 'react'
+import { createContext, useEffect } from 'react'
 import { useColorScheme } from 'react-native'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { FontAwesome5 } from '@expo/vector-icons'
 import { Provider as PaperProvider } from 'react-native-paper'
+import { ToastProvider } from 'react-native-toast-notifications'
+import { ShoppingCartItem } from '../data/ShoppingCartItem'
+import shoppingCartStorage, { ShoppingCartStorageProps } from '../context/shoppingCartStorage'
 
 
 export {
@@ -21,6 +24,8 @@ export const unstable_settings = {
 const queryClient = new QueryClient({
   defaultOptions: { queries: { retry: 2 } },
 })
+
+export const ShoppingCartContext = createContext<ShoppingCartStorageProps | null>(null);
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
@@ -48,17 +53,22 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   const colorScheme = useColorScheme()
+  const cart = shoppingCartStorage();
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <PaperProvider>
-          <Stack>
-            <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
-            <Stack.Screen name='menu/[id]' options={{ headerShown: false }} />
-          </Stack>
-        </PaperProvider>
-      </ThemeProvider>
-    </QueryClientProvider>
+    <ToastProvider>
+      <ShoppingCartContext.Provider value={cart}>
+        <QueryClientProvider client={queryClient}>
+          <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+            <PaperProvider>
+              <Stack>
+                <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
+                <Stack.Screen name='menu/[id]' options={{ headerShown: false }} />
+              </Stack>
+            </PaperProvider>
+          </ThemeProvider>
+        </QueryClientProvider>
+      </ShoppingCartContext.Provider>
+    </ToastProvider>
   )
 }

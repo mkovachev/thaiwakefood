@@ -1,10 +1,7 @@
-import { CategoryEnum } from "./CategoryEnum"
-
 export interface ShoppingCartItem {
-  id: number
+  id: string;
   title: string
-  description: string
-  category: CategoryEnum
+  quantity: number
   image: string
   option?: string
   price?: string

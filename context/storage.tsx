@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 
 type StorageValue<T> = T | null
 
-interface StorageInterface<T> {
+export interface StorageInterface<T> {
   getAll: () => Promise<StorageValue<T>[] | null>
   getItem: (key: string) => Promise<StorageValue<T>>
   setItem: (key: string, value: T) => Promise<void>
@@ -10,7 +10,8 @@ interface StorageInterface<T> {
   clear: () => Promise<void>
 }
 
-function createStorage<T>(key: string): StorageInterface<T> {
+export function storage<T>(key: string): StorageInterface<T> {
+
   const getAll = async (): Promise<StorageValue<T>[]> => {
     try {
       const data = await AsyncStorage.getItem(key)
@@ -79,8 +80,8 @@ function createStorage<T>(key: string): StorageInterface<T> {
     getItem,
     setItem,
     removeItem,
-    clear,
+    clear
   }
 }
 
-export default createStorage
+export default storage
