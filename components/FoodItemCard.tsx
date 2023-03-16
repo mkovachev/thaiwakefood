@@ -47,9 +47,8 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     borderRadius: 20,
     margin: 10,
-    width: Platform.OS === 'web' ? window.innerHeight / 3 : height / 3,
-    maxWidth: 600,
-    height: Platform.OS === 'web' ? window.innerHeight / 2 - 20 : height / 3,
+    maxWidth: Platform.OS === 'web' ? window.innerHeight / 2 : width / 2,
+    height: Platform.OS === 'web' ? window.innerHeight / 3 : height / 3,
     maxHeight: 500,
   },
   image: {

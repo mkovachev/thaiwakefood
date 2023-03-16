@@ -13,7 +13,7 @@ interface Props {
 const MenuGrid = ({ data, category }: Props) => {
   const { width } = useWindowDimensions();
   const mobileColumns = Math.floor(width / 150)
-  const webColumns = Math.floor(window.innerWidth / 300);
+  const webColumns = Math.floor(window.innerWidth / 400);
 
   const filteredMenu = category ? data.filter(item => item.category === category.title) : data
 
