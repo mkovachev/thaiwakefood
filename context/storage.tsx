@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 type StorageValue<T> = T | null
 
 export interface StorageInterface<T> {
-  getAll: () => Promise<StorageValue<T>[] | null>
+  getAll: () => Promise<StorageValue<T>[]>
   getItem: (key: string) => Promise<StorageValue<T>>
   setItem: (key: string, value: T) => Promise<void>
   removeItem: (key: string) => Promise<void>

@@ -1,32 +1,28 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, FlatList } from 'react-native';
 import ShoppingCartItemCard from '../../components/ShoppingCartItemCard';
 import { ShoppingCartItem } from '../../data/ShoppingCartItem';
-import { ShoppingCartContext } from '../_layout';
+import storageKeys from '../../constants/storageKeys'
+import useStorage from '../../context/storage'
 
 
 export default function ShoppingCartScreen() {
-  const shoppingCart = useContext(ShoppingCartContext);
-  const [cartItems, setCartItems] = useState<ShoppingCartItem[]>([]);
+  const { getAll } = useStorage<ShoppingCartItem>(storageKeys.SHOPPING_CART_KEY)
+  const [items, setItems] = useState<ShoppingCartItem[]>([])
 
   useEffect(() => {
-    const getCartItems = async () => {
-      const items = await shoppingCart?.getAll()
+    const getItems = async () => {
+      const items = await getAll()
+      setItems(items.map(item => item as ShoppingCartItem))
+    }
 
-      if (items) {
-        setCartItems(items)
-      }
-    };
-
-    getCartItems();
+    getItems()
   }, [])
-
-  console.log(cartItems)
 
   return (
     <View style={styles.container}>
       <FlatList
-        data={cartItems}
+        data={items}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => <ShoppingCartItemCard item={item} />}
       />

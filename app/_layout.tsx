@@ -1,14 +1,13 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native'
 import { useFonts } from 'expo-font'
 import { SplashScreen, Stack } from 'expo-router'
-import { createContext, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useColorScheme } from 'react-native'
 import { QueryClient, QueryClientProvider } from 'react-query'
-import { FontAwesome5 } from '@expo/vector-icons'
+import { Feather, FontAwesome5, Ionicons, MaterialIcons } from '@expo/vector-icons'
 import { Provider as PaperProvider } from 'react-native-paper'
 import { ToastProvider } from 'react-native-toast-notifications'
-import { ShoppingCartItem } from '../data/ShoppingCartItem'
-import shoppingCartStorage, { ShoppingCartStorageProps } from '../context/shoppingCartStorage'
+import colors from '../ui/colors'
 
 
 export {
@@ -25,7 +24,6 @@ const queryClient = new QueryClient({
   defaultOptions: { queries: { retry: 2 } },
 })
 
-export const ShoppingCartContext = createContext<ShoppingCartStorageProps | null>(null);
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
@@ -53,11 +51,27 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   const colorScheme = useColorScheme()
-  const cart = shoppingCartStorage();
 
   return (
-    <ToastProvider>
-      <ShoppingCartContext.Provider value={cart}>
+    <ToastProvider
+      placement='top'
+      duration={5000}
+      animationType='zoom-in'
+      animationDuration={250}
+      successColor={colors.green}
+      dangerColor={colors.red}
+      warningColor={colors.orange}
+      normalColor={colors.white}
+      //icon={<Icon />}
+      successIcon={<Feather name="check-circle" size={24} color={colors.white} />}
+      dangerIcon={<MaterialIcons name="dangerous" size={24} color={colors.white} />}
+      warningIcon={<Ionicons name="warning-outline" size={24} color={colors.white} />}
+      textStyle={{ fontSize: 20 }}
+      offset={50}
+      offsetTop={30}
+      offsetBottom={40}
+      swipeEnabled={true}
+     >
         <QueryClientProvider client={queryClient}>
           <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
             <PaperProvider>
@@ -68,7 +82,6 @@ function RootLayoutNav() {
             </PaperProvider>
           </ThemeProvider>
         </QueryClientProvider>
-      </ShoppingCartContext.Provider>
     </ToastProvider>
   )
 }

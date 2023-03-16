@@ -9,7 +9,8 @@ import { Ionicons } from '@expo/vector-icons'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { ShoppingCartItem } from '../data/ShoppingCartItem'
 import { useToast } from 'react-native-toast-notifications'
-import { ShoppingCartContext } from '../app/_layout'
+import storageKeys from '../constants/storageKeys'
+import useStorage from '../context/storage'
 
 
 type Props = {
@@ -17,12 +18,12 @@ type Props = {
 }
 
 const FoodItemDetails = ({ item }: Props) => {
-  const shoppingCart = useContext(ShoppingCartContext);
   const toast = useToast();
+  const { setItem } = useStorage<ShoppingCartItem>(storageKeys.SHOPPING_CART_KEY)
   const [selectedOption, setSelectedOption] = useState('')
 
   const handleAddToCart = () => {
-    let shoppingCartItem: ShoppingCartItem = {
+    let cartItem: ShoppingCartItem = {
       id: item.id,
       title: item.title,
       quantity: 1,
@@ -33,17 +34,17 @@ const FoodItemDetails = ({ item }: Props) => {
       case !selectedOption && (!item.prices || item.prices.length === 0):
         break;
       case selectedOption !== '':
-        const option = item.options?.find((o) => o.label === selectedOption);
-        shoppingCartItem = {
-          ...shoppingCartItem,
+        const option = item.options?.find((o) => o.label === selectedOption)
+        cartItem = {
+          ...cartItem,
           option: option?.label,
           price: option?.value,
           spicy: item.spicy?.[0],
         };
         break;
       case item.prices && item.prices.length > 0:
-        shoppingCartItem = {
-          ...shoppingCartItem,
+        cartItem = {
+          ...cartItem,
           option: undefined,
           price: item.prices?.[0],
           spicy: item.spicy?.[0],
@@ -52,9 +53,9 @@ const FoodItemDetails = ({ item }: Props) => {
       default:
         break;
     }
-
-    shoppingCart?.addToCart(shoppingCartItem);
-    toast.show(`${item.title} added to cart!`);
+    setItem(cartItem.id, cartItem)
+    console.log(cartItem)
+    toast.show(`${cartItem.title} added to cart!`, { type: "success" })
   };
 
 

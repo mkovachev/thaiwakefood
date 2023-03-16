@@ -5,11 +5,12 @@ import { FoodItemDto } from '../../data/FoodItemDto'
 import NotFoundScreen from '../[...missing]'
 import useStorage from '../../context/storage'
 import FoodItemDetails from '../../components/FoodItemDetails'
+import storageKeys from '../../constants/storageKeys'
 
 
 const FoodItem = () => {
   const { id } = useSearchParams()
-  const { getItem } = useStorage<FoodItemDto>('menu')
+  const { getItem } = useStorage<FoodItemDto>(storageKeys.MENU_KEY)
   const [item, setItem] = useState<FoodItemDto | null>(null)
 
   useEffect(() => {
