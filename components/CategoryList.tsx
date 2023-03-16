@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     marginHorizontal: 5,
     overflow: isWeb ? 'scroll' : undefined,
+    minHeight: 100,
   },
   contentContainer: {
     paddingHorizontal: 10,

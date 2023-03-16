@@ -1,6 +1,5 @@
 import { View, Text } from "../ui/Themed"
 import { StyleSheet, Image, TouchableOpacity } from 'react-native'
-import { SafeAreaView } from "react-native-safe-area-context"
 import { Feather } from "@expo/vector-icons"
 import colors from "../ui/colors"
 import { useState } from 'react'
@@ -8,10 +7,6 @@ import { useState } from 'react'
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const menuItems = ['My Account', 'About', 'Contact'];
-
-  const toggleMenu = () => {
-    setIsMenuOpen((prev) => !prev)
-  }
 
   return (
     <View style={styles.container}>
@@ -22,13 +17,13 @@ export default function Header() {
         />
         <Text style={styles.title}>THAI WAKE PARK - TWP Lumlukka</Text>
       </View>
-      <TouchableOpacity onPress={toggleMenu}>
+      <TouchableOpacity onPress={() => setIsMenuOpen(!isMenuOpen)}>
         <Feather name={isMenuOpen ? 'x' : 'menu'} size={24} color={colors.blue} />
       </TouchableOpacity>
       {isMenuOpen && (
         <View style={styles.menu}>
-          {menuItems.map((item) => (
-            <Text key={item} style={styles.menuItem}>
+          {menuItems.map((item, index) => (
+            <Text key={index} style={styles.menuItem}>
               {item}
             </Text>
           ))}
@@ -63,16 +58,17 @@ const styles = StyleSheet.create({
   },
   menu: {
     position: 'absolute',
+    zIndex: 1,
     top: 70,
     right: 20,
     elevation: 5,
     borderRadius: 5,
     paddingVertical: 10,
     paddingHorizontal: 20,
-    backgroundColor: colors.blue,
   },
   menuItem: {
     marginVertical: 5,
     fontSize: 16,
+    color: colors.blue
   },
 })

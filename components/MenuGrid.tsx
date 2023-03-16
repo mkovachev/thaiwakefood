@@ -1,5 +1,5 @@
 import React, { } from 'react'
-import { StyleSheet, FlatList, Platform, Dimensions } from 'react-native'
+import { StyleSheet, FlatList, Platform, Dimensions, useWindowDimensions } from 'react-native'
 import { FoodItemDto } from '../data/FoodItemDto'
 import { CategoryItem } from '../data/CategoryItem'
 import FoodItemCard from './FoodItemCard'
@@ -11,15 +11,16 @@ interface Props {
 }
 
 const MenuGrid = ({ data, category }: Props) => {
-  const { width } = Dimensions.get('window')
-  const columns = Math.floor(width / 150)
+  const { width } = useWindowDimensions();
+  const mobileColumns = Math.floor(width / 150)
+  const webColumns = Math.floor(window.innerWidth / 500);
 
   const filteredMenu = category ? data.filter(item => item.category === category.title) : data
 
   return (
     <FlatList
       data={filteredMenu}
-      numColumns={columns}
+      numColumns={Platform.OS === 'web' ? webColumns : mobileColumns}
       renderItem={({ item }) => (<FoodItemCard item={item} />)}
       keyExtractor={(item) => item.id.toString()}
       contentContainerStyle={[styles.container, Platform.OS === 'web' && styles.webContainer]}

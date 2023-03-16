@@ -1,6 +1,6 @@
 import { Feather } from '@expo/vector-icons'
 import { FoodItemDto } from '../data/FoodItemDto'
-import { Image, StyleSheet, Platform } from 'react-native'
+import { Image, StyleSheet, Platform, Dimensions } from 'react-native'
 import { Text, View } from '../ui/Themed'
 import { MaterialIcons } from '@expo/vector-icons';
 import { Link } from 'expo-router'
@@ -9,6 +9,8 @@ import colors from '../ui/colors'
 interface Props {
   item: FoodItemDto
 }
+
+const { width, height } = Dimensions.get('window');
 
 const FoodItemCard = ({ item }: Props) => {
 
@@ -38,16 +40,22 @@ const FoodItemCard = ({ item }: Props) => {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     padding: 10,
     borderWidth: .2,
     borderColor: colors.yellow,
     borderStyle: 'solid',
     borderRadius: 20,
-    margin: 10
+    margin: 10,
+    width: '100%',
+    maxWidth: 600,
+    height: Platform.OS === 'web' ? window.innerHeight / 3 : height / 3,
+    maxHeight: 400,
   },
   image: {
-    width: Platform.OS === 'web' ? 300 : 150,
-    height: Platform.OS === 'web' ? 300 : 150,
+    width: Platform.OS === 'web' ? window.innerHeight / 6 : width / 3,
+    height: Platform.OS === 'web' ? window.innerHeight / 6 : height / 6,
+    resizeMode: 'contain',
   },
   header: {
     display: 'flex',
@@ -69,9 +77,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignSelf: 'center',
     fontFamily: 'MontserratSemiBold',
-    color: colors.black5,
     fontSize: Platform.OS === 'web' ? 24 : 14,
-    maxWidth: Platform.OS === 'web' ? 300 : 150,
     marginTop: 10,
     marginBottom: 10,
   },
