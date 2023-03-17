@@ -71,7 +71,7 @@ export const FoodItemDetails = ({ item }: Props) => {
           </View>
         }
 
-        {item.spicy === true &&
+        {item.spicy &&
           <View style={styles.spicyContainer}>
             <Text style={styles.spicyLabel}>Spicy:</Text>
             <Switch

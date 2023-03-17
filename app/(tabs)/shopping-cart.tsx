@@ -4,13 +4,14 @@ import ShoppingCartItemCard from '../../components/ShoppingCartItemCard'
 import { ShoppingCartItem } from '../../data/ShoppingCartItem'
 import storageKeys from '../../constants/storageKeys'
 import useStorage from '../../context/storage'
-import colors from '../../ui/colors'
 import { View, Text } from '../../ui/Themed'
-import fontFamily from '../../ui/fontFamily'
+import colors from '../../ui/colors'
+import { useRouter } from 'expo-router'
 
 
 export default function ShoppingCartScreen() {
-  const { getAll, setItem, removeItem } = useStorage<ShoppingCartItem>(storageKeys.SHOPPING_CART_KEY)
+  const { getAll, setAll, setItem, removeItem } = useStorage<ShoppingCartItem>(storageKeys.SHOPPING_CART_KEY)
+  const router = useRouter()
   const [items, setItems] = useState<ShoppingCartItem[]>([])
 
   useEffect(() => {
@@ -20,16 +21,21 @@ export default function ShoppingCartScreen() {
     }
 
     getItems()
-  }, [getAll])
+  }, [])
 
   const handleEditItem = async (item: ShoppingCartItem) => {
+    router.push(`/${item.id}`)
     await setItem(item.id, item)
-    setItems(items => items.map(i => i.id === item.id ? item : i))
+    const updatedItems = items.filter(i => i.id !== item.id)
+    setItems(updatedItems)
+    setAll(updatedItems)
   }
 
   const handleRemoveItem = async (item: ShoppingCartItem) => {
     await removeItem(item.id)
-    setItems(items => items.map(i => i.id === item.id ? item : i))
+    const updatedItems = items.filter(i => i.id !== item.id)
+    setItems(updatedItems)
+    setAll(updatedItems)
   }
 
   return (
@@ -51,5 +57,6 @@ export default function ShoppingCartScreen() {
 const styles = StyleSheet.create({
   container: {
     height: '100%',
+    backgroundColor: colors.white,
   },
 })
