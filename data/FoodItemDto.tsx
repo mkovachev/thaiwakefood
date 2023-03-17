@@ -9,5 +9,5 @@ export interface FoodItemDto {
   image: string
   options?: Option[]
   prices?: string[]
-  spicy?: string[]
+  spicy: boolean
 }

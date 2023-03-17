@@ -33,16 +33,15 @@ export default SearchBar
 const styles = StyleSheet.create({
   textInput: {
     fontFamily: 'MontserratMedium',
-    fontSize: Platform.OS === 'web' ? 26 : 16,
+    fontSize: Platform.OS === 'web' ? 22 : 16,
     width: Platform.OS === 'web' ? '50%' : '90%',
-    height: Platform.OS === 'web' ? 50 : 40,
+    height: Platform.OS === 'web' ? 40 : 40,
     marginHorizontal: 30,
     marginVertical: 10,
     padding: 10,
     color: colors.grey,
     borderRadius: 15,
     borderWidth: .5,
-    borderColor: colors.yellow,
-    borderStyle: 'solid',
+    borderColor: colors.grey,
   }
 })

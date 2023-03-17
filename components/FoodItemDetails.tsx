@@ -1,11 +1,9 @@
-import React, { useContext, useState } from "react"
+import React, { useState } from "react"
 import { FoodItemDto } from "../data/FoodItemDto"
-import { StyleSheet, Image, Platform, TouchableOpacity } from "react-native"
+import { StyleSheet, Image, Platform, TouchableOpacity, Switch } from "react-native"
 import { RadioButton } from "react-native-paper"
 import { View, Text } from "../ui/Themed"
-import { Link } from 'expo-router'
 import colors from '../ui/colors'
-import { Ionicons } from '@expo/vector-icons'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { ShoppingCartItem } from '../data/ShoppingCartItem'
 import { useToast } from 'react-native-toast-notifications'
@@ -18,39 +16,40 @@ type Props = {
   item: FoodItemDto
 }
 
-const FoodItemDetails = ({ item }: Props) => {
-  const toast = useToast();
+export const FoodItemDetails = ({ item }: Props) => {
+  const toast = useToast()
   const { addItem } = useStorage<ShoppingCartItem>(storageKeys.SHOPPING_CART_KEY)
   const [selectedOption, setSelectedOption] = useState('')
+  const [spicy, setSpicy] = useState(false)
 
   const handleAddToCart = () => {
     const shoppingCartItem = parseShoppingCartItem(item, selectedOption)
     addItem(shoppingCartItem, storageKeys.SHOPPING_CART_KEY)
     toast.show(`${shoppingCartItem.title} added to cart!`, { type: "success" })
-  };
+  }
 
+  console.log(item)
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <Link href="/" style={styles.backButton}>
-          <Ionicons name="arrow-back" size={24} color="white" />
-          <Text style={styles.backButtonText}>Back to Home</Text>
-        </Link>
-      </View>
-      <Image source={{ uri: item.image }} style={styles.image} />
-      <View style={styles.detailsContainer}>
+        <Image source={{ uri: item.image }} style={styles.image} />
         <Text style={styles.title}>{item.title}</Text>
         <Text style={styles.description}>{item.description}</Text>
-        {item.options && item.options.length > 0 ? (
-          <View style={styles.optionsContainer}>
+      </View>
+
+      <View style={styles.options}>
+
+        {item.options && item.options.length > 0 &&
+          <View>
+            <Text>Choose option:</Text>
             {item.options.map((option, index) => (
               <View key={index} style={styles.optionContainer}>
                 <RadioButton
                   value={option.label}
                   status={selectedOption === option.label ? 'checked' : 'unchecked'}
-                  color={colors.yellow}
-                  uncheckedColor={colors.blue}
+                  color={colors.black}
+                  uncheckedColor={colors.black}
                   onPress={() => setSelectedOption(option.label)}
                 />
                 <Text style={styles.optionLabel}>{option.label}</Text>
@@ -58,7 +57,9 @@ const FoodItemDetails = ({ item }: Props) => {
               </View>
             ))}
           </View>
-        ) : (
+        }
+
+        {!item.options &&
           <View style={styles.pricesContainer}>
             {item.prices?.map((price, index) => (
               <Text key={`${item.id}-${index}`} style={styles.prices}>
@@ -66,29 +67,27 @@ const FoodItemDetails = ({ item }: Props) => {
               </Text>
             ))}
           </View>
-        )}
+        }
 
-        {item.spicy && item.spicy.length > 0 && (
+        {item.spicy &&
           <View style={styles.spicyContainer}>
             <Text style={styles.spicyLabel}>Spicy:</Text>
-            {item.spicy.map((level, index) => (
-              <Text key={index} style={styles.spicy}>
-                {level}
-              </Text>
-            ))}
+            <Switch
+              value={spicy}
+              onValueChange={() => setSpicy(!spicy)}
+              ios_backgroundColor="#3e3e3e"
+            />
           </View>
-        )}
+        }
+
+        <TouchableOpacity onPress={handleAddToCart} style={styles.addToCart}>
+          <Text style={styles.addToCartText}>Add to Cart</Text>
+        </TouchableOpacity>
+
       </View>
-
-      <TouchableOpacity onPress={handleAddToCart} style={styles.addToCart}>
-        <Text style={styles.addToCartText}>Add to Cart</Text>
-      </TouchableOpacity>
-
     </SafeAreaView>
   )
 }
-
-export default FoodItemDetails
 
 const styles = StyleSheet.create({
   container: {
@@ -96,27 +95,16 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
   },
   header: {
-    backgroundColor: colors.yellow,
+    display: 'flex',
     flexDirection: 'row',
-    alignItems: 'center',
-    height: 56,
-    paddingLeft: 16,
-  },
-  backButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginRight: 16,
-  },
-  backButtonText: {
-    color: 'white',
-    fontSize: 16,
-    marginLeft: 8,
+    justifyContent: 'flex-start',
   },
   image: {
-    height: 200,
-    resizeMode: "cover",
+    height: 100,
+    width: 100,
+    resizeMode: "contain",
   },
-  detailsContainer: {
+  options: {
     padding: 16,
   },
   title: {
@@ -124,29 +112,20 @@ const styles = StyleSheet.create({
     marginTop: 16,
     marginBottom: 8,
   },
-  category: {
-    fontSize: 16,
-    color: colors.grey,
-    marginBottom: 16,
-  },
   description: {
-    fontSize: 16,
     marginBottom: 16,
-  },
-  optionsContainer: {
-    marginTop: 16,
   },
   optionContainer: {
     flexDirection: "row",
     alignItems: "center",
     marginVertical: 8,
+    marginTop: 16,
   },
   optionLabel: {
-    fontSize: 16,
     margin: 8,
   },
   optionPrice: {
-    fontSize: 16,
+
   },
   pricesContainer: {
     marginTop: 16,
@@ -154,7 +133,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   prices: {
-    fontSize: 16,
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -164,13 +142,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   spicyLabel: {
-    fontSize: 16,
     marginRight: 8,
   },
   spicy: {
     fontSize: 16,
     marginRight: 8,
-    color: colors.blue,
   },
   addToCart: {
     alignSelf: 'center',

@@ -5,5 +5,5 @@ export interface ShoppingCartItem {
   image: string
   option?: string
   price?: string
-  spicy?: string
+  spicy?: boolean
 }

@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react'
 import { FoodItemDto } from '../../data/FoodItemDto'
 import NotFoundScreen from '../[...missing]'
 import useStorage from '../../context/storage'
-import FoodItemDetails from '../../components/FoodItemDetails'
 import storageKeys from '../../constants/storageKeys'
+import { FoodItemDetails } from '../../components/FoodItemDetails'
 
 
 const FoodItem = () => {
@@ -33,4 +33,5 @@ const FoodItem = () => {
   )
 }
 
+// keep to parse route correctly
 export default FoodItem

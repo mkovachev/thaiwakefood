@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Image, View, Text } from 'react-native';
 import { ShoppingCartItem } from '../data/ShoppingCartItem';
+import colors from '../ui/colors';
 
 interface Props {
   item: ShoppingCartItem;
@@ -23,15 +24,19 @@ const ShoppingCartItemCard = ({ item }: Props) => {
 
 const styles = StyleSheet.create({
   container: {
+    elevation: 5,
     flexDirection: 'row',
     justifyContent: 'space-between',
+    marginHorizontal: 10,
+    padding: 10,
     alignItems: 'center',
-    borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
-    paddingVertical: 10,
+    borderRadius: 20,
+    borderBottomColor: colors.black5,
+    borderBottomWidth: .2,
+    backgroundColor: colors.white
   },
   image: {
-    width: 80,
+    width: 90,
     height: 80,
     marginRight: 10,
   },
@@ -39,24 +44,18 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   title: {
-    fontSize: 16,
-    fontWeight: 'bold',
     marginBottom: 5,
   },
   option: {
     marginBottom: 5,
   },
   price: {
-    fontSize: 16,
-    fontWeight: 'bold',
     marginBottom: 5,
   },
   spicy: {
     marginBottom: 5,
   },
   quantity: {
-    fontSize: 16,
-    fontWeight: 'bold',
     marginLeft: 10,
   },
 });

@@ -2,11 +2,11 @@ import { FoodItemDb } from '../data/FoodItemDb'
 import { FoodItemDto } from '../data/FoodItemDto'
 import { Option } from '../data/Option'
 
-export const parseData = (data: FoodItemDb[]): FoodItemDto[] => {
+export const parseFoodItemDto = (data: FoodItemDb[]): FoodItemDto[] => {
   return data.map(item => {
     const options: Option[] = []
     const prices: string[] = []
-    const spicy: string[] = []
+    let spicy: boolean = false
 
     if (item.options && item.prices) {
       const optionLabels = item.options.split("/")
@@ -22,7 +22,7 @@ export const parseData = (data: FoodItemDb[]): FoodItemDto[] => {
     }
 
     if (item.spicy) {
-      spicy.push(...item.spicy.split("/").map(s => s.trim()))
+      spicy = true
     }
 
     return {
@@ -33,7 +33,7 @@ export const parseData = (data: FoodItemDb[]): FoodItemDto[] => {
       image: item.image,
       options: options.length > 0 ? options : undefined,
       prices: prices.length > 0 ? prices : undefined,
-      spicy: spicy.length > 0 ? spicy : undefined,
+      spicy: spicy,
     }
   })
 }

@@ -1,5 +1,5 @@
-import { FoodItemDto } from '../data/FoodItemDto';
-import { ShoppingCartItem } from '../data/ShoppingCartItem';
+import { FoodItemDto } from '../data/FoodItemDto'
+import { ShoppingCartItem } from '../data/ShoppingCartItem'
 
 export const parseShoppingCartItem = (foodItem: FoodItemDto, selectedOption: string) => {
   let cartItem: ShoppingCartItem = {
@@ -10,7 +10,7 @@ export const parseShoppingCartItem = (foodItem: FoodItemDto, selectedOption: str
   }
 
   if (selectedOption !== '') {
-    const option = foodItem.options?.find((o) => o.label === selectedOption)
+    const option = foodItem.options?.find(o => o.label === selectedOption)
     if (option) {
       cartItem.option = option.label
       cartItem.price = option.value
@@ -19,9 +19,7 @@ export const parseShoppingCartItem = (foodItem: FoodItemDto, selectedOption: str
     cartItem.price = foodItem.prices[0]
   }
 
-  if (foodItem.spicy && foodItem.spicy.length > 0) {
-    cartItem.spicy = foodItem.spicy[0]
-  }
+  cartItem.spicy = foodItem.spicy
 
   return cartItem
 }
