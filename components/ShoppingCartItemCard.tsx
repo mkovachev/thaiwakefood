@@ -3,6 +3,7 @@ import React from 'react'
 import { StyleSheet, Image, View, Text, TouchableOpacity, Pressable } from 'react-native'
 import { ShoppingCartItem } from '../data/ShoppingCartItem'
 import colors from '../ui/colors'
+import { formatInTHB } from '../utils/formatInTHB'
 
 interface Props {
   item: ShoppingCartItem
@@ -20,7 +21,7 @@ const ShoppingCartItemCard = ({ item, onEdit, onRemove }: Props) => {
 
         <View style={styles.detailsContainer}>
           <Text style={styles.title}>{item.title}</Text>
-          <Text style={styles.price}>Price: {item.price} THB</Text>
+          {item.price && <Text style={styles.price}>Price: {formatInTHB(item.price)}</Text>}
           {item.option && <Text style={styles.option}>Option selected: {item.option}</Text>}
           {item.spicy && <Text style={styles.spicy}>{item.spicy}</Text>}
           <Text style={styles.quantity}>Quantity: {item.quantity}</Text>
@@ -48,7 +49,7 @@ const styles = StyleSheet.create({
   },
   container: {
     elevation: 5,
-    flex: 1,
+    //flex: 1,
     flexDirection: 'row',
     marginHorizontal: 10,
     padding: 10,

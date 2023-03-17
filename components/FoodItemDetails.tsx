@@ -11,6 +11,7 @@ import storageKeys from '../constants/storageKeys'
 import useStorage from '../context/storage'
 import { parseShoppingCartItem } from '../utils/parseShoppingCartItem'
 import fontFamily from '../ui/fontFamily'
+import { formatInTHB } from '../utils/formatInTHB'
 
 
 interface Props {
@@ -63,8 +64,8 @@ export const FoodItemDetails = ({ item }: Props) => {
         {!item.options &&
           <View style={styles.priceOptionsContainer}>
             {item.prices?.map((price, index) => (
-              <Text key={`${item.id}-${index}`} style={styles.prices}>
-                ${price}
+              <Text key={index} style={styles.prices}>
+                {formatInTHB(price)}
               </Text>
             ))}
           </View>
