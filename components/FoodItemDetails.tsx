@@ -21,13 +21,18 @@ interface Props {
 export const FoodItemDetails = ({ item }: Props) => {
   const toast = useToast()
   const { addItem } = useStorage<ShoppingCartItem>(storageKeys.SHOPPING_CART_KEY)
-  const [selectedOption, setSelectedOption] = useState('')
+  const [selectedOption, setSelectedOption] = useState<string | null>(null)
   const [spicy, setSpicy] = useState(false)
 
   const handleAddToCart = () => {
+    if (!selectedOption) {
+      toast.show(`Please select an option`, { type: 'danger' })
+      return
+    }
     const shoppingCartItem = parseShoppingCartItem(item, selectedOption)
     addItem(shoppingCartItem, storageKeys.SHOPPING_CART_KEY)
     toast.show(`${shoppingCartItem.title} added to cart!`, { type: "success" })
+
   }
 
   return (
@@ -51,7 +56,7 @@ export const FoodItemDetails = ({ item }: Props) => {
                   value={option.label}
                   status={selectedOption === option.label ? 'checked' : 'unchecked'}
                   color={colors.black}
-                  uncheckedColor={colors.black}
+                  uncheckedColor={colors.grey}
                   onPress={() => setSelectedOption(option.label)}
                 />
                 <Text style={styles.optionLabel}>{option.label}</Text>

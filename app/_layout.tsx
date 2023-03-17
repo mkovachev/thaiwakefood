@@ -2,7 +2,7 @@ import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native
 import { useFonts } from 'expo-font'
 import { SplashScreen, Stack } from 'expo-router'
 import React, { useEffect } from 'react'
-import { useColorScheme } from 'react-native'
+import { Platform, useColorScheme } from 'react-native'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { Feather, FontAwesome5, Ionicons, MaterialIcons } from '@expo/vector-icons'
 import { Provider as PaperProvider } from 'react-native-paper'
@@ -53,24 +53,7 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme()
 
   return (
-    <ToastProvider
-      placement='top'
-      duration={5000}
-      animationType='zoom-in'
-      animationDuration={250}
-      successColor={colors.green}
-      dangerColor={colors.red}
-      warningColor={colors.orange}
-      normalColor={colors.white}
-      successIcon={<Feather name="check-circle" size={24} color={colors.white} />}
-      dangerIcon={<MaterialIcons name="dangerous" size={24} color={colors.white} />}
-      warningIcon={<Ionicons name="warning-outline" size={24} color={colors.white} />}
-      textStyle={{ fontSize: 20 }}
-      offset={50}
-      offsetTop={30}
-      offsetBottom={40}
-      swipeEnabled={true}
-    >
+    <ToastProvider placement='top' swipeEnabled={true} textStyle={{ fontSize: Platform.OS === 'web' ? 20 : 14 }} >
       <QueryClientProvider client={queryClient}>
         <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
           <PaperProvider>

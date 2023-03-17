@@ -19,6 +19,8 @@ export const parseFoodItemDto = (data: FoodItemDb[]): FoodItemDto[] => {
         })
         prices.push(optionPrices[i].trim())
       }
+    } else {
+      prices.push(item.prices)
     }
 
     if (item.spicy) {
@@ -32,7 +34,7 @@ export const parseFoodItemDto = (data: FoodItemDb[]): FoodItemDto[] => {
       category: item.category,
       image: item.image,
       options: options.length > 0 ? options : undefined,
-      prices: prices.length > 0 ? prices : undefined,
+      prices: prices,
       spicy: spicy,
     }
   })
