@@ -34,7 +34,10 @@ export const FoodItemDetails = ({ item }: Props) => {
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <Image source={{ uri: item.image }} style={styles.image} />
-        <Text style={styles.title}>{item.title}</Text>
+        <View style={{ flex: 1 }}>
+          <Text style={styles.title}>{item.title}</Text>
+          <Text style={styles.description}>{item.description}</Text>
+        </View>
       </View>
 
       <View style={styles.options}>
@@ -96,7 +99,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   image: {
     height: 100,
@@ -106,11 +109,11 @@ const styles = StyleSheet.create({
   options: {
   },
   title: {
-    fontSize: 24,
-
+    fontFamily: fontFamily.MontserratMedium,
+    fontSize: Platform.OS === 'web' ? 20 : 16,
+    marginHorizontal: 10,
   },
   description: {
-    marginBottom: 16,
   },
   optionContainer: {
     flexDirection: 'row',
