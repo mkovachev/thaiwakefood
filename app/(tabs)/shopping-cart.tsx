@@ -34,9 +34,6 @@ export default function ShoppingCartScreen() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.titleText}>My Order</Text>
-      </View>
       <FlatList
         data={items}
         keyExtractor={(item) => item.id}
@@ -53,18 +50,6 @@ export default function ShoppingCartScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: colors.transparent,
+    height: '100%',
   },
-  header: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    margin: 10,
-    backgroundColor: colors.transparent,
-  },
-  titleText: {
-    fontFamily: fontFamily.MontserratSemiBold,
-    fontSize: 18,
-  }
 })

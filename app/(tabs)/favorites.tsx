@@ -10,6 +10,6 @@ export default function FavoritesScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    height: '100%'
   },
 })

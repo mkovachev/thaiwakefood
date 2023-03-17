@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { FoodItemDto } from "../data/FoodItemDto"
-import { StyleSheet, Image, Platform, TouchableOpacity, Switch, ScrollView } from "react-native"
+import { StyleSheet, Image, Platform, TouchableOpacity, Switch } from "react-native"
 import { RadioButton } from "react-native-paper"
 import { View, Text } from "../ui/Themed"
 import colors from '../ui/colors'
@@ -11,10 +11,9 @@ import storageKeys from '../constants/storageKeys'
 import useStorage from '../context/storage'
 import { parseShoppingCartItem } from '../utils/parseShoppingCartItem'
 import fontFamily from '../ui/fontFamily'
-import { Link } from 'expo-router'
 
 
-type Props = {
+interface Props {
   item: FoodItemDto
 }
 
@@ -31,65 +30,63 @@ export const FoodItemDetails = ({ item }: Props) => {
   }
 
   return (
-    // <ScrollView>
-      <SafeAreaView style={styles.container}>
-        <View style={styles.header}>
-          <Image source={{ uri: item.image }} style={styles.image} />
-          <View style={{ flex: 1 }}>
-            <Text style={styles.title}>{item.title}</Text>
-            <Text style={styles.description}>{item.description}</Text>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.header}>
+        <Image source={{ uri: item.image }} style={styles.image} />
+        <View style={{ flex: 1 }}>
+          <Text style={styles.title}>{item.title}</Text>
+          <Text style={styles.description}>{item.description}</Text>
+        </View>
+      </View>
+
+      <View style={styles.optionsContainer}>
+
+        {item.options && item.options.length > 0 &&
+          <View>
+            <Text>Choose option:</Text>
+            {item.options.map((option, index) => (
+              <View key={index} style={styles.foodOptions}>
+                <RadioButton
+                  value={option.label}
+                  status={selectedOption === option.label ? 'checked' : 'unchecked'}
+                  color={colors.black}
+                  uncheckedColor={colors.black}
+                  onPress={() => setSelectedOption(option.label)}
+                />
+                <Text style={styles.optionLabel}>{option.label}</Text>
+                <Text style={styles.optionPrice}>{option.value}</Text>
+              </View>
+            ))}
           </View>
-        </View>
+        }
 
-        <View style={styles.optionsContainer}>
+        {!item.options &&
+          <View style={styles.priceOptionsContainer}>
+            {item.prices?.map((price, index) => (
+              <Text key={`${item.id}-${index}`} style={styles.prices}>
+                ${price}
+              </Text>
+            ))}
+          </View>
+        }
 
-          {item.options && item.options.length > 0 &&
-            <View>
-              <Text>Choose option:</Text>
-              {item.options.map((option, index) => (
-                <View key={index} style={styles.foodOptions}>
-                  <RadioButton
-                    value={option.label}
-                    status={selectedOption === option.label ? 'checked' : 'unchecked'}
-                    color={colors.black}
-                    uncheckedColor={colors.black}
-                    onPress={() => setSelectedOption(option.label)}
-                  />
-                  <Text style={styles.optionLabel}>{option.label}</Text>
-                  <Text style={styles.optionPrice}>{option.value}</Text>
-                </View>
-              ))}
-            </View>
-          }
+        {item.spicy === true &&
+          <View style={styles.spicyContainer}>
+            <Text style={styles.spicyLabel}>Spicy:</Text>
+            <Switch
+              value={spicy}
+              onValueChange={() => setSpicy(!spicy)}
+            />
+          </View>
+        }
 
-          {!item.options &&
-            <View style={styles.priceOptionsContainer}>
-              {item.prices?.map((price, index) => (
-                <Text key={`${item.id}-${index}`} style={styles.prices}>
-                  ${price}
-                </Text>
-              ))}
-            </View>
-          }
+      </View>
 
-          {item.spicy === true &&
-            <View style={styles.spicyContainer}>
-              <Text style={styles.spicyLabel}>Spicy:</Text>
-              <Switch
-                value={spicy}
-                onValueChange={() => setSpicy(!spicy)}
-              />
-            </View>
-          }
+      <TouchableOpacity onPress={handleAddToCart} style={styles.addToCart}>
+        <Text style={styles.addToCartText}>Add to Cart</Text>
+      </TouchableOpacity>
 
-        </View>
-
-        <TouchableOpacity onPress={handleAddToCart} style={styles.addToCart}>
-          <Text style={styles.addToCartText}>Add to Cart</Text>
-        </TouchableOpacity>
-
-      </SafeAreaView>
-    // </ScrollView>
+    </SafeAreaView>
   )
 }
 
