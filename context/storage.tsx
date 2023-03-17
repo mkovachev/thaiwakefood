@@ -4,6 +4,7 @@ type StorageValue<T> = T | null
 
 export interface StorageInterface<T> {
   getAll: () => Promise<StorageValue<T>[]>
+  setAll: (values: StorageValue<T>[]) => Promise<void>
   getItem: (key: string) => Promise<StorageValue<T>>
   addItem: (value: T extends { id: string, quantity: number } ? T : never, key: string) => Promise<void>
   setItem: (key: string, value: T) => Promise<void>
@@ -24,6 +25,15 @@ export function storage<T>(key: string): StorageInterface<T> {
     }
     return []
   }
+
+  const setAll = async (values: StorageValue<T>[]): Promise<void> => {
+    try {
+      await AsyncStorage.setItem(key, JSON.stringify(values))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
 
   const getItem = async (id: string): Promise<StorageValue<T>> => {
     try {
@@ -96,6 +106,7 @@ export function storage<T>(key: string): StorageInterface<T> {
 
   return {
     getAll,
+    setAll,
     getItem,
     addItem,
     setItem,

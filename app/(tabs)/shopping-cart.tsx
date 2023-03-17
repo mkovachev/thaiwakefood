@@ -9,9 +9,8 @@ import { View, Text } from '../../ui/Themed'
 import fontFamily from '../../ui/fontFamily'
 
 
-
 export default function ShoppingCartScreen() {
-  const { getAll } = useStorage<ShoppingCartItem>(storageKeys.SHOPPING_CART_KEY)
+  const { getAll, setItem, removeItem } = useStorage<ShoppingCartItem>(storageKeys.SHOPPING_CART_KEY)
   const [items, setItems] = useState<ShoppingCartItem[]>([])
 
   useEffect(() => {
@@ -21,7 +20,17 @@ export default function ShoppingCartScreen() {
     }
 
     getItems()
-  }, [])
+  }, [getAll])
+
+  const handleEditItem = async (item: ShoppingCartItem) => {
+    await setItem(item.id, item)
+    setItems(items => items.map(i => i.id === item.id ? item : i))
+  }
+
+  const handleRemoveItem = async (item: ShoppingCartItem) => {
+    await removeItem(item.id)
+    setItems(items => items.map(i => i.id === item.id ? item : i))
+  }
 
   return (
     <View style={styles.container}>
@@ -31,7 +40,12 @@ export default function ShoppingCartScreen() {
       <FlatList
         data={items}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <ShoppingCartItemCard item={item} />}
+        renderItem={({ item }) =>
+          <ShoppingCartItemCard
+            item={item}
+            onEdit={() => handleEditItem(item)}
+            onRemove={() => handleRemoveItem(item)}
+          />}
       />
     </View>
   )

@@ -1,32 +1,55 @@
-import React from 'react';
-import { StyleSheet, Image, View, Text } from 'react-native';
-import { ShoppingCartItem } from '../data/ShoppingCartItem';
-import colors from '../ui/colors';
+import { Link } from 'expo-router'
+import React from 'react'
+import { StyleSheet, Image, View, Text, TouchableOpacity, Pressable } from 'react-native'
+import { ShoppingCartItem } from '../data/ShoppingCartItem'
+import colors from '../ui/colors'
 
 interface Props {
-  item: ShoppingCartItem;
+  item: ShoppingCartItem
+  onEdit: () => void
+  onRemove: () => void
 }
 
-const ShoppingCartItemCard = ({ item }: Props) => {
+const ShoppingCartItemCard = ({ item, onEdit, onRemove }: Props) => {
+
   return (
-    <View style={styles.container}>
-      <Image source={{ uri: item.image }} style={styles.image} />
-      <View style={styles.detailsContainer}>
-        <Text style={styles.title}>{item.title}</Text>
-        {item.option && <Text style={styles.option}>{item.option}</Text>}
-        <Text style={styles.price}>{item.price}</Text>
-        {item.spicy && <Text style={styles.spicy}>{item.spicy}</Text>}
+    <Link href={`menu/${item.id}`} style={styles.link}>
+      <View style={styles.container}>
+
+        <Image source={{ uri: item.image }} style={styles.image} />
+
+        <View style={styles.detailsContainer}>
+          <Text style={styles.title}>{item.title}</Text>
+          <Text style={styles.price}>Price: {item.price} THB</Text>
+          {item.option && <Text style={styles.option}>Option selected: {item.option}</Text>}
+          {item.spicy && <Text style={styles.spicy}>{item.spicy}</Text>}
+          <Text style={styles.quantity}>Quantity: {item.quantity}</Text>
+        </View>
+
+        <View style={styles.actions}>
+          <TouchableOpacity onPress={onEdit} style={styles.editButton}>
+            <Text style={styles.editButtonText}>Edit</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={onRemove} style={styles.removeButton}>
+            <Text style={styles.removeButtonText}>Remove</Text>
+          </TouchableOpacity>
+        </View>
+
       </View>
-      <Text style={styles.quantity}>{item.quantity}</Text>
-    </View>
-  );
-};
+    </Link>
+  )
+}
 
 const styles = StyleSheet.create({
+  link: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
   container: {
     elevation: 5,
+    flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-between',
     marginHorizontal: 10,
     padding: 10,
     alignItems: 'center',
@@ -56,8 +79,31 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   quantity: {
-    marginLeft: 10,
   },
-});
+  actions: {
+    display: 'flex',
+    gap: 8,
+  },
+  editButton: {
+    backgroundColor: colors.yellow,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    borderRadius: 15,
+  },
+  editButtonText: {
+    color: colors.white,
+    textAlign: 'center',
+  },
+  removeButton: {
+    backgroundColor: colors.red,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    borderRadius: 15,
+  },
+  removeButtonText: {
+    color: colors.white,
+    textAlign: 'center',
+  }
+})
 
-export default ShoppingCartItemCard;
+export default ShoppingCartItemCard
