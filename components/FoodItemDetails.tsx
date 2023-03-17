@@ -11,6 +11,7 @@ import storageKeys from '../constants/storageKeys'
 import useStorage from '../context/storage'
 import { parseShoppingCartItem } from '../utils/parseShoppingCartItem'
 import fontFamily from '../ui/fontFamily'
+import { Link } from 'expo-router'
 
 
 type Props = {
@@ -88,15 +89,14 @@ export const FoodItemDetails = ({ item }: Props) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: colors.white,
+    paddingHorizontal: 12,
   },
   header: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    padding: 20,
-    gap: 20,
+    alignItems: 'center'
   },
   image: {
     height: 100,
@@ -104,12 +104,10 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
   },
   options: {
-    padding: 16,
   },
   title: {
     fontSize: 24,
-    marginTop: 16,
-    marginBottom: 8,
+
   },
   description: {
     marginBottom: 16,
