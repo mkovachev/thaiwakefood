@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { FoodItemDto } from "../data/FoodItemDto"
-import { StyleSheet, Image, Platform, TouchableOpacity, Switch } from "react-native"
+import { StyleSheet, Image, Platform, TouchableOpacity, Switch, ScrollView } from "react-native"
 import { RadioButton } from "react-native-paper"
 import { View, Text } from "../ui/Themed"
 import colors from '../ui/colors'
@@ -31,67 +31,71 @@ export const FoodItemDetails = ({ item }: Props) => {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <Image source={{ uri: item.image }} style={styles.image} />
-        <View style={{ flex: 1 }}>
-          <Text style={styles.title}>{item.title}</Text>
-          <Text style={styles.description}>{item.description}</Text>
+    // <ScrollView>
+      <SafeAreaView style={styles.container}>
+        <View style={styles.header}>
+          <Image source={{ uri: item.image }} style={styles.image} />
+          <View style={{ flex: 1 }}>
+            <Text style={styles.title}>{item.title}</Text>
+            <Text style={styles.description}>{item.description}</Text>
+          </View>
         </View>
-      </View>
 
-      <View style={styles.options}>
+        <View style={styles.optionsContainer}>
 
-        {item.options && item.options.length > 0 &&
-          <View>
-            <Text>Choose option:</Text>
-            {item.options.map((option, index) => (
-              <View key={index} style={styles.optionContainer}>
-                <RadioButton
-                  value={option.label}
-                  status={selectedOption === option.label ? 'checked' : 'unchecked'}
-                  color={colors.black}
-                  uncheckedColor={colors.black}
-                  onPress={() => setSelectedOption(option.label)}
-                />
-                <Text style={styles.optionLabel}>{option.label}</Text>
-                <Text style={styles.optionPrice}>{option.value}</Text>
-              </View>
-            ))}
-          </View>
-        }
+          {item.options && item.options.length > 0 &&
+            <View>
+              <Text>Choose option:</Text>
+              {item.options.map((option, index) => (
+                <View key={index} style={styles.foodOptions}>
+                  <RadioButton
+                    value={option.label}
+                    status={selectedOption === option.label ? 'checked' : 'unchecked'}
+                    color={colors.black}
+                    uncheckedColor={colors.black}
+                    onPress={() => setSelectedOption(option.label)}
+                  />
+                  <Text style={styles.optionLabel}>{option.label}</Text>
+                  <Text style={styles.optionPrice}>{option.value}</Text>
+                </View>
+              ))}
+            </View>
+          }
 
-        {!item.options &&
-          <View style={styles.pricesContainer}>
-            {item.prices?.map((price, index) => (
-              <Text key={`${item.id}-${index}`} style={styles.prices}>
-                ${price}
-              </Text>
-            ))}
-          </View>
-        }
+          {!item.options &&
+            <View style={styles.priceOptionsContainer}>
+              {item.prices?.map((price, index) => (
+                <Text key={`${item.id}-${index}`} style={styles.prices}>
+                  ${price}
+                </Text>
+              ))}
+            </View>
+          }
 
-        {item.spicy === true &&
-          <View style={styles.spicyContainer}>
-            <Text style={styles.spicyLabel}>Spicy:</Text>
-            <Switch
-              value={spicy}
-              onValueChange={() => setSpicy(!spicy)}
-            />
-          </View>
-        }
+          {item.spicy === true &&
+            <View style={styles.spicyContainer}>
+              <Text style={styles.spicyLabel}>Spicy:</Text>
+              <Switch
+                value={spicy}
+                onValueChange={() => setSpicy(!spicy)}
+              />
+            </View>
+          }
+
+        </View>
 
         <TouchableOpacity onPress={handleAddToCart} style={styles.addToCart}>
           <Text style={styles.addToCartText}>Add to Cart</Text>
         </TouchableOpacity>
 
-      </View>
-    </SafeAreaView>
+      </SafeAreaView>
+    // </ScrollView>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
+    height: '100%',
     backgroundColor: colors.white,
     paddingHorizontal: 12,
   },
@@ -106,7 +110,8 @@ const styles = StyleSheet.create({
     width: 100,
     resizeMode: "contain",
   },
-  options: {
+  optionsContainer: {
+    marginVertical: 20,
   },
   title: {
     fontFamily: fontFamily.MontserratMedium,
@@ -114,8 +119,11 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
   description: {
+    fontFamily: fontFamily.Montserrat,
+    fontSize: Platform.OS === 'web' ? 16 : 12,
+    marginHorizontal: 10,
   },
-  optionContainer: {
+  foodOptions: {
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: 2,
@@ -126,7 +134,7 @@ const styles = StyleSheet.create({
   optionPrice: {
     fontFamily: fontFamily.MontserratMedium
   },
-  pricesContainer: {
+  priceOptionsContainer: {
     marginTop: 16,
     flexDirection: "row",
     alignItems: "center",
@@ -149,6 +157,7 @@ const styles = StyleSheet.create({
   },
   addToCart: {
     alignSelf: 'center',
+    marginVertical: 20,
     paddingHorizontal: 10,
     paddingVertical: 10,
     borderRadius: 15,
