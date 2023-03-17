@@ -2,6 +2,7 @@ import { Link, Stack } from 'expo-router'
 import { StyleSheet } from 'react-native'
 import { Text, View } from '../ui/Themed'
 import colors from '../ui/colors'
+import fontFamily from '../ui/fontFamily'
 
 export default function NotFoundScreen() {
   return (
@@ -25,7 +26,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   title: {
-    fontFamily: 'MontserratSemiBold',
+    fontFamily: fontFamily.MontserratSemiBold,
     fontSize: 20,
   },
   link: {
@@ -33,7 +34,7 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
   },
   linkText: {
-    fontFamily: 'Montserrat',
+    fontFamily: fontFamily.Montserrat,
     fontSize: 14,
     color: colors.blue,
   },

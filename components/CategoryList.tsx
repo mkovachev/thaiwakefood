@@ -4,6 +4,7 @@ import { Text, View } from '../ui/Themed'
 import { CategoryItem } from '../data/CategoryItem'
 import colors from '../ui/colors'
 import sizes from '../ui/sizes'
+import fontFamily from '../ui/fontFamily'
 
 interface Props {
   categories: CategoryItem[]
@@ -76,7 +77,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   title: {
-    fontFamily: 'MontserratMedium',
+    fontFamily: fontFamily.MontserratMedium,
     fontSize: isWeb ? 16 : 12,
     textAlign: 'center',
     maxWidth: '100%',

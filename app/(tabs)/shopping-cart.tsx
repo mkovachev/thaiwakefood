@@ -6,6 +6,7 @@ import storageKeys from '../../constants/storageKeys'
 import useStorage from '../../context/storage'
 import colors from '../../ui/colors'
 import { View, Text } from '../../ui/Themed'
+import fontFamily from '../../ui/fontFamily'
 
 
 
@@ -49,7 +50,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.transparent,
   },
   titleText: {
-    fontFamily: 'MontserratSemiBold',
+    fontFamily: fontFamily.MontserratSemiBold,
     fontSize: 18,
   }
 })

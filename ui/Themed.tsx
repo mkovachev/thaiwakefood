@@ -6,6 +6,7 @@
 import { Text as DefaultText, useColorScheme, View as DefaultView } from 'react-native'
 
 import colors from './colors'
+import fontFamily from './fontFamily'
 
 export function useThemeColor(
   props: { light?: string; dark?: string },
@@ -33,7 +34,7 @@ export function Text(props: TextProps) {
   const { style, lightColor, darkColor, ...otherProps } = props;
   const color = useThemeColor({ light: lightColor, dark: darkColor }, 'text')
 
-  return <DefaultText style={[{ color }, { fontFamily: 'Montserrat' }, style]} {...otherProps} />
+  return <DefaultText style={[{ color }, { fontFamily: fontFamily.Montserrat }, style]} {...otherProps} />
 }
 
 export function View(props: ViewProps) {

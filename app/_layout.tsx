@@ -62,7 +62,6 @@ function RootLayoutNav() {
       dangerColor={colors.red}
       warningColor={colors.orange}
       normalColor={colors.white}
-      //icon={<Icon />}
       successIcon={<Feather name="check-circle" size={24} color={colors.white} />}
       dangerIcon={<MaterialIcons name="dangerous" size={24} color={colors.white} />}
       warningIcon={<Ionicons name="warning-outline" size={24} color={colors.white} />}

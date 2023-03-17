@@ -3,6 +3,7 @@ import { StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { Feather } from "@expo/vector-icons"
 import colors from "../ui/colors"
 import { useState } from 'react'
+import fontFamily from '../ui/fontFamily'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -53,7 +54,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   title: {
-    fontFamily: 'MontserratBold',
+    fontFamily: fontFamily.MontserratBold,
     marginHorizontal: 10,
   },
   menu: {

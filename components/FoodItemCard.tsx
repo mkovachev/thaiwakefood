@@ -2,15 +2,16 @@ import { Feather } from '@expo/vector-icons'
 import { FoodItemDto } from '../data/FoodItemDto'
 import { Image, StyleSheet, Platform, Dimensions } from 'react-native'
 import { Text, View } from '../ui/Themed'
-import { MaterialIcons } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons'
 import { Link } from 'expo-router'
 import colors from '../ui/colors'
+import fontFamily from '../ui/fontFamily'
 
 interface Props {
   item: FoodItemDto
 }
 
-const { width, height } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window')
 
 const FoodItemCard = ({ item }: Props) => {
 
@@ -65,7 +66,7 @@ const styles = StyleSheet.create({
   orderNumberText: {
     flex: 1,
     marginLeft: 5,
-    fontFamily: 'MontserratMedium',
+    fontFamily: fontFamily.MontserratMedium,
     color: colors.blue,
     fontSize: Platform.OS === 'web' ? 20 : 12,
   },
@@ -75,7 +76,7 @@ const styles = StyleSheet.create({
   title: {
     flex: 1,
     alignSelf: 'center',
-    fontFamily: 'MontserratSemiBold',
+    fontFamily: fontFamily.MontserratSemiBold,
     fontSize: Platform.OS === 'web' ? 20 : 14,
     marginTop: 10,
     marginBottom: 10,
@@ -90,7 +91,7 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
   },
   showDetailsText: {
-    fontFamily: 'MontserratMedium',
+    fontFamily: fontFamily.MontserratMedium,
     marginRight: 5,
     fontSize: Platform.OS === 'web' ? 16 : 14,
   }

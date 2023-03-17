@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { TextInput, StyleSheet, Platform } from 'react-native'
 import { FoodItemDto } from '../data/FoodItemDto'
 import colors from '../ui/colors'
+import fontFamily from '../ui/fontFamily'
 import MenuGrid from './MenuGrid'
 
 interface Props {
@@ -32,7 +33,7 @@ export default SearchBar
 
 const styles = StyleSheet.create({
   textInput: {
-    fontFamily: 'MontserratMedium',
+    fontFamily: fontFamily.MontserratMedium,
     fontSize: Platform.OS === 'web' ? 22 : 16,
     width: Platform.OS === 'web' ? '50%' : '90%',
     height: Platform.OS === 'web' ? 40 : 40,

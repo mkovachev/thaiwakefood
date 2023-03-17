@@ -10,6 +10,7 @@ import { useToast } from 'react-native-toast-notifications'
 import storageKeys from '../constants/storageKeys'
 import useStorage from '../context/storage'
 import { parseShoppingCartItem } from '../utils/parseShoppingCartItem'
+import fontFamily from '../ui/fontFamily'
 
 
 type Props = {
@@ -28,14 +29,11 @@ export const FoodItemDetails = ({ item }: Props) => {
     toast.show(`${shoppingCartItem.title} added to cart!`, { type: "success" })
   }
 
-  console.log(item)
-
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <Image source={{ uri: item.image }} style={styles.image} />
         <Text style={styles.title}>{item.title}</Text>
-        <Text style={styles.description}>{item.description}</Text>
       </View>
 
       <View style={styles.options}>
@@ -69,13 +67,12 @@ export const FoodItemDetails = ({ item }: Props) => {
           </View>
         }
 
-        {item.spicy &&
+        {item.spicy === true &&
           <View style={styles.spicyContainer}>
             <Text style={styles.spicyLabel}>Spicy:</Text>
             <Switch
               value={spicy}
               onValueChange={() => setSpicy(!spicy)}
-              ios_backgroundColor="#3e3e3e"
             />
           </View>
         }
@@ -98,6 +95,8 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-start',
+    padding: 20,
+    gap: 20,
   },
   image: {
     height: 100,
@@ -116,16 +115,15 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   optionContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginVertical: 8,
-    marginTop: 16,
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 2,
   },
   optionLabel: {
     margin: 8,
   },
   optionPrice: {
-
+    fontFamily: fontFamily.MontserratMedium
   },
   pricesContainer: {
     marginTop: 16,
@@ -158,7 +156,7 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
   },
   addToCartText: {
-    fontFamily: 'MontserratMedium',
+    fontFamily: fontFamily.MontserratMedium,
     marginRight: 5,
     fontSize: Platform.OS === 'web' ? 16 : 14,
   }
