@@ -22,7 +22,7 @@ const MenuGrid = ({ data, category }: Props) => {
       data={filteredMenu}
       numColumns={Platform.OS === 'web' ? webColumns : mobileColumns}
       renderItem={({ item }) => (<FoodItemCard item={item} />)}
-      keyExtractor={(item) => item.id.toString()}
+      keyExtractor={(item) => item.id}
       contentContainerStyle={[styles.container, Platform.OS === 'web' && styles.webContainer]}
     />
   )

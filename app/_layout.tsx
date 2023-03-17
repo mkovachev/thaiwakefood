@@ -70,17 +70,17 @@ function RootLayoutNav() {
       offsetTop={30}
       offsetBottom={40}
       swipeEnabled={true}
-     >
-        <QueryClientProvider client={queryClient}>
-          <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-            <PaperProvider>
-              <Stack>
-                <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
-                <Stack.Screen name='menu/[id]' options={{ headerShown: false }} />
-              </Stack>
-            </PaperProvider>
-          </ThemeProvider>
-        </QueryClientProvider>
+    >
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+          <PaperProvider>
+            <Stack>
+              <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
+              <Stack.Screen name='menu/[id]' options={{ headerShown: false, presentation: 'containedModal' }} />
+            </Stack>
+          </PaperProvider>
+        </ThemeProvider>
+      </QueryClientProvider>
     </ToastProvider>
   )
 }
