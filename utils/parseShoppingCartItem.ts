@@ -9,13 +9,14 @@ export const parseShoppingCartItem = (foodItem: FoodItemDto, selectedOption: str
     image: foodItem.image,
   }
 
-  if (selectedOption !== '') {
-    const option = foodItem.options?.find(o => o.label === selectedOption)
-    if (option) {
-      cartItem.option = option.label
-      cartItem.price = option.value
-    }
-  } else if (foodItem.prices && foodItem.prices.length > 0) {
+  const option = foodItem.options?.find(o => o.label === selectedOption)
+
+  if (option) {
+    cartItem.option = option.label
+    cartItem.price = option.value
+  }
+
+  if (foodItem.prices && foodItem.prices.length > 0) {
     cartItem.price = foodItem.prices[0]
   }
 

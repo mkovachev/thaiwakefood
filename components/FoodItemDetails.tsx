@@ -25,14 +25,14 @@ export const FoodItemDetails = ({ item }: Props) => {
   const [spicy, setSpicy] = useState(false)
 
   const handleAddToCart = () => {
-    if (!selectedOption) {
-      toast.show(`Please select an option`, { type: 'danger' })
+    if (item.options && !selectedOption) {
+      toast.show('Please select an option', { type: 'warning' })
       return
     }
-    const shoppingCartItem = parseShoppingCartItem(item, selectedOption)
+    
+    const shoppingCartItem = parseShoppingCartItem(item, selectedOption || '')
     addItem(shoppingCartItem, storageKeys.SHOPPING_CART_KEY)
     toast.show(`${shoppingCartItem.title} added to cart!`, { type: "success" })
-
   }
 
   return (
@@ -66,14 +66,10 @@ export const FoodItemDetails = ({ item }: Props) => {
           </View>
         }
 
-        {!item.options &&
-          <View style={styles.priceOptionsContainer}>
-            {item.prices?.map((price, index) => (
-              <Text key={index} style={styles.prices}>
-                {formatInTHB(price)}
-              </Text>
-            ))}
-          </View>
+        {!item.options && item.prices &&
+          <Text style={styles.price}>
+            Price: {formatInTHB(item.prices[0])}
+          </Text>
         }
 
         {item.spicy &&
@@ -142,9 +138,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
-  prices: {
-    flexDirection: 'row',
-    alignItems: 'center',
+  price: {
+    fontFamily: fontFamily.MontserratMedium,
+    fontSize: Platform.OS === 'web' ? 18 : 14,
+    marginHorizontal: 10,
   },
   spicyContainer: {
     marginTop: 16,

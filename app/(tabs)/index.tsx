@@ -4,7 +4,7 @@ import CategoryList from '../../components/CategoryList'
 import Header from '../../components/Header'
 import SearchBar from '../../components/SearchBar'
 import { useGetCategoryList } from '../../hooks/getCategoryList'
-import { useGetFoodItemList } from '../../hooks/getFoodItemList'
+import { useGetMenu } from '../../hooks/getMenu'
 import { useEffect, useState } from 'react'
 import { CategoryItem } from '../../data/CategoryItem'
 import { View } from '../../ui/Themed'
@@ -18,7 +18,7 @@ export default function HomeScreen() {
 
   // data-fetching hooks
   const { data: categories, isLoading: isLoadingCategories } = useGetCategoryList()
-  const { data: menu, isLoading: isLoadingMenu } = useGetFoodItemList()
+  const { data: menu, isLoading: isLoadingMenu } = useGetMenu()
 
   // hooks that modify state
   useEffect(() => {
