@@ -2,7 +2,7 @@ import React, { } from 'react'
 import { StyleSheet, FlatList, Platform, Dimensions, useWindowDimensions } from 'react-native'
 import { FoodItemDto } from '../data/FoodItemDto'
 import { CategoryItem } from '../data/CategoryItem'
-import FoodItemCard from './FoodItemCard'
+import FoodItemCard from './FoodItemView'
 
 interface Props {
   data: FoodItemDto[]
