@@ -6,12 +6,10 @@ import storageKeys from '../../constants/storageKeys'
 import useStorage from '../../context/storage'
 import { View, Text } from '../../ui/Themed'
 import colors from '../../ui/colors'
-import { useRouter } from 'expo-router'
 
 
 export default function ShoppingCartScreen() {
-  const { getAll, setAll, setItem, removeItem } = useStorage<ShoppingCartItem>(storageKeys.SHOPPING_CART_KEY)
-  const router = useRouter()
+  const { getAll, setAll, removeItem } = useStorage<ShoppingCartItem>(storageKeys.SHOPPING_CART_KEY)
   const [items, setItems] = useState<ShoppingCartItem[]>([])
 
   useEffect(() => {
@@ -24,6 +22,7 @@ export default function ShoppingCartScreen() {
   }, [])
 
   const handleRemoveItem = async (item: ShoppingCartItem) => {
+    console.log(item.id)
     await removeItem(item.id)
     const updatedItems = items.filter(i => i.id !== item.id)
     setItems(updatedItems)
@@ -34,7 +33,7 @@ export default function ShoppingCartScreen() {
     <View style={styles.container}>
       <FlatList
         data={items}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => `${item.id}${item.option}`}
         renderItem={({ item }) =>
           <ShoppingCartItemCard
             item={item}

@@ -1,6 +1,6 @@
-import { Feather } from '@expo/vector-icons'
+import { MaterialIcons, SimpleLineIcons } from '@expo/vector-icons'
 import { Link } from 'expo-router'
-import { StyleSheet, Image, View, Text, TouchableOpacity, Pressable } from 'react-native'
+import { StyleSheet, Image, View, Text, TouchableOpacity } from 'react-native'
 import { ShoppingCartItem } from '../data/ShoppingCartItem'
 import colors from '../ui/colors'
 import { formatInTHB } from '../utils/formatInTHB'
@@ -15,7 +15,7 @@ const ShoppingCartItemCard = ({ item, onRemove }: Props) => {
   return (
     <View style={styles.container}>
       <Image source={{ uri: item.image }} style={styles.image} />
-      <View style={styles.detailsContainer}>
+      <View style={styles.details}>
         <Text style={styles.title}>{item.title}</Text>
         {item.price && <Text style={styles.price}>Price: {formatInTHB(item.price)}</Text>}
         {item.option && <Text style={styles.option}>Option selected: {item.option}</Text>}
@@ -23,16 +23,11 @@ const ShoppingCartItemCard = ({ item, onRemove }: Props) => {
         <Text style={styles.quantity}>Quantity: {item.quantity}</Text>
       </View>
       <View style={styles.actions}>
-        <TouchableOpacity style={styles.more}>
-          <Feather name="more-horizontal" size={24} color={colors.black} />
-        </TouchableOpacity>
-        <Link href={`menu/${item.id}`} style={styles.link}>
-          <TouchableOpacity style={styles.editButton}>
-            <Text style={styles.editButtonText}>Edit</Text>
-          </TouchableOpacity>
+        <Link href={`menu/${item.id}`}>
+          <SimpleLineIcons name="magnifier" size={24} color={colors.blue} />
         </Link>
-        <TouchableOpacity onPress={onRemove} style={styles.removeButton}>
-          <Text style={styles.removeButtonText}>Remove</Text>
+        <TouchableOpacity onPress={onRemove}>
+          <MaterialIcons name="highlight-remove" size={24} color={colors.red} />
         </TouchableOpacity>
       </View>
     </View>
@@ -41,22 +36,19 @@ const ShoppingCartItemCard = ({ item, onRemove }: Props) => {
 
 const styles = StyleSheet.create({
   container: {
-    elevation: 5,
     flexDirection: 'row',
-    marginHorizontal: 10,
+    alignItems: 'flex-start',
     padding: 10,
-    alignItems: 'center',
-    borderRadius: 20,
-    borderBottomColor: colors.black5,
-    borderBottomWidth: .2,
-    backgroundColor: colors.white
+    borderRadius: 10,
+    borderBottomColor: colors.blue,
+    borderBottomWidth: .1,
   },
   image: {
     width: 90,
     height: 80,
     marginRight: 10,
   },
-  detailsContainer: {
+  details: {
     flex: 1,
   },
   title: {
@@ -74,37 +66,10 @@ const styles = StyleSheet.create({
   quantity: {
   },
   actions: {
-    display: 'flex',
-    gap: 8,
+    flexDirection: 'row',
+    margin: 4,
+    gap: 4,
   },
-  link: {
-    //width: '100%',
-  },
-  more: {
-    alignSelf: 'flex-end',
-    padding: 5,
-  },
-  editButton: {
-    width: '100%',
-    backgroundColor: colors.yellow,
-    paddingVertical: 5,
-    paddingHorizontal: 10,
-    borderRadius: 15,
-  },
-  editButtonText: {
-    color: colors.white,
-    textAlign: 'center',
-  },
-  removeButton: {
-    backgroundColor: colors.red,
-    paddingVertical: 5,
-    paddingHorizontal: 10,
-    borderRadius: 15,
-  },
-  removeButtonText: {
-    color: colors.white,
-    textAlign: 'center',
-  }
 })
 
 export default ShoppingCartItemCard

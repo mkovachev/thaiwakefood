@@ -14,9 +14,10 @@ export const parseShoppingCartItem = (foodItem: FoodItemDto, selectedOption: str
   if (option) {
     cartItem.option = option.label
     cartItem.price = option.value
+    cartItem.id += option.label
   }
 
-  if (foodItem.prices && foodItem.prices.length > 0) {
+  if (foodItem.prices && foodItem.prices.length === 1) {
     cartItem.price = foodItem.prices[0]
   }
 

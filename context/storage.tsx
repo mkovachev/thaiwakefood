@@ -6,7 +6,7 @@ export interface StorageInterface<T> {
   getAll: () => Promise<StorageValue<T>[]>
   setAll: (values: StorageValue<T>[]) => Promise<void>
   getItem: (key: string) => Promise<StorageValue<T>>
-  addItem: (value: T extends { id: string, quantity: number } ? T : never, key: string) => Promise<void>
+  addItem: (value: T extends { id: string, quantity: number, option?: string } ? T : never, key: string) => Promise<void>
   setItem: (key: string, value: T) => Promise<void>
   removeItem: (key: string) => Promise<void>
   clear: () => Promise<void>
@@ -50,7 +50,7 @@ export function storage<T>(key: string): StorageInterface<T> {
   }
 
   const addItem = async <T extends { id: string, quantity: number }>(item: T, key: string): Promise<void> => {
-    const cartStorage: StorageInterface<T> = storage(key);
+    const cartStorage: StorageInterface<T> = storage(key)
     const existingItem = await cartStorage.getItem(item.id)
 
     if (existingItem) {
@@ -72,7 +72,7 @@ export function storage<T>(key: string): StorageInterface<T> {
       const data = await AsyncStorage.getItem(key)
       if (data) {
         const parsedData = JSON.parse(data)
-        const newData = parsedData.map((d: any) => (d.id === id ? { ...d, ...value } : d))
+        const newData = parsedData.map((item: any) => (item.id === id ? { ...item, ...value } : item))
         await AsyncStorage.setItem(key, JSON.stringify(newData))
       } else {
         const newData = [{ id, ...value }]
@@ -88,7 +88,7 @@ export function storage<T>(key: string): StorageInterface<T> {
       const data = await AsyncStorage.getItem(key)
       if (data) {
         const parsedData = JSON.parse(data)
-        const newData = parsedData.filter((d: any) => d.id !== id)
+        const newData = parsedData.filter((item: any) => item.id !== id)
         await AsyncStorage.setItem(key, JSON.stringify(newData))
       }
     } catch (error) {

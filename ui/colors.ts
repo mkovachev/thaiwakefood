@@ -1,7 +1,7 @@
-const blue = '#2f95dc';
-const white = '#F9F9FB';
-const black = '#313234';
-const grey = '#CDCDCD';
+const blue = '#2F95DC';
+const white = '#fff';
+const black = '#2C1D31';
+const grey = '#696969 ';
 
 export default {
   light: {
@@ -18,11 +18,10 @@ export default {
     tabIconDefault: grey,
     tabIconSelected: white,
   },
-  white: '#F9F9FB',
-  black: '#313234',
-  black5: 'rgb(49, 50, 52, .5)',
-  grey: '#CDCDCD',
-  blue: '#2f95dc',
+  white: '#fff',
+  black: '#2C1D31',
+  grey: '#696969',
+  blue: '#2F95DC',
   yellow: '#F5CA48',
   red: '#F26C68',
   orange: '#E4723C',
