@@ -7,49 +7,43 @@ import { formatInTHB } from '../utils/formatInTHB'
 
 interface Props {
   item: ShoppingCartItem
-  onEdit: () => void
+  onEdit?: () => void
   onRemove: () => void
 }
 
 const ShoppingCartItemCard = ({ item, onEdit, onRemove }: Props) => {
 
   return (
-    <Link href={`menu/${item.id}`} style={styles.link}>
-      <View style={styles.container}>
 
-        <Image source={{ uri: item.image }} style={styles.image} />
+    <View style={styles.container}>
 
-        <View style={styles.detailsContainer}>
-          <Text style={styles.title}>{item.title}</Text>
-          {item.price && <Text style={styles.price}>Price: {formatInTHB(item.price)}</Text>}
-          {item.option && <Text style={styles.option}>Option selected: {item.option}</Text>}
-          {item.spicy && <Text style={styles.spicy}>{item.spicy}</Text>}
-          <Text style={styles.quantity}>Quantity: {item.quantity}</Text>
-        </View>
+      <Image source={{ uri: item.image }} style={styles.image} />
 
-        <View style={styles.actions}>
+      <View style={styles.detailsContainer}>
+        <Text style={styles.title}>{item.title}</Text>
+        {item.price && <Text style={styles.price}>Price: {formatInTHB(item.price)}</Text>}
+        {item.option && <Text style={styles.option}>Option selected: {item.option}</Text>}
+        {item.spicy && <Text style={styles.spicy}>{item.spicy}</Text>}
+        <Text style={styles.quantity}>Quantity: {item.quantity}</Text>
+      </View>
+
+      <View style={styles.actions}>
+        {/* <Link href={`menu/${item.id}`} style={styles.link}> */}
           <TouchableOpacity onPress={onEdit} style={styles.editButton}>
             <Text style={styles.editButtonText}>Edit</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={onRemove} style={styles.removeButton}>
-            <Text style={styles.removeButtonText}>Remove</Text>
-          </TouchableOpacity>
-        </View>
-
+        {/* </Link> */}
+        <TouchableOpacity onPress={onRemove} style={styles.removeButton}>
+          <Text style={styles.removeButtonText}>Remove</Text>
+        </TouchableOpacity>
       </View>
-    </Link>
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
-  link: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
   container: {
     elevation: 5,
-    //flex: 1,
     flexDirection: 'row',
     marginHorizontal: 10,
     padding: 10,
@@ -85,7 +79,11 @@ const styles = StyleSheet.create({
     display: 'flex',
     gap: 8,
   },
+  link: {
+    width: '100%',
+  },
   editButton: {
+    width: '100%',
     backgroundColor: colors.yellow,
     paddingVertical: 5,
     paddingHorizontal: 10,
