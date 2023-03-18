@@ -4,10 +4,9 @@ import { SplashScreen, Stack } from 'expo-router'
 import React, { useEffect } from 'react'
 import { Platform, useColorScheme } from 'react-native'
 import { QueryClient, QueryClientProvider } from 'react-query'
-import { Feather, FontAwesome5, Ionicons, MaterialIcons } from '@expo/vector-icons'
+import { FontAwesome5 } from '@expo/vector-icons'
 import { Provider as PaperProvider } from 'react-native-paper'
 import { ToastProvider } from 'react-native-toast-notifications'
-import colors from '../ui/colors'
 
 
 export {
