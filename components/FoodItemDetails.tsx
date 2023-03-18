@@ -20,11 +20,11 @@ interface Props {
 
 export const FoodItemDetails = ({ item }: Props) => {
   const toast = useToast()
-  const { addItem } = useStorage<ShoppingCartItem>(storageKeys.SHOPPING_CART_KEY)
+  const { addItem, getAll, setAll } = useStorage<ShoppingCartItem>(storageKeys.SHOPPING_CART_KEY)
   const [selectedOption, setSelectedOption] = useState<string | null>(null)
   const [spicy, setSpicy] = useState(false)
 
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
     if (item.options && !selectedOption) {
       toast.show('Please select an option', { type: 'warning' })
       return
@@ -33,6 +33,11 @@ export const FoodItemDetails = ({ item }: Props) => {
     const shoppingCartItem = parseShoppingCartItem(item, selectedOption || '')
     addItem(shoppingCartItem, storageKeys.SHOPPING_CART_KEY)
     toast.show(`${shoppingCartItem.title} added to cart!`, { type: "success" })
+
+    // const existingCartItems = await getAll()
+    // const updatedCartItems = [...existingCartItems, shoppingCartItem]
+    // console.log(updatedCartItems)
+    // await setAll(items.map(item => item as ShoppingCartItem))
   }
 
   return (

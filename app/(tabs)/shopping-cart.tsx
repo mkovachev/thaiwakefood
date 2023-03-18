@@ -22,11 +22,10 @@ export default function ShoppingCartScreen() {
   }, [])
 
   const handleRemoveItem = async (item: ShoppingCartItem) => {
-    console.log(item.id)
     await removeItem(item.id)
     const updatedItems = items.filter(i => i.id !== item.id)
     setItems(updatedItems)
-    setAll(updatedItems)
+    await setAll(updatedItems)
   }
 
   return (
