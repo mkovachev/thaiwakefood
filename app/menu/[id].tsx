@@ -25,7 +25,13 @@ const FoodItem = () => {
 
   return (
     <View>
-      <Stack.Screen options={{ title: item.title }} />
+      <Stack.Screen
+        options={{
+          title: item.title,
+          presentation: 'modal',
+          headerShown: true
+        }}
+      />
       <View>
         <FoodItemDetails item={item} />
       </View>

@@ -58,7 +58,7 @@ function RootLayoutNav() {
           <PaperProvider>
             <Stack>
               <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
-              <Stack.Screen name='menu/[id]' options={{ headerShown: false, presentation: 'containedModal' }} />
+              <Stack.Screen name='menu/[id]' options={{ headerShown: false, presentation: 'modal' }} />
             </Stack>
           </PaperProvider>
         </ThemeProvider>

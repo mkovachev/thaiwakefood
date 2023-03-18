@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { FoodItemDto } from "../data/FoodItemDto"
-import { StyleSheet, Image, Platform, TouchableOpacity, Switch } from "react-native"
+import { StyleSheet, Image, Platform, Pressable, Switch, TouchableOpacity } from "react-native"
 import { RadioButton } from "react-native-paper"
 import { View, Text } from "../ui/Themed"
 import colors from '../ui/colors'
@@ -20,7 +20,7 @@ interface Props {
 
 export const FoodItemDetails = ({ item }: Props) => {
   const toast = useToast()
-  const { addItem, getAll, setAll } = useStorage<ShoppingCartItem>(storageKeys.SHOPPING_CART_KEY)
+  const { addItem } = useStorage<ShoppingCartItem>(storageKeys.SHOPPING_CART_KEY)
   const [selectedOption, setSelectedOption] = useState<string | null>(null)
   const [spicy, setSpicy] = useState(false)
 
@@ -33,11 +33,6 @@ export const FoodItemDetails = ({ item }: Props) => {
     const shoppingCartItem = parseShoppingCartItem(item, selectedOption || '')
     addItem(shoppingCartItem, storageKeys.SHOPPING_CART_KEY)
     toast.show(`${shoppingCartItem.title} added to cart!`, { type: "success" })
-
-    // const existingCartItems = await getAll()
-    // const updatedCartItems = [...existingCartItems, shoppingCartItem]
-    // console.log(updatedCartItems)
-    // await setAll(items.map(item => item as ShoppingCartItem))
   }
 
   return (
@@ -91,6 +86,10 @@ export const FoodItemDetails = ({ item }: Props) => {
 
       <TouchableOpacity onPress={handleAddToCart} style={styles.addToCart}>
         <Text style={styles.addToCartText}>Add to Cart</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={handleAddToCart} style={styles.addToCart}>
+        <Text style={styles.addToCartText}>Add to Favorites</Text>
       </TouchableOpacity>
 
     </SafeAreaView>

@@ -1,6 +1,6 @@
 import { MaterialIcons, SimpleLineIcons } from '@expo/vector-icons'
 import { Link } from 'expo-router'
-import { StyleSheet, Image, View, Text, TouchableOpacity } from 'react-native'
+import { StyleSheet, Image, View, Text, Pressable } from 'react-native'
 import { ShoppingCartItem } from '../data/ShoppingCartItem'
 import colors from '../ui/colors'
 import { formatInTHB } from '../utils/formatInTHB'
@@ -10,7 +10,7 @@ interface Props {
   onRemove: () => void
 }
 
-const ShoppingCartItemCard = ({ item, onRemove }: Props) => {
+const CartItemView = ({ item, onRemove }: Props) => {
 
   return (
     <View style={styles.container}>
@@ -26,9 +26,9 @@ const ShoppingCartItemCard = ({ item, onRemove }: Props) => {
         <Link href={`menu/${item.id}`}>
           <SimpleLineIcons name="magnifier" size={24} color={colors.blue} />
         </Link>
-        <TouchableOpacity onPress={onRemove}>
+        <Pressable onPress={onRemove}>
           <MaterialIcons name="highlight-remove" size={24} color={colors.red} />
-        </TouchableOpacity>
+        </Pressable>
       </View>
     </View>
   )
@@ -72,4 +72,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default ShoppingCartItemCard
+export default CartItemView

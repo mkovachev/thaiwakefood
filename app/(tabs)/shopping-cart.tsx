@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, FlatList } from 'react-native'
-import ShoppingCartItemCard from '../../components/ShoppingCartItemCard'
+import CartItemView from '../../components/CartItemView'
 import { ShoppingCartItem } from '../../data/ShoppingCartItem'
 import storageKeys from '../../constants/storageKeys'
 import useStorage from '../../context/storage'
@@ -34,7 +34,7 @@ export default function ShoppingCartScreen() {
         data={items}
         keyExtractor={(item) => `${item.id}${item.option}`}
         renderItem={({ item }) =>
-          <ShoppingCartItemCard
+          <CartItemView
             item={item}
             onRemove={() => handleRemoveItem(item)}
           />}
