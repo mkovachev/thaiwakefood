@@ -23,14 +23,6 @@ export default function ShoppingCartScreen() {
     getItems()
   }, [])
 
-  const handleEditItem = async (item: ShoppingCartItem) => {
-    router.push(`/${item.id}`)
-    await setItem(item.id, item)
-    const updatedItems = items.filter(i => i.id !== item.id)
-    setItems(updatedItems)
-    setAll(updatedItems)
-  }
-
   const handleRemoveItem = async (item: ShoppingCartItem) => {
     await removeItem(item.id)
     const updatedItems = items.filter(i => i.id !== item.id)
@@ -46,7 +38,6 @@ export default function ShoppingCartScreen() {
         renderItem={({ item }) =>
           <ShoppingCartItemCard
             item={item}
-            onEdit={() => handleEditItem(item)}
             onRemove={() => handleRemoveItem(item)}
           />}
       />

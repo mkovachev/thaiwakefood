@@ -1,5 +1,5 @@
+import { Feather } from '@expo/vector-icons'
 import { Link } from 'expo-router'
-import React from 'react'
 import { StyleSheet, Image, View, Text, TouchableOpacity, Pressable } from 'react-native'
 import { ShoppingCartItem } from '../data/ShoppingCartItem'
 import colors from '../ui/colors'
@@ -7,18 +7,14 @@ import { formatInTHB } from '../utils/formatInTHB'
 
 interface Props {
   item: ShoppingCartItem
-  onEdit?: () => void
   onRemove: () => void
 }
 
-const ShoppingCartItemCard = ({ item, onEdit, onRemove }: Props) => {
+const ShoppingCartItemCard = ({ item, onRemove }: Props) => {
 
   return (
-
     <View style={styles.container}>
-
       <Image source={{ uri: item.image }} style={styles.image} />
-
       <View style={styles.detailsContainer}>
         <Text style={styles.title}>{item.title}</Text>
         {item.price && <Text style={styles.price}>Price: {formatInTHB(item.price)}</Text>}
@@ -26,13 +22,15 @@ const ShoppingCartItemCard = ({ item, onEdit, onRemove }: Props) => {
         {item.spicy && <Text style={styles.spicy}>{item.spicy}</Text>}
         <Text style={styles.quantity}>Quantity: {item.quantity}</Text>
       </View>
-
       <View style={styles.actions}>
-        {/* <Link href={`menu/${item.id}`} style={styles.link}> */}
-          <TouchableOpacity onPress={onEdit} style={styles.editButton}>
+        <TouchableOpacity style={styles.more}>
+          <Feather name="more-horizontal" size={24} color={colors.black} />
+        </TouchableOpacity>
+        <Link href={`menu/${item.id}`} style={styles.link}>
+          <TouchableOpacity style={styles.editButton}>
             <Text style={styles.editButtonText}>Edit</Text>
           </TouchableOpacity>
-        {/* </Link> */}
+        </Link>
         <TouchableOpacity onPress={onRemove} style={styles.removeButton}>
           <Text style={styles.removeButtonText}>Remove</Text>
         </TouchableOpacity>
@@ -80,7 +78,11 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   link: {
-    width: '100%',
+    //width: '100%',
+  },
+  more: {
+    alignSelf: 'flex-end',
+    padding: 5,
   },
   editButton: {
     width: '100%',

@@ -29,7 +29,7 @@ export const FoodItemDetails = ({ item }: Props) => {
       toast.show('Please select an option', { type: 'warning' })
       return
     }
-    
+
     const shoppingCartItem = parseShoppingCartItem(item, selectedOption || '')
     addItem(shoppingCartItem, storageKeys.SHOPPING_CART_KEY)
     toast.show(`${shoppingCartItem.title} added to cart!`, { type: "success" })
