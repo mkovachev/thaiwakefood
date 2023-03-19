@@ -6,7 +6,7 @@ import useStorage from '../../context/storage'
 import { View } from '../../ui/components/Themed'
 import { SelectedItemView } from '../../components/SelectedItemView'
 import { CartTotal } from '../../components/CartTotal'
-import { NoItemsView } from '../../components/NoItemsView'
+import { EmptyView } from '../../components/EmptyView'
 
 
 export default function ShoppingCartScreen() {
@@ -45,7 +45,7 @@ export default function ShoppingCartScreen() {
             onRemove={() => handleRemoveItem(item)}
           />}
         ListFooterComponent={CartTotal(totalPrice)}
-        ListEmptyComponent={NoItemsView}
+        ListEmptyComponent={EmptyView}
       />
     </View>
   )

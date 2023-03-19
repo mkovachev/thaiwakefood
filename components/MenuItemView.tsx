@@ -19,7 +19,7 @@ interface Props {
   item: FoodItemDto
 }
 
-export const ItemDetailsView = ({ item }: Props) => {
+export const MenuItemView = ({ item }: Props) => {
   const toast = useToast()
   const { addItem } = useStorage<SelectedItem>(storageKeys.shoppingcart)
   const [selectedOption, setSelectedOption] = useState<string | null>(null)
@@ -42,6 +42,7 @@ export const ItemDetailsView = ({ item }: Props) => {
       return
     }
 
+    //TODO:
     item.isFavorite = true
     const shoppingCartItem = parseShoppingCartItem(item, selectedOption || '')
     addItem(shoppingCartItem, storageKeys.favorites)

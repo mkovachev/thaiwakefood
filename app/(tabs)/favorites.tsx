@@ -7,7 +7,7 @@ import useStorage from '../../context/storage'
 import { SelectedItemView } from '../../components/SelectedItemView'
 import { useToast } from 'react-native-toast-notifications'
 import { View } from '../../ui/components/Themed'
-import { NoItemsView } from '../../components/NoItemsView'
+import { EmptyView } from '../../components/EmptyView'
 
 
 export default function FavoritesScreen() {
@@ -47,7 +47,7 @@ export default function FavoritesScreen() {
             onAddToCart={() => handleAddToCart(item)}
             onRemove={() => handleRemoveItem(item)}
           />}
-        ListEmptyComponent={NoItemsView}
+        ListEmptyComponent={EmptyView}
       />
     </View>
   )

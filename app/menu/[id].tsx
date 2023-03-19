@@ -5,7 +5,7 @@ import { FoodItemDto } from '../../data/FoodItemDto'
 import NotFoundScreen from '../[...missing]'
 import useStorage from '../../context/storage'
 import storageKeys from '../../constants/storageKeys'
-import { ItemDetailsView } from '../../components/ItemDetailsView'
+import { MenuItemView } from '../../components/MenuItemView'
 
 
 const FoodItem = () => {
@@ -33,7 +33,7 @@ const FoodItem = () => {
         }}
       />
       <View>
-        <ItemDetailsView item={item} />
+        <MenuItemView item={item} />
       </View>
     </View>
   )

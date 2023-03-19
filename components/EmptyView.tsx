@@ -4,7 +4,7 @@ import { View, Text } from '../ui/components/Themed'
 import { Platform, StyleSheet } from 'react-native'
 import Link from '../ui/components/Link'
 
-export const NoItemsView = () => {
+export const EmptyView = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.noItemsText}>No items added yet</Text>
