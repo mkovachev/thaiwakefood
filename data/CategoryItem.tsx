@@ -1,7 +1,7 @@
 import { CategoryEnum } from "./CategoryEnum"
 
 export interface CategoryItem {
-  id: number
+  id: string
   title: CategoryEnum
   image: string
 }

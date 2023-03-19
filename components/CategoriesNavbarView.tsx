@@ -27,7 +27,7 @@ const CategoriesNavbarView = ({ categories, onActiveCategory }: Props) => {
       onPress={() => item.id !== activeCategory?.id ? handleActiveCategory(item) : handleActiveCategory(null)}
       activeOpacity={0.7}
       style={[
-        styles.itemContainer,
+        styles.category,
         { backgroundColor: item === activeCategory ? colors.yellow : colors.white },
       ]}>
       <Image style={styles.image} source={{ uri: item.image }} />
@@ -40,10 +40,9 @@ const CategoriesNavbarView = ({ categories, onActiveCategory }: Props) => {
       <FlatList
         horizontal
         data={categories}
-        keyExtractor={(item) => item.id.toString()}
+        keyExtractor={(item) => item.id}
         renderItem={renderItem}
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.contentContainer}
       />
     </View>
   )
@@ -52,15 +51,9 @@ const CategoriesNavbarView = ({ categories, onActiveCategory }: Props) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    paddingHorizontal: 5,
-    marginHorizontal: 5,
     overflow: isWeb ? 'scroll' : undefined,
-    minHeight: 100,
   },
-  contentContainer: {
-    paddingHorizontal: 10,
-  },
-  itemContainer: {
+  category: {
     justifyContent: 'space-between',
     alignItems: 'center',
     marginHorizontal: sizes.px5,
@@ -80,7 +73,6 @@ const styles = StyleSheet.create({
     fontFamily: fontFamily.MontserratMedium,
     fontSize: isWeb ? 16 : 12,
     textAlign: 'center',
-    maxWidth: '100%',
   },
 })
 
