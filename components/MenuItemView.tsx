@@ -1,181 +1,88 @@
-import React, { useState } from "react"
-import { FoodItemDto } from "../data/FoodItemDto"
-import { StyleSheet, Image, Platform, Pressable, Switch, TouchableOpacity } from "react-native"
-import { RadioButton } from "react-native-paper"
-import { View, Text } from "../ui/components/Themed"
-import colors from '../ui/colors'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { SelectedItem } from '../data/SelectedItem'
-import { useToast } from 'react-native-toast-notifications'
-import storageKeys from '../constants/storageKeys'
-import useStorage from '../context/storage'
-import { parseShoppingCartItem } from '../utils/parseShoppingCartItem'
-import fontFamily from '../ui/fontFamily'
-import { formatInTHB } from '../utils/formatInTHB'
 import { Feather } from '@expo/vector-icons'
-
+import { FoodItemDto } from '../data/FoodItemDto'
+import { Image, StyleSheet, Platform, Dimensions } from 'react-native'
+import { Text, View } from '../ui/components/Themed'
+import { MaterialIcons } from '@expo/vector-icons'
+import { Link } from 'expo-router'
+import colors from '../ui/colors'
+import fontFamily from '../ui/fontFamily'
 
 interface Props {
   item: FoodItemDto
 }
 
-export const MenuItemView = ({ item }: Props) => {
-  const toast = useToast()
-  const { addItem } = useStorage<SelectedItem>(storageKeys.shoppingcart)
-  const [selectedOption, setSelectedOption] = useState<string | null>(null)
-  const [spicy, setSpicy] = useState(false)
+const { width, height } = Dimensions.get('window')
 
-  const handleAddToCart = async () => {
-    if (item.options && !selectedOption) {
-      toast.show('Please select an option', { type: 'warning' })
-      return
-    }
-
-    const shoppingCartItem = parseShoppingCartItem(item, selectedOption || '')
-    addItem(shoppingCartItem, storageKeys.shoppingcart)
-    toast.show(`${shoppingCartItem.title} added to cart`, { type: "success" })
-  }
-
-  const handleAddToFavorites = async () => {
-    if (item.options && !selectedOption) {
-      toast.show('Please select an option', { type: 'warning' })
-      return
-    }
-
-    //TODO:
-    item.isFavorite = true
-    const shoppingCartItem = parseShoppingCartItem(item, selectedOption || '')
-    addItem(shoppingCartItem, storageKeys.favorites)
-    toast.show(`${shoppingCartItem.title} added to your favorites`, { type: "success" })
-  }
+const MenuItemView = ({ item }: Props) => {
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <Image source={{ uri: item.image }} style={styles.image} />
-        <View style={{ flex: 1 }}>
-          <Text style={styles.title}>{item.title}</Text>
-          <Text style={styles.description}>{item.description}</Text>
-        </View>
+    <View key={item.id} style={styles.container}>
+      <View style={styles.header} >
+        <MaterialIcons name="menu-book" size={Platform.OS === 'web' ? 24 : 16} color={colors.blue} />
+        <Text style={styles.orderNumberText} numberOfLines={1}>
+          {item.id}
+        </Text>
+        <Feather
+          style={styles.favoriteIcon}
+          name="heart"
+          size={Platform.OS === 'web' ? 28 : 18}
+        />
       </View>
-
-      <View style={styles.optionsContainer}>
-
-        {item.options && item.options.length > 0 &&
-          <View>
-            <Text>Choose option:</Text>
-            {item.options.map((option, index) => (
-              <View key={index} style={styles.foodOptions}>
-                <RadioButton
-                  value={option.label}
-                  status={selectedOption === option.label ? 'checked' : 'unchecked'}
-                  color={colors.black}
-                  uncheckedColor={colors.grey}
-                  onPress={() => setSelectedOption(option.label)}
-                />
-                <Text style={styles.optionLabel}>{option.label}</Text>
-                <Text style={styles.optionPrice}>{option.value}</Text>
-              </View>
-            ))}
-          </View>
-        }
-
-        {!item.options && item.prices &&
-          <Text style={styles.price}>
-            Price: {formatInTHB(item.prices[0])}
-          </Text>
-        }
-
-        {item.spicy &&
-          <View style={styles.spicyContainer}>
-            <Text style={styles.spicyLabel}>Spicy:</Text>
-            <Switch
-              value={spicy}
-              onValueChange={() => setSpicy(!spicy)}
-            />
-          </View>
-        }
-
-      </View>
-
-      <View style={styles.actions}>
-        <Pressable onPress={handleAddToCart}>
-          <Feather size={24} name="shopping-bag" color={colors.blue} />
-        </Pressable>
-        <Pressable onPress={handleAddToFavorites}>
-          <Feather size={24} name="heart" color={colors.orange} />
-        </Pressable>
-      </View>
-    </SafeAreaView>
+      <Image style={styles.image} source={{ uri: item.image }} />
+      <Text numberOfLines={3} style={styles.title}>
+        {item.title}
+      </Text>
+      <Link href={`menu/${item.id}`} style={styles.showDetails}>
+        <Text style={styles.showDetailsText}>show details</Text>
+      </Link>
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    height: '100%',
-    backgroundColor: colors.white,
-    paddingHorizontal: 12,
+    flex: 1,
+    padding: 10,
+    borderWidth: .3,
+    borderColor: colors.yellow,
+    borderStyle: 'solid',
+    borderRadius: 15,
+    margin: 10,
+    maxWidth: Platform.OS === 'web' ? window.innerHeight / 2 : width / 2 - 20,
+    height: Platform.OS === 'web' ? window.innerHeight / 3 : height / 3,
+    maxHeight: 500,
+  },
+  image: {
+    width: Platform.OS === 'web' ? window.innerHeight / 3 : width / 3,
+    height: Platform.OS === 'web' ? window.innerHeight / 5 : height / 6,
+    resizeMode: 'contain',
   },
   header: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: 'transparent',
   },
-  image: {
-    height: 100,
-    width: 100,
-    resizeMode: "contain",
+  orderNumberText: {
+    flex: 1,
+    marginLeft: 5,
+    fontFamily: fontFamily.MontserratMedium,
+    color: colors.blue,
+    fontSize: Platform.OS === 'web' ? 20 : 12,
   },
-  optionsContainer: {
-    marginVertical: 20,
+  favoriteIcon: {
+    color: colors.blue
   },
   title: {
-    fontFamily: fontFamily.MontserratMedium,
-    fontSize: Platform.OS === 'web' ? 20 : 16,
-    marginHorizontal: 10,
-  },
-  description: {
-    fontFamily: fontFamily.Montserrat,
-    fontSize: Platform.OS === 'web' ? 16 : 12,
-    marginHorizontal: 10,
-  },
-  foodOptions: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 2,
-  },
-  optionLabel: {
-    margin: 8,
-  },
-  optionPrice: {
-    fontFamily: fontFamily.MontserratMedium
-  },
-  priceOptionsContainer: {
-    marginTop: 16,
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  price: {
-    fontFamily: fontFamily.MontserratMedium,
-    fontSize: Platform.OS === 'web' ? 18 : 14,
-    marginHorizontal: 10,
-  },
-  spicyContainer: {
-    marginTop: 16,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  spicyLabel: {
-    marginRight: 8,
-  },
-  spicy: {
-    fontSize: 16,
-    marginRight: 8,
-  },
-  addToCart: {
+    flex: 1,
     alignSelf: 'center',
-    marginVertical: 20,
+    fontFamily: fontFamily.MontserratSemiBold,
+    fontSize: Platform.OS === 'web' ? 20 : 14,
+    marginTop: 10,
+    marginBottom: 10,
+  },
+  showDetails: {
+    alignSelf: 'center',
     paddingHorizontal: 10,
     paddingVertical: 10,
     borderRadius: 15,
@@ -183,14 +90,11 @@ const styles = StyleSheet.create({
     borderColor: colors.yellow,
     borderStyle: 'solid',
   },
-  addToCartText: {
+  showDetailsText: {
     fontFamily: fontFamily.MontserratMedium,
     marginRight: 5,
     fontSize: Platform.OS === 'web' ? 16 : 14,
-  },
-  actions: {
-    flexDirection: 'row',
-    gap: 8
-
   }
 })
+
+export default MenuItemView

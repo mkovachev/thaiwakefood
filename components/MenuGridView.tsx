@@ -2,7 +2,7 @@ import React, { } from 'react'
 import { StyleSheet, FlatList, Platform, Dimensions, useWindowDimensions } from 'react-native'
 import { FoodItemDto } from '../data/FoodItemDto'
 import { CategoryItem } from '../data/CategoryItem'
-import ItemView from './ItemView'
+import MenuItemView from './MenuItemView'
 
 interface Props {
   data: FoodItemDto[]
@@ -21,7 +21,7 @@ const MenuGridView = ({ data, category }: Props) => {
     <FlatList
       data={filteredMenu}
       numColumns={Platform.OS === 'web' ? webColumns : mobileColumns}
-      renderItem={({ item }) => (<ItemView item={item} />)}
+      renderItem={({ item }) => (<MenuItemView item={item} />)}
       keyExtractor={(item) => item.id}
       contentContainerStyle={[styles.container, Platform.OS === 'web' && styles.webContainer]}
     />
@@ -30,7 +30,6 @@ const MenuGridView = ({ data, category }: Props) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 20,
     paddingBottom: Platform.OS === 'web' ? 100 : 20,
   },
   webContainer: {

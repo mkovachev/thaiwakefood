@@ -35,10 +35,9 @@ const styles = StyleSheet.create({
   textInput: {
     fontFamily: fontFamily.MontserratMedium,
     fontSize: Platform.OS === 'web' ? 22 : 16,
-    width: Platform.OS === 'web' ? '50%' : '90%',
+    width: Platform.OS === 'web' ? '50%' : '95%',
     height: Platform.OS === 'web' ? 40 : 40,
-    marginHorizontal: 30,
-    marginVertical: 10,
+    margin: 10,
     padding: 10,
     color: colors.grey,
     borderRadius: 15,
