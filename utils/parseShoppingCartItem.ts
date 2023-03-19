@@ -1,8 +1,8 @@
 import { FoodItemDto } from '../data/FoodItemDto'
-import { CartItem } from '../data/CartItem'
+import { SelectedItem } from '../data/SelectedItem'
 
 export const parseShoppingCartItem = (foodItem: FoodItemDto, selectedOption: string) => {
-  let cartItem: CartItem = {
+  let cartItem: SelectedItem = {
     id: foodItem.id,
     title: foodItem.title,
     quantity: 1,

@@ -4,9 +4,10 @@
  */
 
 import { Text as DefaultText, useColorScheme, View as DefaultView } from 'react-native'
+import { Link as DefaultLink } from 'expo-router'
 
-import colors from './colors'
-import fontFamily from './fontFamily'
+import colors from '../colors'
+import fontFamily from '../fontFamily'
 
 export function useThemeColor(
   props: { light?: string; dark?: string },
@@ -29,17 +30,22 @@ type ThemeProps = {
 
 export type TextProps = ThemeProps & DefaultText['props']
 export type ViewProps = ThemeProps & DefaultView['props']
+//export type LinkProps = ThemeProps & DefaultLink['props']
 
 export function Text(props: TextProps) {
-  const { style, lightColor, darkColor, ...otherProps } = props;
+  const { style, lightColor, darkColor, ...otherProps } = props
   const color = useThemeColor({ light: lightColor, dark: darkColor }, 'text')
-
   return <DefaultText style={[{ color }, { fontFamily: fontFamily.Montserrat }, style]} {...otherProps} />
 }
 
 export function View(props: ViewProps) {
-  const { style, lightColor, darkColor, ...otherProps } = props;
+  const { style, lightColor, darkColor, ...otherProps } = props
   const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, 'background')
-
   return <DefaultView style={[{ backgroundColor }, style]} {...otherProps} />
 }
+
+// export function Link(props: LinkProps) {
+//   const { style, lightColor, darkColor, ...otherProps } = props
+//   const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, 'background')
+//   return <DefaultLink style={[{ backgroundColor }, style]} {...otherProps} />
+// }

@@ -1,7 +1,7 @@
 import { Text, View } from "@bacons/react-views"
 import { usePathname } from "expo-router"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
-import colors from './colors'
+import colors from '../colors'
 
 export function UrlBar() {
   const pathname = usePathname()

@@ -7,7 +7,7 @@ import { useGetCategoryList } from '../../hooks/getCategoryList'
 import { useGetMenu } from '../../hooks/getMenu'
 import { useEffect, useState } from 'react'
 import { CategoryItem } from '../../data/CategoryItem'
-import { View } from '../../ui/Themed'
+import { View } from '../../ui/components/Themed'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import storageKeys from '../../constants/storageKeys'
 

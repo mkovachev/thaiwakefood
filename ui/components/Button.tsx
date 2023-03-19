@@ -1,6 +1,5 @@
-import React, { ReactNode } from "react"
 import { Pressable, Text, View } from "react-native"
-import colors from './colors'
+import colors from '../colors'
 
 interface Props {
   children: string

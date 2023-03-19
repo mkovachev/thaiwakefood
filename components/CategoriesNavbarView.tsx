@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { FlatList, StyleSheet, Image, TouchableOpacity, Dimensions, Platform } from 'react-native'
-import { Text, View } from '../ui/Themed'
+import { Text, View } from '../ui/components/Themed'
 import { CategoryItem } from '../data/CategoryItem'
 import colors from '../ui/colors'
 import sizes from '../ui/sizes'

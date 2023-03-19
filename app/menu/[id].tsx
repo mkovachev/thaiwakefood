@@ -1,4 +1,4 @@
-import { View } from '../../ui/Themed'
+import { View } from '../../ui/components/Themed'
 import { Stack, useSearchParams } from 'expo-router'
 import { useEffect, useState } from 'react'
 import { FoodItemDto } from '../../data/FoodItemDto'

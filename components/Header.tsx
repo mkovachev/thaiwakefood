@@ -1,4 +1,4 @@
-import { View, Text } from "../ui/Themed"
+import { View, Text } from "../ui/components/Themed"
 import { StyleSheet, Image } from 'react-native'
 import fontFamily from '../ui/fontFamily'
 

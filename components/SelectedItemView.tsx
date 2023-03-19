@@ -1,12 +1,12 @@
 import { Feather, MaterialIcons, SimpleLineIcons } from '@expo/vector-icons'
 import { Link } from 'expo-router'
 import { StyleSheet, Image, View, Text, Pressable } from 'react-native'
-import { CartItem } from '../data/CartItem'
+import { SelectedItem } from '../data/SelectedItem'
 import colors from '../ui/colors'
 import { formatInTHB } from '../utils/formatInTHB'
 
 interface Props {
-  item: CartItem
+  item: SelectedItem
   onRemove: () => void
   onAddToCart?: () => void
 }

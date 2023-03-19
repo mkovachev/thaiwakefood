@@ -1,7 +1,7 @@
 import { Feather } from '@expo/vector-icons'
 import { FoodItemDto } from '../data/FoodItemDto'
 import { Image, StyleSheet, Platform, Dimensions } from 'react-native'
-import { Text, View } from '../ui/Themed'
+import { Text, View } from '../ui/components/Themed'
 import { MaterialIcons } from '@expo/vector-icons'
 import { Link } from 'expo-router'
 import colors from '../ui/colors'

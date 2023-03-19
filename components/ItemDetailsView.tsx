@@ -2,10 +2,10 @@ import React, { useState } from "react"
 import { FoodItemDto } from "../data/FoodItemDto"
 import { StyleSheet, Image, Platform, Pressable, Switch, TouchableOpacity } from "react-native"
 import { RadioButton } from "react-native-paper"
-import { View, Text } from "../ui/Themed"
+import { View, Text } from "../ui/components/Themed"
 import colors from '../ui/colors'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { CartItem } from '../data/CartItem'
+import { SelectedItem } from '../data/SelectedItem'
 import { useToast } from 'react-native-toast-notifications'
 import storageKeys from '../constants/storageKeys'
 import useStorage from '../context/storage'
@@ -21,7 +21,7 @@ interface Props {
 
 export const ItemDetailsView = ({ item }: Props) => {
   const toast = useToast()
-  const { addItem } = useStorage<CartItem>(storageKeys.shoppingcart)
+  const { addItem } = useStorage<SelectedItem>(storageKeys.shoppingcart)
   const [selectedOption, setSelectedOption] = useState<string | null>(null)
   const [spicy, setSpicy] = useState(false)
 

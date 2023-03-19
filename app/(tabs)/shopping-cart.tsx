@@ -1,29 +1,28 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, FlatList } from 'react-native'
-import { CartItem } from '../../data/CartItem'
+import { SelectedItem } from '../../data/SelectedItem'
 import storageKeys from '../../constants/storageKeys'
 import useStorage from '../../context/storage'
-import { View, Text } from '../../ui/Themed'
-import colors from '../../ui/colors'
-import fontFamily from '../../ui/fontFamily'
-import { formatInTHB } from '../../utils/formatInTHB'
+import { View } from '../../ui/components/Themed'
 import { SelectedItemView } from '../../components/SelectedItemView'
+import { CartTotal } from '../../components/CartTotal'
+import { NoItemsView } from '../../components/NoItemsView'
 
 
 export default function ShoppingCartScreen() {
-  const { getAll, setAll, removeItem } = useStorage<CartItem>(storageKeys.shoppingcart)
-  const [items, setItems] = useState<CartItem[]>([])
+  const { getAll, setAll, removeItem } = useStorage<SelectedItem>(storageKeys.shoppingcart)
+  const [items, setItems] = useState<SelectedItem[]>([])
 
   useEffect(() => {
     const getItems = async () => {
       const items = await getAll()
-      setItems(items.map(item => item as CartItem))
+      setItems(items.map(item => item as SelectedItem))
     }
 
     getItems()
   }, [])
 
-  const handleRemoveItem = async (item: CartItem) => {
+  const handleRemoveItem = async (item: SelectedItem) => {
     await removeItem(item.id)
     const updatedItems = items.filter(i => i.id !== item.id)
     setItems(updatedItems)
@@ -33,22 +32,6 @@ export default function ShoppingCartScreen() {
   const totalPrice = items.reduce((total, item) => {
     return total + parseFloat(item.price) * item.quantity
   }, 0)
-
-  const renderFooter = () => {
-    if (totalPrice > 0) {
-      return (
-        <View style={styles.total}>
-          <Text style={styles.totalText}>Total price: {formatInTHB(totalPrice)}</Text>
-        </View>
-      )
-    } else {
-      return (
-        <View style={styles.noItems}>
-          <Text style={styles.noItemsText}>No items in cart</Text>
-        </View>
-      )
-    }
-  };
 
 
   return (
@@ -61,7 +44,8 @@ export default function ShoppingCartScreen() {
             item={item}
             onRemove={() => handleRemoveItem(item)}
           />}
-        ListFooterComponent={renderFooter}
+        ListFooterComponent={CartTotal(totalPrice)}
+        ListEmptyComponent={NoItemsView}
       />
     </View>
   )
@@ -71,23 +55,5 @@ const styles = StyleSheet.create({
   container: {
     height: '100%',
     justifyContent: 'flex-end',
-  },
-  total: {
-    margin: 10,
-    alignItems: 'flex-end',
-  },
-  totalText: {
-    fontFamily: fontFamily.MontserratMedium,
-    fontSize: 16,
-  },
-  noItems: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  noItemsText: {
-    fontFamily: fontFamily.MontserratMedium,
-    fontSize: 20,
-    color: colors.blue,
-  },
+  }
 })

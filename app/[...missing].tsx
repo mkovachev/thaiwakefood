@@ -1,6 +1,6 @@
 import { Link, Stack } from 'expo-router'
 import { StyleSheet } from 'react-native'
-import { Text, View } from '../ui/Themed'
+import { Text, View } from '../ui/components/Themed'
 import colors from '../ui/colors'
 import fontFamily from '../ui/fontFamily'
 

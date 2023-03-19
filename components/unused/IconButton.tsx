@@ -1,5 +1,5 @@
 import { Pressable, StyleSheet } from 'react-native'
-import { Text } from '../../ui/Themed'
+import { Text } from '../../ui/components/Themed'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 import colors from '../../ui/colors'
 import { ComponentProps } from 'react'
@@ -29,4 +29,4 @@ const styles = StyleSheet.create({
     color: colors.white,
     marginTop: 12,
   },
-});
+})
