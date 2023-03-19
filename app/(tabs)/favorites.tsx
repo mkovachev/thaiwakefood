@@ -20,7 +20,6 @@ export default function FavoritesScreen() {
       const items = await getAll()
       setItems(items.map(item => item as SelectedItem))
     }
-
     getItems()
   }, [])
 

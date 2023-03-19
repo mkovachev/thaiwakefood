@@ -18,7 +18,6 @@ export default function ShoppingCartScreen() {
       const items = await getAll()
       setItems(items.map(item => item as SelectedItem))
     }
-
     getItems()
   }, [])
 
