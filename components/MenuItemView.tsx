@@ -98,16 +98,6 @@ export const MenuItemView = ({ item }: Props) => {
 
       </View>
 
-      {/* <View style={styles.actions}>
-        <TouchableOpacity onPress={handleAddToCart} style={styles.addToCart}>
-          <Text style={styles.addToCartText}>Add to Cart</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={handleAddToFavorites} style={styles.addToCart}>
-          <Text style={styles.addToCartText}>Add to Favorites</Text>
-        </TouchableOpacity>
-      </View> */}
-
       <View style={styles.actions}>
         <Pressable onPress={handleAddToCart}>
           <Feather size={24} name="shopping-bag" color={colors.blue} />
