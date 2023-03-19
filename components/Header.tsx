@@ -8,7 +8,7 @@ export default function Header() {
     <View style={styles.container}>
       <Image
         style={styles.logo}
-        source={require('../assets/images/logoTWP.png')}
+        source={require('../assets/images/logo.png')}
       />
       <Text style={styles.title}>THAI WAKE PARK - TWP Lumlukka</Text>
     </View>

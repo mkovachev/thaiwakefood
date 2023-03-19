@@ -10,5 +10,4 @@ export interface MenuItem {
   options?: Option[]
   prices?: string[]
   spicy: boolean
-  isFavorite: boolean
 }

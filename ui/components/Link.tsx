@@ -7,11 +7,13 @@ import { Link as ExpoLink } from 'expo-router'
 interface Props {
   url: string
   text: string
+  children?: React.ReactNode
 }
 
-const Link = ({ url, text }: Props) => {
+const Link = ({ url, text, children }: Props) => {
   return (
     <ExpoLink href={url} style={styles.container}>
+      {children}
       <Text style={styles.linkText}>{text}</Text>
     </ExpoLink>
   )

@@ -15,24 +15,33 @@ const isWeb = Platform.OS === 'web'
 
 const NavbarView = ({ categories, onActiveCategory }: Props) => {
   const [activeCategory, setActiveCategory] = useState<CategoryItem | null>(null)
+  
+  const image = categories.find(c => c)?.image
+  console.log(image)
+  console.log(typeof image)
+
 
   const handleActiveCategory = (category: CategoryItem | null) => {
     setActiveCategory(category)
     onActiveCategory(category)
   }
 
-  const renderItem = ({ item }: { item: CategoryItem }) => (
-    <TouchableOpacity
-      onPress={() => item.id !== activeCategory?.id ? handleActiveCategory(item) : handleActiveCategory(null)}
-      activeOpacity={0.7}
-      style={[
-        styles.category,
-        { backgroundColor: item === activeCategory ? colors.yellow : colors.white },
-      ]}>
-      <Image style={styles.image} source={{ uri: item.image }} />
-      <Text style={styles.title}>{item.title}</Text>
-    </TouchableOpacity>
-  )
+  const renderItem = ({ item }: { item: CategoryItem }) => {
+
+    return (
+      <TouchableOpacity
+        onPress={() => item.id !== activeCategory?.id ? handleActiveCategory(item) : handleActiveCategory(null)}
+        activeOpacity={0.7}
+        style={[
+          styles.category,
+          { backgroundColor: item === activeCategory ? colors.yellow : colors.white },
+        ]}>
+        <Image style={styles.image} source={require('../assets/images/fast-food.png')} />
+        <Text style={styles.title}>{item.title}</Text>
+      </TouchableOpacity>
+    )
+  };
+
 
   return (
     <View style={styles.container}>

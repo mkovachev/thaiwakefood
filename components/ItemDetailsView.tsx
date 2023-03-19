@@ -9,7 +9,7 @@ import { SelectedItem } from '../data/SelectedItem'
 import { useToast } from 'react-native-toast-notifications'
 import storageKeys from '../constants/storageKeys'
 import useStorage from '../context/storage'
-import { parseShoppingCartItem } from '../utils/parseShoppingCartItem'
+import { parseSelectedItem } from '../utils/parseSelectedItem'
 import fontFamily from '../ui/fontFamily'
 import { formatInTHB } from '../utils/formatInTHB'
 import { Feather } from '@expo/vector-icons'
@@ -31,9 +31,9 @@ export const ItemDetailsView = ({ item }: Props) => {
       return
     }
 
-    const shoppingCartItem = parseShoppingCartItem(item, selectedOption || '')
-    addItem(shoppingCartItem, storageKeys.shoppingcart)
-    toast.show(`${shoppingCartItem.title} added to cart`, { type: "success" })
+    const selectedItem = parseSelectedItem(item, selectedOption || '')
+    addItem(selectedItem, storageKeys.shoppingcart)
+    toast.show(`${selectedItem.title} added to cart`, { type: "success" })
   }
 
   const handleAddToFavorites = async () => {
@@ -42,16 +42,16 @@ export const ItemDetailsView = ({ item }: Props) => {
       return
     }
 
-    item.isFavorite = true
-    const shoppingCartItem = parseShoppingCartItem(item, selectedOption || '')
-    addItem(shoppingCartItem, storageKeys.favorites)
-    toast.show(`${shoppingCartItem.title} added to your favorites`, { type: "success" })
+    const selectedItem = parseSelectedItem(item, selectedOption || '')
+    selectedItem.isFavorite = true
+    addItem(selectedItem, storageKeys.favorites)
+    toast.show(`${selectedItem.title} added to your favorites`, { type: "success" })
   }
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <Image source={{ uri: item.image }} style={styles.image} />
+        <Image style={styles.image} source={require('../assets/images/fast-food.png')} />
         <View style={{ flex: 1 }}>
           <Text style={styles.title}>{item.title}</Text>
           <Text style={styles.description}>{item.description}</Text>

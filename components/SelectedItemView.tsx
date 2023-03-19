@@ -1,4 +1,4 @@
-import { Feather, MaterialIcons, SimpleLineIcons } from '@expo/vector-icons'
+import { Feather, MaterialIcons } from '@expo/vector-icons'
 import { Link } from 'expo-router'
 import { StyleSheet, Image, View, Text, Pressable } from 'react-native'
 import { SelectedItem } from '../data/SelectedItem'
@@ -9,15 +9,16 @@ interface Props {
   item: SelectedItem
   onRemove: () => void
   onAddToCart?: () => void
+  isInFavorites?: boolean
 }
 
-export const SelectedItemView = ({ item, onRemove, onAddToCart }: Props) => {
+export const SelectedItemView = ({ item, onRemove, onAddToCart, isInFavorites }: Props) => {
 
   return (
     <View style={styles.container}>
-      <Link style={styles.link} href={`menu/${item.id}`}>
+      <Link href={`menu/${item.id}`}>
         <View style={styles.imageContainer}>
-          <Image source={{ uri: item.image }} style={styles.image} />
+          <Image style={styles.image} source={require('../assets/images/fast-food.png')} />
         </View>
       </Link>
       <View style={styles.details}>
@@ -31,8 +32,7 @@ export const SelectedItemView = ({ item, onRemove, onAddToCart }: Props) => {
         <Pressable onPress={onRemove} style={{ flex: 1 }}>
           <MaterialIcons name="highlight-remove" size={24} color={colors.red} />
         </Pressable>
-
-        {item.isFavorite &&
+        {isInFavorites &&
           <Pressable onPress={onAddToCart}>
             <Feather size={24} name="shopping-bag" color={colors.blue} />
           </Pressable>
@@ -54,13 +54,16 @@ const styles = StyleSheet.create({
   link: {
   },
   imageContainer: {
+    alignItems: 'center',
+    width: 100,
+    height: 100,
+    marginRight: 10,
     overflow: 'hidden'
   },
   image: {
-    width: 90,
-    height: 80,
-    marginRight: 10,
-    overflow: 'hidden'
+    width: '100%',
+    height: '100%',
+    resizeMode: 'contain'
   },
   details: {
     flex: 1,
