@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native'
-import MenuGrid from '../../components/MenuGrid'
+import MenuGridView from '../../components/MenuGridView'
 import CategoriesNavbarView from '../../components/CategoriesNavbarView'
 import Header from '../../components/Header'
 import SearchBar from '../../components/SearchBar'
@@ -42,7 +42,7 @@ export default function HomeScreen() {
       <Header />
       <CategoriesNavbarView categories={categories} onActiveCategory={setActiveCategory} />
       <SearchBar items={menu} />
-      <MenuGrid data={menu} category={activeCategory} />
+      <MenuGridView data={menu} category={activeCategory} />
     </View>
   )
 }

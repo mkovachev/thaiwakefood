@@ -5,7 +5,7 @@ import { CartItem } from '../../data/CartItem'
 import colors from '../../ui/colors'
 import { Text, View } from '../../ui/Themed'
 import useStorage from '../../context/storage'
-import { FavoritesView } from '../../components/FavoritesView'
+import { SelectedItemView } from '../../components/SelectedItemView'
 import { useToast } from 'react-native-toast-notifications'
 
 
@@ -35,13 +35,17 @@ export default function FavoritesScreen() {
     await setAll(updatedItems)
   }
 
+  const addToCart = () => {
+
+  }
+
   return (
     <View style={styles.container}>
       <FlatList
         data={items}
         keyExtractor={(item) => `${item.id}${item.option}`}
         renderItem={({ item }) =>
-          <FavoritesView
+          <SelectedItemView
             item={item}
             onAddToCart={() => handleAddToCart(item)}
             onRemove={() => handleRemoveItem(item)}

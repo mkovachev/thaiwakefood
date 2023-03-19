@@ -42,6 +42,7 @@ export const ItemDetailsView = ({ item }: Props) => {
       return
     }
 
+    item.isFavorite = true
     const shoppingCartItem = parseShoppingCartItem(item, selectedOption || '')
     addItem(shoppingCartItem, storageKeys.favorites)
     toast.show(`${shoppingCartItem.title} added to your favorites`, { type: "success" })

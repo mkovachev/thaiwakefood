@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, FlatList } from 'react-native'
-import CartItemView from '../../components/CartItemView'
 import { CartItem } from '../../data/CartItem'
 import storageKeys from '../../constants/storageKeys'
 import useStorage from '../../context/storage'
@@ -8,6 +7,7 @@ import { View, Text } from '../../ui/Themed'
 import colors from '../../ui/colors'
 import fontFamily from '../../ui/fontFamily'
 import { formatInTHB } from '../../utils/formatInTHB'
+import { SelectedItemView } from '../../components/SelectedItemView'
 
 
 export default function ShoppingCartScreen() {
@@ -34,11 +34,22 @@ export default function ShoppingCartScreen() {
     return total + parseFloat(item.price) * item.quantity
   }, 0)
 
-  const TotalFooter = () => (
-    <View style={styles.total}>
-      <Text style={styles.totalText}>Total: {formatInTHB(totalPrice)}</Text>
-    </View>
-  )
+  const renderFooter = () => {
+    if (totalPrice > 0) {
+      return (
+        <View style={styles.total}>
+          <Text style={styles.totalText}>Total price: {formatInTHB(totalPrice)}</Text>
+        </View>
+      )
+    } else {
+      return (
+        <View style={styles.noItems}>
+          <Text style={styles.noItemsText}>No items in cart</Text>
+        </View>
+      )
+    }
+  };
+
 
   return (
     <View style={styles.container}>
@@ -46,11 +57,11 @@ export default function ShoppingCartScreen() {
         data={items}
         keyExtractor={(item) => `${item.id}${item.option}`}
         renderItem={({ item }) =>
-          <CartItemView
+          <SelectedItemView
             item={item}
             onRemove={() => handleRemoveItem(item)}
           />}
-        ListFooterComponent={TotalFooter}
+        ListFooterComponent={renderFooter}
       />
     </View>
   )
@@ -68,5 +79,15 @@ const styles = StyleSheet.create({
   totalText: {
     fontFamily: fontFamily.MontserratMedium,
     fontSize: 16,
-  }
+  },
+  noItems: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  noItemsText: {
+    fontFamily: fontFamily.MontserratMedium,
+    fontSize: 20,
+    color: colors.blue,
+  },
 })

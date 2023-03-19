@@ -3,7 +3,7 @@ import { TextInput, StyleSheet, Platform } from 'react-native'
 import { FoodItemDto } from '../data/FoodItemDto'
 import colors from '../ui/colors'
 import fontFamily from '../ui/fontFamily'
-import MenuGrid from './MenuGrid'
+import MenuGridView from './MenuGridView'
 
 interface Props {
   items: FoodItemDto[]
@@ -24,7 +24,7 @@ const SearchBar = ({ items }: Props) => {
         value={searchInput}
         placeholder="Search..."
       />
-      {searchInput && <MenuGrid data={filteredItems} />}
+      {searchInput && <MenuGridView data={filteredItems} />}
     </>
   )
 }

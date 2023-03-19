@@ -10,4 +10,5 @@ export interface FoodItemDto {
   options?: Option[]
   prices?: string[]
   spicy: boolean
+  isFavorite: boolean
 }

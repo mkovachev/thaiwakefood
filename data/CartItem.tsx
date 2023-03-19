@@ -5,5 +5,6 @@ export interface CartItem {
   image: string
   option?: string
   price: string
-  spicy?: boolean
+  spicy: boolean
+  isFavorite: boolean
 }

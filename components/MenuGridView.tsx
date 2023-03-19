@@ -10,7 +10,7 @@ interface Props {
   handleShowDetails?: (item: FoodItemDto) => void
 }
 
-const MenuGrid = ({ data, category }: Props) => {
+const MenuGridView = ({ data, category }: Props) => {
   const { width } = useWindowDimensions()
   const mobileColumns = Math.floor(width / 150)
   const webColumns = Math.floor(window.innerWidth / 400)
@@ -38,4 +38,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default MenuGrid
+export default MenuGridView
