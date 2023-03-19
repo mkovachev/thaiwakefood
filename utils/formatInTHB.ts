@@ -1,4 +1,4 @@
-export const formatInTHB = (price: string) =>
+export const formatInTHB = (price: number | string) =>
   new Intl.NumberFormat(
     'th-TH',
     { style: 'currency', currency: 'THB' })

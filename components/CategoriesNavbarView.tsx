@@ -14,7 +14,7 @@ interface Props {
 const { width } = Dimensions.get('window')
 const isWeb = Platform.OS === 'web'
 
-const CategoryList = ({ categories, onActiveCategory }: Props) => {
+const CategoriesNavbarView = ({ categories, onActiveCategory }: Props) => {
   const [activeCategory, setActiveCategory] = useState<CategoryItem | null>(null)
 
   const handleActiveCategory = (category: CategoryItem | null) => {
@@ -84,4 +84,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default CategoryList
+export default CategoriesNavbarView

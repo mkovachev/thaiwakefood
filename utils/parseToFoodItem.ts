@@ -1,7 +1,7 @@
 import { FoodItemDto } from '../data/FoodItemDto'
-import { ShoppingCartItem } from '../data/ShoppingCartItem'
+import { CartItem } from '../data/CartItem'
 
-export const  parseToFoodItem = (cartItem: ShoppingCartItem) => {
+export const parseToFoodItem = (cartItem: CartItem) => {
   const foodItem: FoodItemDto = {
     id: cartItem.id,
     title: cartItem.title,

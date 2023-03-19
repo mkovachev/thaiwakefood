@@ -5,22 +5,23 @@ import { RadioButton } from "react-native-paper"
 import { View, Text } from "../ui/Themed"
 import colors from '../ui/colors'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { ShoppingCartItem } from '../data/ShoppingCartItem'
+import { CartItem } from '../data/CartItem'
 import { useToast } from 'react-native-toast-notifications'
 import storageKeys from '../constants/storageKeys'
 import useStorage from '../context/storage'
 import { parseShoppingCartItem } from '../utils/parseShoppingCartItem'
 import fontFamily from '../ui/fontFamily'
 import { formatInTHB } from '../utils/formatInTHB'
+import { Feather } from '@expo/vector-icons'
 
 
 interface Props {
   item: FoodItemDto
 }
 
-export const FoodItemDetails = ({ item }: Props) => {
+export const ItemDetailsView = ({ item }: Props) => {
   const toast = useToast()
-  const { addItem } = useStorage<ShoppingCartItem>(storageKeys.SHOPPING_CART_KEY)
+  const { addItem } = useStorage<CartItem>(storageKeys.shoppingcart)
   const [selectedOption, setSelectedOption] = useState<string | null>(null)
   const [spicy, setSpicy] = useState(false)
 
@@ -31,8 +32,19 @@ export const FoodItemDetails = ({ item }: Props) => {
     }
 
     const shoppingCartItem = parseShoppingCartItem(item, selectedOption || '')
-    addItem(shoppingCartItem, storageKeys.SHOPPING_CART_KEY)
-    toast.show(`${shoppingCartItem.title} added to cart!`, { type: "success" })
+    addItem(shoppingCartItem, storageKeys.shoppingcart)
+    toast.show(`${shoppingCartItem.title} added to cart`, { type: "success" })
+  }
+
+  const handleAddToFavorites = async () => {
+    if (item.options && !selectedOption) {
+      toast.show('Please select an option', { type: 'warning' })
+      return
+    }
+
+    const shoppingCartItem = parseShoppingCartItem(item, selectedOption || '')
+    addItem(shoppingCartItem, storageKeys.favorites)
+    toast.show(`${shoppingCartItem.title} added to your favorites`, { type: "success" })
   }
 
   return (
@@ -84,14 +96,24 @@ export const FoodItemDetails = ({ item }: Props) => {
 
       </View>
 
-      <TouchableOpacity onPress={handleAddToCart} style={styles.addToCart}>
-        <Text style={styles.addToCartText}>Add to Cart</Text>
-      </TouchableOpacity>
+      {/* <View style={styles.actions}>
+        <TouchableOpacity onPress={handleAddToCart} style={styles.addToCart}>
+          <Text style={styles.addToCartText}>Add to Cart</Text>
+        </TouchableOpacity>
 
-      <TouchableOpacity onPress={handleAddToCart} style={styles.addToCart}>
-        <Text style={styles.addToCartText}>Add to Favorites</Text>
-      </TouchableOpacity>
+        <TouchableOpacity onPress={handleAddToFavorites} style={styles.addToCart}>
+          <Text style={styles.addToCartText}>Add to Favorites</Text>
+        </TouchableOpacity>
+      </View> */}
 
+      <View style={styles.actions}>
+        <Pressable onPress={handleAddToCart}>
+          <Feather size={24} name="shopping-bag" color={colors.blue} />
+        </Pressable>
+        <Pressable onPress={handleAddToFavorites}>
+          <Feather size={24} name="heart" color={colors.orange} />
+        </Pressable>
+      </View>
     </SafeAreaView>
   )
 }
@@ -173,5 +195,10 @@ const styles = StyleSheet.create({
     fontFamily: fontFamily.MontserratMedium,
     marginRight: 5,
     fontSize: Platform.OS === 'web' ? 16 : 14,
+  },
+  actions: {
+    flexDirection: 'row',
+    gap: 8
+
   }
 })

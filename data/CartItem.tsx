@@ -1,9 +1,9 @@
-export interface ShoppingCartItem {
+export interface CartItem {
   id: string
   title: string
   quantity: number
   image: string
   option?: string
-  price?: string
+  price: string
   spicy?: boolean
 }

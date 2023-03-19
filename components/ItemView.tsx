@@ -13,7 +13,7 @@ interface Props {
 
 const { width, height } = Dimensions.get('window')
 
-const FoodItemCard = ({ item }: Props) => {
+const ItemView = ({ item }: Props) => {
 
   return (
     <View key={item.id} style={styles.container}>
@@ -97,4 +97,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default FoodItemCard
+export default ItemView

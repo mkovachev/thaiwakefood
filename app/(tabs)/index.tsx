@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native'
 import MenuGrid from '../../components/MenuGrid'
-import CategoryList from '../../components/CategoryList'
+import CategoriesNavbarView from '../../components/CategoriesNavbarView'
 import Header from '../../components/Header'
 import SearchBar from '../../components/SearchBar'
 import { useGetCategoryList } from '../../hooks/getCategoryList'
@@ -23,13 +23,13 @@ export default function HomeScreen() {
   // hooks that modify state
   useEffect(() => {
     if (categories && !isLoadingCategories) {
-      AsyncStorage.setItem(storageKeys.CATEGORIES_KEY, JSON.stringify(categories))
+      AsyncStorage.setItem(storageKeys.categories, JSON.stringify(categories))
     }
   }, [categories, isLoadingCategories])
 
   useEffect(() => {
     if (menu && !isLoadingMenu) {
-      AsyncStorage.setItem(storageKeys.MENU_KEY, JSON.stringify(menu))
+      AsyncStorage.setItem(storageKeys.menu, JSON.stringify(menu))
     }
   }, [menu, isLoadingMenu])
 
@@ -40,7 +40,7 @@ export default function HomeScreen() {
   return (
     <View style={styles.container}>
       <Header />
-      <CategoryList categories={categories} onActiveCategory={setActiveCategory} />
+      <CategoriesNavbarView categories={categories} onActiveCategory={setActiveCategory} />
       <SearchBar items={menu} />
       <MenuGrid data={menu} category={activeCategory} />
     </View>

@@ -5,12 +5,12 @@ import { FoodItemDto } from '../../data/FoodItemDto'
 import NotFoundScreen from '../[...missing]'
 import useStorage from '../../context/storage'
 import storageKeys from '../../constants/storageKeys'
-import { FoodItemDetails } from '../../components/FoodItemDetails'
+import { ItemDetailsView } from '../../components/ItemDetailsView'
 
 
 const FoodItem = () => {
   const { id } = useSearchParams()
-  const { getItem } = useStorage<FoodItemDto>(storageKeys.MENU_KEY)
+  const { getItem } = useStorage<FoodItemDto>(storageKeys.menu)
   const [item, setItem] = useState<FoodItemDto | null>(null)
 
   useEffect(() => {
@@ -33,7 +33,7 @@ const FoodItem = () => {
         }}
       />
       <View>
-        <FoodItemDetails item={item} />
+        <ItemDetailsView item={item} />
       </View>
     </View>
   )

@@ -1,16 +1,17 @@
-import { MaterialIcons, SimpleLineIcons } from '@expo/vector-icons'
+import { Feather, MaterialIcons, SimpleLineIcons } from '@expo/vector-icons'
 import { Link } from 'expo-router'
 import { StyleSheet, Image, View, Text, Pressable } from 'react-native'
-import { ShoppingCartItem } from '../data/ShoppingCartItem'
+import { CartItem } from '../data/CartItem'
 import colors from '../ui/colors'
 import { formatInTHB } from '../utils/formatInTHB'
 
 interface Props {
-  item: ShoppingCartItem
+  item: CartItem
   onRemove: () => void
+  onAddToCart: () => void
 }
 
-export const FavoritesView = ({ item, onRemove }: Props) => {
+export const FavoritesView = ({ item, onRemove, onAddToCart }: Props) => {
 
   return (
     <View style={styles.container}>
@@ -24,8 +25,11 @@ export const FavoritesView = ({ item, onRemove }: Props) => {
       </View>
       <View style={styles.actions}>
         <Link href={`menu/${item.id}`}>
-          <SimpleLineIcons name="magnifier" size={24} color={colors.blue} />
+          <SimpleLineIcons name="magnifier" size={24} color={colors.yellow} />
         </Link>
+        <Pressable onPress={onAddToCart}>
+          <Feather size={24} name="shopping-bag" color={colors.blue} />
+        </Pressable>
         <Pressable onPress={onRemove}>
           <MaterialIcons name="highlight-remove" size={24} color={colors.red} />
         </Pressable>
