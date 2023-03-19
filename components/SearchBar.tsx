@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { TextInput, StyleSheet, Platform } from 'react-native'
-import { FoodItemDto } from '../data/FoodItemDto'
+import { MenuItem } from '../data/MenuItem'
 import colors from '../ui/colors'
 import fontFamily from '../ui/fontFamily'
 import MenuGridView from './MenuGridView'
 
 interface Props {
-  items: FoodItemDto[]
+  items: MenuItem[]
 }
 
 const SearchBar = ({ items }: Props) => {

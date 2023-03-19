@@ -1,14 +1,14 @@
 import { Feather } from '@expo/vector-icons'
-import { FoodItemDto } from '../data/FoodItemDto'
+import { MenuItem } from '../data/MenuItem'
 import { Image, StyleSheet, Platform, Dimensions } from 'react-native'
 import { Text, View } from '../ui/components/Themed'
 import { MaterialIcons } from '@expo/vector-icons'
-import { Link } from 'expo-router'
 import colors from '../ui/colors'
 import fontFamily from '../ui/fontFamily'
+import Link from '../ui/components/Link'
 
 interface Props {
-  item: FoodItemDto
+  item: MenuItem
 }
 
 const { width, height } = Dimensions.get('window')
@@ -32,9 +32,7 @@ const MenuItemView = ({ item }: Props) => {
       <Text numberOfLines={3} style={styles.title}>
         {item.title}
       </Text>
-      <Link href={`menu/${item.id}`} style={styles.showDetails}>
-        <Text style={styles.showDetailsText}>show details</Text>
-      </Link>
+      <Link url={`menu/${item.id}`} text='show details' />
     </View>
   )
 }
@@ -42,6 +40,7 @@ const MenuItemView = ({ item }: Props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: 'center',
     padding: 10,
     borderWidth: .3,
     borderColor: colors.yellow,
@@ -75,20 +74,16 @@ const styles = StyleSheet.create({
   },
   title: {
     flex: 1,
-    alignSelf: 'center',
     fontFamily: fontFamily.MontserratSemiBold,
     fontSize: Platform.OS === 'web' ? 20 : 14,
     marginTop: 10,
     marginBottom: 10,
   },
   showDetails: {
-    alignSelf: 'center',
-    paddingHorizontal: 10,
-    paddingVertical: 10,
+    padding: 10,
     borderRadius: 15,
-    borderWidth: 1,
+    borderWidth: .5,
     borderColor: colors.yellow,
-    borderStyle: 'solid',
   },
   showDetailsText: {
     fontFamily: fontFamily.MontserratMedium,

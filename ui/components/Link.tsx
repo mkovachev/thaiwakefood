@@ -10,7 +10,6 @@ interface Props {
 }
 
 const Link = ({ url, text }: Props) => {
-  console.log(url)
   return (
     <ExpoLink href={url} style={styles.container}>
       <Text style={styles.linkText}>{text}</Text>

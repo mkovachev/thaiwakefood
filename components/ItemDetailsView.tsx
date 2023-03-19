@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { FoodItemDto } from "../data/FoodItemDto"
+import { MenuItem } from "../data/MenuItem"
 import { StyleSheet, Image, Platform, Pressable, Switch, TouchableOpacity } from "react-native"
 import { RadioButton } from "react-native-paper"
 import { View, Text } from "../ui/components/Themed"
@@ -16,7 +16,7 @@ import { Feather } from '@expo/vector-icons'
 
 
 interface Props {
-  item: FoodItemDto
+  item: MenuItem
 }
 
 export const ItemDetailsView = ({ item }: Props) => {

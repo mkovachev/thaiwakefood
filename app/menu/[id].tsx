@@ -1,7 +1,7 @@
 import { View } from '../../ui/components/Themed'
 import { Stack, useSearchParams } from 'expo-router'
 import { useEffect, useState } from 'react'
-import { FoodItemDto } from '../../data/FoodItemDto'
+import { MenuItem } from '../../data/MenuItem'
 import NotFoundScreen from '../[...missing]'
 import useStorage from '../../context/storage'
 import storageKeys from '../../constants/storageKeys'
@@ -10,8 +10,8 @@ import { ItemDetailsView } from '../../components/ItemDetailsView'
 
 const FoodItem = () => {
   const { id } = useSearchParams()
-  const { getItem } = useStorage<FoodItemDto>(storageKeys.menu)
-  const [item, setItem] = useState<FoodItemDto | null>(null)
+  const { getItem } = useStorage<MenuItem>(storageKeys.menu)
+  const [item, setItem] = useState<MenuItem | null>(null)
 
   useEffect(() => {
     const getItemById = async () => {

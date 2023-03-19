@@ -1,8 +1,8 @@
-import { FoodItemDb } from '../data/FoodItemDb'
-import { FoodItemDto } from '../data/FoodItemDto'
+import { MenuItemDb } from '../data/MenuItemDb'
+import { MenuItem } from '../data/MenuItem'
 import { Option } from '../data/Option'
 
-export const parseMenu = (data: FoodItemDb[]): FoodItemDto[] => {
+export const parseMenu = (data: MenuItemDb[]): MenuItem[] => {
   return data.map(item => {
     const options: Option[] = []
     const prices: string[] = []

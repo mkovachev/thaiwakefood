@@ -1,6 +1,6 @@
 import { CategoryEnum } from "./CategoryEnum"
 
-export interface FoodItemDb {
+export interface MenuItemDb {
   id: string
   title: string
   description: string

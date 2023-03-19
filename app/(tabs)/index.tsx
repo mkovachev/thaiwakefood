@@ -1,10 +1,10 @@
 import { StyleSheet } from 'react-native'
 import MenuGridView from '../../components/MenuGridView'
-import CategoriesNavbarView from '../../components/CategoriesNavbarView'
+import NavbarView from '../../components/NavbarView'
 import Header from '../../components/Header'
 import SearchBar from '../../components/SearchBar'
-import { useGetCategoryList } from '../../hooks/getCategoryList'
-import { useGetMenu } from '../../hooks/getMenu'
+import { useCategories } from '../../hooks/useCategories'
+import { useMenu } from '../../hooks/useMenu'
 import { useEffect, useState } from 'react'
 import { CategoryItem } from '../../data/CategoryItem'
 import { View } from '../../ui/components/Themed'
@@ -17,8 +17,8 @@ export default function HomeScreen() {
   const [activeCategory, setActiveCategory] = useState<CategoryItem | null>(null)
 
   // data-fetching hooks
-  const { data: categories, isLoading: isLoadingCategories } = useGetCategoryList()
-  const { data: menu, isLoading: isLoadingMenu } = useGetMenu()
+  const { data: categories, isLoading: isLoadingCategories } = useCategories()
+  const { data: menu, isLoading: isLoadingMenu } = useMenu()
 
   // hooks that modify state
   useEffect(() => {
@@ -40,7 +40,7 @@ export default function HomeScreen() {
   return (
     <View style={styles.container}>
       <Header />
-      <CategoriesNavbarView categories={categories} onActiveCategory={setActiveCategory} />
+      <NavbarView categories={categories} onActiveCategory={setActiveCategory} />
       <SearchBar items={menu} />
       <MenuGridView data={menu} category={activeCategory} />
     </View>

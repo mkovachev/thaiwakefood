@@ -1,13 +1,13 @@
 import React, { } from 'react'
 import { StyleSheet, FlatList, Platform, Dimensions, useWindowDimensions } from 'react-native'
-import { FoodItemDto } from '../data/FoodItemDto'
+import { MenuItem } from '../data/MenuItem'
 import { CategoryItem } from '../data/CategoryItem'
 import MenuItemView from './MenuItemView'
 
 interface Props {
-  data: FoodItemDto[]
+  data: MenuItem[]
   category?: CategoryItem | null
-  handleShowDetails?: (item: FoodItemDto) => void
+  handleShowDetails?: (item: MenuItem) => void
 }
 
 const MenuGridView = ({ data, category }: Props) => {

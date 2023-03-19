@@ -3,7 +3,6 @@ import { FlatList, StyleSheet, Image, TouchableOpacity, Dimensions, Platform } f
 import { Text, View } from '../ui/components/Themed'
 import { CategoryItem } from '../data/CategoryItem'
 import colors from '../ui/colors'
-import sizes from '../ui/sizes'
 import fontFamily from '../ui/fontFamily'
 
 interface Props {
@@ -14,7 +13,7 @@ interface Props {
 const { width } = Dimensions.get('window')
 const isWeb = Platform.OS === 'web'
 
-const CategoriesNavbarView = ({ categories, onActiveCategory }: Props) => {
+const NavbarView = ({ categories, onActiveCategory }: Props) => {
   const [activeCategory, setActiveCategory] = useState<CategoryItem | null>(null)
 
   const handleActiveCategory = (category: CategoryItem | null) => {
@@ -54,26 +53,23 @@ const styles = StyleSheet.create({
     overflow: isWeb ? 'scroll' : undefined,
   },
   category: {
-    justifyContent: 'space-between',
     alignItems: 'center',
-    marginHorizontal: sizes.px5,
-    paddingVertical: sizes.px5,
-    borderRadius: sizes.px20,
+    marginHorizontal: 5,
+    paddingVertical: 5,
+    borderRadius: 15,
     width: isWeb ? width / 10 : 'auto',
-    height: isWeb ? width / 10 : 100,
+    height: isWeb ? width / 10 : width / 3,
     minWidth: 70,
   },
   image: {
-    width: isWeb ? '70%' : '60%',
-    height: isWeb ? '80%' : '70%',
+    width: '100%',
+    height: '90%',
     resizeMode: 'contain',
-    marginBottom: 5,
   },
   title: {
     fontFamily: fontFamily.MontserratMedium,
     fontSize: isWeb ? 16 : 12,
-    textAlign: 'center',
   },
 })
 
-export default CategoriesNavbarView
+export default NavbarView
