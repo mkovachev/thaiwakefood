@@ -19,19 +19,11 @@ const MenuItemView = ({ item }: Props) => {
     <View key={item.id} style={styles.container}>
       <View style={styles.header} >
         <MaterialIcons name="menu-book" size={Platform.OS === 'web' ? 24 : 16} color={colors.blue} />
-        <Text style={styles.orderNumberText} numberOfLines={1}>
-          {item.id}
-        </Text>
-        <Feather
-          style={styles.favoriteIcon}
-          name="heart"
-          size={Platform.OS === 'web' ? 28 : 18}
-        />
+        <Text style={styles.orderNumberText} numberOfLines={1}>{item.id}</Text>
+        <Feather style={styles.favoriteIcon} name="heart" size={Platform.OS === 'web' ? 28 : 18} />
       </View>
       <Image style={styles.image} source={{ uri: item.image }} />
-      <Text numberOfLines={3} style={styles.title}>
-        {item.title}
-      </Text>
+      <Text numberOfLines={3} style={styles.title}>{item.title}</Text>
       <Link url={`menu/${item.id}`} text='show details' />
     </View>
   )
@@ -41,15 +33,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    padding: 10,
-    borderWidth: .3,
-    borderColor: colors.yellow,
-    borderStyle: 'solid',
-    borderRadius: 15,
-    margin: 10,
+    maxHeight: 600,
+    height: height / 3,
     maxWidth: Platform.OS === 'web' ? window.innerHeight / 2 : width / 2 - 20,
-    height: Platform.OS === 'web' ? window.innerHeight / 3 : height / 3,
-    maxHeight: 500,
+    margin: 10,
+    padding: 10,
+    borderWidth: .5,
+    borderColor: colors.yellow,
+    borderRadius: 15,
   },
   image: {
     width: Platform.OS === 'web' ? window.innerHeight / 3 : width / 3,
@@ -57,10 +48,10 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   header: {
-    display: 'flex',
+    alignSelf: 'flex-start',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    backgroundColor: 'transparent',
+    backgroundColor: colors.transparent,
   },
   orderNumberText: {
     flex: 1,
@@ -70,6 +61,7 @@ const styles = StyleSheet.create({
     fontSize: Platform.OS === 'web' ? 20 : 12,
   },
   favoriteIcon: {
+    alignSelf: 'flex-end', //TODO: not working on web
     color: colors.blue
   },
   title: {
