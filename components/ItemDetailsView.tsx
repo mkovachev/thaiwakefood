@@ -43,7 +43,6 @@ export const ItemDetailsView = ({ item }: Props) => {
     }
 
     const selectedItem = parseSelectedItem(item, selectedOption || '')
-    selectedItem.isFavorite = true
     addItem(selectedItem, storageKeys.favorites)
     toast.show(`${selectedItem.title} added to your favorites`, { type: "success" })
   }
@@ -54,7 +53,6 @@ export const ItemDetailsView = ({ item }: Props) => {
         <Image style={styles.image} source={require('../assets/images/fast-food.png')} />
         <View style={{ flex: 1 }}>
           <Text style={styles.title}>{item.title}</Text>
-          <Text style={styles.description}>{item.description}</Text>
         </View>
       </View>
 
@@ -79,9 +77,9 @@ export const ItemDetailsView = ({ item }: Props) => {
           </View>
         }
 
-        {!item.options && item.prices &&
+        {!item.options && item.price &&
           <Text style={styles.price}>
-            Price: {formatInTHB(item.prices[0])}
+            Price: {formatInTHB(item.price)}
           </Text>
         }
 

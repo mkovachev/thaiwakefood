@@ -6,7 +6,7 @@ export interface StorageInterface<T> {
   getAll: () => Promise<StorageValue<T>[]>
   setAll: (values: StorageValue<T>[]) => Promise<void>
   getItem: (key: string) => Promise<StorageValue<T>>
-  addItem: (value: T extends { id: string, quantity: number, isFavorite: boolean } ? T : never, key: string) => Promise<void>
+  addItem: (value: T extends { id: string, amount: number } ? T : never, key: string) => Promise<void>
   setItem: (key: string, value: T) => Promise<void>
   removeItem: (key: string) => Promise<void>
   clear: () => Promise<void>
@@ -49,19 +49,14 @@ export function storage<T>(key: string): StorageInterface<T> {
     return null
   }
 
-  const addItem = async <T extends { id: string, quantity: number, isFavorite: boolean }>(item: T, key: string): Promise<void> => {
+  const addItem = async <T extends { id: string, amount: number }>(item: T, key: string): Promise<void> => {
     const cartStorage: StorageInterface<T> = storage(key)
     const existingItem = await cartStorage.getItem(item.id)
 
     if (existingItem) {
-      const newQuantity = existingItem.quantity + item.quantity
-      const updatedItem: T = {
-        ...existingItem,
-        quantity: newQuantity
-      }
-      await cartStorage.setItem(item.id, updatedItem)
+      existingItem.amount += item.amount
+      await cartStorage.setItem(item.id, existingItem)
     } else {
-      item.isFavorite = true
       const items = await cartStorage.getAll() || []
       items.push(item)
       await AsyncStorage.setItem(key, JSON.stringify(items))

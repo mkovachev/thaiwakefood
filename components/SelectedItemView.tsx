@@ -1,18 +1,22 @@
-import { Feather, MaterialIcons } from '@expo/vector-icons'
+import { AntDesign, Feather, MaterialIcons } from '@expo/vector-icons'
 import { Link } from 'expo-router'
+import { useState } from 'react'
 import { StyleSheet, Image, View, Text, Pressable } from 'react-native'
 import { SelectedItem } from '../data/SelectedItem'
 import colors from '../ui/colors'
+import fontFamily from '../ui/fontFamily'
 import { formatInTHB } from '../utils/formatInTHB'
 
 interface Props {
   item: SelectedItem
   onRemove: () => void
   onAddToCart?: () => void
+  onAmountIncrease?: () => void
+  onAmountDecrease?: () => void
   isInFavorites?: boolean
 }
 
-export const SelectedItemView = ({ item, onRemove, onAddToCart, isInFavorites }: Props) => {
+export const SelectedItemView = ({ item, onRemove, onAddToCart, onAmountIncrease, onAmountDecrease, isInFavorites }: Props) => {
 
   return (
     <View style={styles.container}>
@@ -26,7 +30,15 @@ export const SelectedItemView = ({ item, onRemove, onAddToCart, isInFavorites }:
         {item.option && <Text>Option: {item.option}</Text>}
         {item.spicy && <Text>Spicy: Yes</Text>}
         <Text>Price: {formatInTHB(item.price)}</Text>
-        <Text>Quantity: {item.quantity}</Text>
+        <View style={styles.quantity}>
+          <Pressable onPress={onAmountDecrease}>
+            <AntDesign name="leftcircleo" size={20} color="black" />
+          </Pressable>
+          <Text style={styles.quantityText}>{item.amount}</Text>
+          <Pressable onPress={onAmountIncrease}>
+            <AntDesign name="rightcircleo" size={20} color="black" />
+          </Pressable>
+        </View>
       </View>
       <View>
         <Pressable onPress={onRemove} style={{ flex: 1 }}>
@@ -57,7 +69,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: 100,
     height: 100,
-    marginRight: 10,
     overflow: 'hidden'
   },
   image: {
@@ -67,6 +78,16 @@ const styles = StyleSheet.create({
   },
   details: {
     flex: 1,
-    gap: 5
+    marginLeft: 15,
+    gap: 8
   },
+  quantity: {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: 8,
+  },
+  quantityText: {
+    fontFamily: fontFamily.MontserratMedium,
+    fontSize: 16
+  }
 })

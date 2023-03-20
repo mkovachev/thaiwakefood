@@ -15,11 +15,6 @@ const isWeb = Platform.OS === 'web'
 
 const NavbarView = ({ categories, onActiveCategory }: Props) => {
   const [activeCategory, setActiveCategory] = useState<CategoryItem | null>(null)
-  
-  const image = categories.find(c => c)?.image
-  console.log(image)
-  console.log(typeof image)
-
 
   const handleActiveCategory = (category: CategoryItem | null) => {
     setActiveCategory(category)

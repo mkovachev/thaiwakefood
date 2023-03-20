@@ -1,10 +1,9 @@
 export interface SelectedItem {
   id: string
   title: string
-  quantity: number
+  amount: number
   image: string
   option?: string
-  price: string
+  price: number
   spicy: boolean
-  isFavorite: boolean
 }

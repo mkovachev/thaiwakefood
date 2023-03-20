@@ -12,7 +12,7 @@ import { EmptyView } from '../../components/EmptyView'
 
 export default function FavoritesScreen() {
   const toast = useToast()
-  const { getAll, setAll, addItem, removeItem } = useStorage<SelectedItem>(storageKeys.favorites)
+  const { getAll, setAll, addItem, setItem, removeItem } = useStorage<SelectedItem>(storageKeys.favorites)
   const [items, setItems] = useState<SelectedItem[]>([])
 
   useEffect(() => {
@@ -35,6 +35,17 @@ export default function FavoritesScreen() {
     await setAll(updatedItems)
   }
 
+  const handleItemAmountDecrease = async (item: SelectedItem) => {
+    if (item.amount === 1) return
+    item.amount -= 1
+    await setItem(item.id, item)
+  }
+
+  const handleItemAmountIncrease = async (item: SelectedItem) => {
+    item.amount += 1
+    await setItem(item.id, item)
+  }
+
   return (
     <View style={styles.container}>
       <FlatList
@@ -45,6 +56,8 @@ export default function FavoritesScreen() {
             item={item}
             onAddToCart={() => handleAddToCart(item)}
             onRemove={() => handleRemoveItem(item)}
+            onAmountDecrease={() => handleItemAmountDecrease(item)}
+            onAmountIncrease={() => handleItemAmountIncrease(item)}
             isInFavorites={true}
           />}
         ListEmptyComponent={EmptyView}

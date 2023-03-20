@@ -10,7 +10,7 @@ import { EmptyView } from '../../components/EmptyView'
 
 
 export default function ShoppingCartScreen() {
-  const { getAll, setAll, removeItem } = useStorage<SelectedItem>(storageKeys.shoppingcart)
+  const { getAll, setAll, setItem, removeItem } = useStorage<SelectedItem>(storageKeys.shoppingcart)
   const [items, setItems] = useState<SelectedItem[]>([])
 
   useEffect(() => {
@@ -28,10 +28,20 @@ export default function ShoppingCartScreen() {
     await setAll(updatedItems)
   }
 
-  const totalPrice = items.reduce((total, item) => {
-    return total + parseFloat(item.price) * item.quantity
-  }, 0)
+  const handleItemAmountDecrease = async (item: SelectedItem) => {
+    if (item.amount === 1) return
+    item.amount -= 1
+    await setItem(item.id, item)
+  }
 
+  const handleItemAmountIncrease = async (item: SelectedItem) => {
+    item.amount += 1
+    await setItem(item.id, item)
+  }
+
+  const cartTotal = items.reduce((total, item) => {
+    return total + (item.price * item.amount)
+  }, 0)
 
   return (
     <View style={styles.container}>
@@ -42,8 +52,10 @@ export default function ShoppingCartScreen() {
           <SelectedItemView
             item={item}
             onRemove={() => handleRemoveItem(item)}
+            onAmountDecrease={() => handleItemAmountDecrease(item)}
+            onAmountIncrease={() => handleItemAmountIncrease(item)}
           />}
-        ListFooterComponent={CartTotal(totalPrice)}
+        ListFooterComponent={CartTotal(cartTotal)}
         ListEmptyComponent={EmptyView}
       />
     </View>
