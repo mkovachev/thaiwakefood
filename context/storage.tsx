@@ -34,7 +34,6 @@ export function storage<T>(key: string): StorageInterface<T> {
     }
   }
 
-
   const getItem = async (id: string): Promise<StorageValue<T>> => {
     try {
       const data = await AsyncStorage.getItem(key)

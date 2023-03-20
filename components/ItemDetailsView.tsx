@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { MenuItem } from "../data/MenuItem"
-import { StyleSheet, Image, Platform, Pressable, Switch, TouchableOpacity } from "react-native"
+import { StyleSheet, Image, Platform, Pressable, Switch } from "react-native"
 import { RadioButton } from "react-native-paper"
 import { View, Text } from "../ui/components/Themed"
 import colors from '../ui/colors'
@@ -20,31 +20,26 @@ interface Props {
 }
 
 export const ItemDetailsView = ({ item }: Props) => {
-  const toast = useToast()
   const { addItem } = useStorage<SelectedItem>(storageKeys.shoppingcart)
   const [selectedOption, setSelectedOption] = useState<string | null>(null)
   const [spicy, setSpicy] = useState(false)
 
   const handleAddToCart = async () => {
     if (item.options && !selectedOption) {
-      toast.show('Please select an option', { type: 'warning' })
       return
     }
 
     const selectedItem = parseSelectedItem(item, selectedOption || '')
     addItem(selectedItem, storageKeys.shoppingcart)
-    toast.show(`${selectedItem.title} added to cart`, { type: "success" })
   }
 
   const handleAddToFavorites = async () => {
     if (item.options && !selectedOption) {
-      toast.show('Please select an option', { type: 'warning' })
       return
     }
 
     const selectedItem = parseSelectedItem(item, selectedOption || '')
     addItem(selectedItem, storageKeys.favorites)
-    toast.show(`${selectedItem.title} added to your favorites`, { type: "success" })
   }
 
   return (

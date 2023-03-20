@@ -2,17 +2,14 @@ import { useState, useEffect } from 'react'
 import { FlatList, StyleSheet } from 'react-native'
 import storageKeys from '../../constants/storageKeys'
 import { SelectedItem } from '../../data/SelectedItem'
-import colors from '../../ui/colors'
 import useStorage from '../../context/storage'
 import { SelectedItemView } from '../../components/SelectedItemView'
-import { useToast } from 'react-native-toast-notifications'
 import { View } from '../../ui/components/Themed'
 import { EmptyView } from '../../components/EmptyView'
 
 
 export default function FavoritesScreen() {
-  const toast = useToast()
-  const { getAll, setAll, addItem, setItem, removeItem } = useStorage<SelectedItem>(storageKeys.favorites)
+  const { getAll, addItem, setItem, removeItem } = useStorage<SelectedItem>(storageKeys.favorites)
   const [items, setItems] = useState<SelectedItem[]>([])
 
   useEffect(() => {
@@ -25,25 +22,35 @@ export default function FavoritesScreen() {
 
   const handleAddToCart = async (item: SelectedItem) => {
     addItem(item, storageKeys.shoppingcart)
-    toast.show(`${item.title} added to cart`, { type: "success" })
   }
 
   const handleRemoveItem = async (item: SelectedItem) => {
     await removeItem(item.id)
     const updatedItems = items.filter(i => i.id !== item.id)
     setItems(updatedItems)
-    await setAll(updatedItems)
   }
 
   const handleItemAmountDecrease = async (item: SelectedItem) => {
     if (item.amount === 1) return
     item.amount -= 1
     await setItem(item.id, item)
+    setItems(prevItems => {
+      const updatedItems = [...prevItems]
+      const index = updatedItems.findIndex(i => i.id === item.id)
+      updatedItems[index] = item
+      return updatedItems
+    })
   }
 
   const handleItemAmountIncrease = async (item: SelectedItem) => {
     item.amount += 1
     await setItem(item.id, item)
+    setItems(prevItems => {
+      const updatedItems = [...prevItems]
+      const index = updatedItems.findIndex(i => i.id === item.id)
+      updatedItems[index] = item
+      return updatedItems
+    })
   }
 
   return (
@@ -60,7 +67,7 @@ export default function FavoritesScreen() {
             onAmountIncrease={() => handleItemAmountIncrease(item)}
             isInFavorites={true}
           />}
-        ListEmptyComponent={EmptyView}
+        ListEmptyComponent={<EmptyView />}
       />
     </View>
   )
