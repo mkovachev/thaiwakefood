@@ -62,7 +62,6 @@ export default function ShoppingCartScreen() {
         keyExtractor={(item) => `${item.id}${item.option}`}
         renderItem={({ item }) =>
           <SelectedItemView
-            key={`${item.id}${item.option}${item.amount}`}
             item={item}
             onRemove={() => handleRemoveItem(item)}
             onAmountDecrease={() => handleItemAmountDecrease(item)}
