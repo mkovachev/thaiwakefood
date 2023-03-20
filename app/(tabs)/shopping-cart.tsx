@@ -64,7 +64,6 @@ export default function ShoppingCartScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    height: '100%',
-    justifyContent: 'flex-end',
+    flex: 1,
   }
 })
