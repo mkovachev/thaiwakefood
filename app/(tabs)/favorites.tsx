@@ -26,31 +26,17 @@ export default function FavoritesScreen() {
     setItems(updatedItems)
   }
 
+  const handleItemAmountChange = (item: CartItem, amountChange: number) => {
+    const updatedItem = { ...item, amount: item.amount + amountChange }
+
+    if (updatedItem.amount < 1) return
+
+    store.updateById(item.id, updatedItem)
+    setItems(items => items.map(i => i.id === updatedItem.id ? updatedItem : i))
+  }
+
   const handleAddToCart = (item: CartItem) => {
     store.addItem(item)
-  }
-
-  const handleItemAmountDecrease = (item: CartItem) => {
-    if (item.amount === 1) return
-    item.amount -= 1
-    store.updateById(item.id, item)
-    setItems(prevItems => {
-      const updatedItems = [...prevItems]
-      const index = updatedItems.findIndex(i => i.id === item.id)
-      updatedItems[index] = item
-      return updatedItems
-    })
-  }
-
-  const handleItemAmountIncrease = (item: CartItem) => {
-    item.amount += 1
-    store.updateById(item.id, item)
-    setItems(prevItems => {
-      const updatedItems = [...prevItems]
-      const index = updatedItems.findIndex(i => i.id === item.id)
-      updatedItems[index] = item
-      return updatedItems
-    })
   }
 
   return (
@@ -61,10 +47,8 @@ export default function FavoritesScreen() {
         renderItem={({ item }) =>
           <CartItemView
             item={item}
-            onAddToCart={() => handleAddToCart(item)}
             onRemove={() => handleRemoveItem(item)}
-            onAmountDecrease={() => handleItemAmountDecrease(item)}
-            onAmountIncrease={() => handleItemAmountIncrease(item)}
+            onAmountChange={(newAmount) => handleItemAmountChange(item, newAmount - item.amount)}
             isInFavorites={true}
           />}
         ListEmptyComponent={<EmptyView />}

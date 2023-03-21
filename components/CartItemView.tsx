@@ -10,12 +10,11 @@ interface Props {
   item: CartItem
   onRemove: () => void
   onAddToCart?: () => void
-  onAmountIncrease?: () => void
-  onAmountDecrease?: () => void
+  onAmountChange: (newAmount: number) => void
   isInFavorites?: boolean
 }
 
-export const CartItemView = ({ item, onRemove, onAddToCart, onAmountIncrease, onAmountDecrease, isInFavorites }: Props) => {
+export const CartItemView = ({ item, onRemove, onAddToCart, onAmountChange, isInFavorites }: Props) => {
 
   return (
     <View style={styles.container}>
@@ -30,11 +29,11 @@ export const CartItemView = ({ item, onRemove, onAddToCart, onAmountIncrease, on
         {item.spicy && <Text>Spicy: Yes</Text>}
         <Text>Price: {formatInTHB(item.price)}</Text>
         <View style={styles.quantity}>
-          <Pressable onPress={onAmountDecrease}>
+          <Pressable onPress={() => onAmountChange(item.amount - 1)}>
             <AntDesign name="leftcircleo" size={20} color="black" />
           </Pressable>
           <Text style={styles.quantityText}>{item.amount}</Text>
-          <Pressable onPress={onAmountIncrease}>
+          <Pressable onPress={() => onAmountChange(item.amount + 1)}>
             <AntDesign name="rightcircleo" size={20} color="black" />
           </Pressable>
         </View>

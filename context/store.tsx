@@ -23,7 +23,7 @@ type StoreData = {
   [key in StoreName]: MMKV
 }
 
-type Store<T> = {
+export type Store<T> = {
   storeName: StoreName
   operations: StoreOperations<T>
 }

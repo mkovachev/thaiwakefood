@@ -26,32 +26,19 @@ export default function ShoppingCartScreen() {
     setItems(updatedItems)
   }
 
-  const handleItemAmountDecrease = (item: CartItem) => {
-    if (item.amount === 1) return
-    item.amount -= 1
-    store.updateById(item.id, item)
-    setItems(prevItems => {
-      const updatedItems = [...prevItems]
-      const index = updatedItems.findIndex(i => i.id === item.id)
-      updatedItems[index] = item
-      return updatedItems
-    })
+  const handleItemAmountChange = (item: CartItem, amountChange: number) => {
+    const updatedItem = { ...item, amount: item.amount + amountChange }
+
+    if (updatedItem.amount < 1) return
+
+    store.updateById(item.id, updatedItem)
+    setItems(items => items.map(i => i.id === updatedItem.id ? updatedItem : i))
   }
 
-  const handleItemAmountIncrease = (item: CartItem) => {
-    item.amount += 1
-    store.updateById(item.id, item)
-    setItems(prevItems => {
-      const updatedItems = [...prevItems]
-      const index = updatedItems.findIndex(i => i.id === item.id)
-      updatedItems[index] = item
-      return updatedItems
-    })
-  }
 
   const cartTotal = items.length > 0 ? items.reduce((total, item) => {
     return total + (item.price * item.amount)
-  }, 0) : 0;
+  }, 0) : 0
 
 
   return (
@@ -63,8 +50,7 @@ export default function ShoppingCartScreen() {
           <CartItemView
             item={item}
             onRemove={() => handleRemoveItem(item)}
-            onAmountDecrease={() => handleItemAmountDecrease(item)}
-            onAmountIncrease={() => handleItemAmountIncrease(item)}
+            onAmountChange={(newAmount) => handleItemAmountChange(item, newAmount - item.amount)}
           />}
         ListFooterComponent={<CartTotal total={cartTotal} />}
         ListEmptyComponent={<EmptyView />}

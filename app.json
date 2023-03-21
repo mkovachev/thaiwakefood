@@ -32,6 +32,12 @@
         "babel": {}
       }
     },
-    "plugins": []
+    "plugins": [],
+    "extra": {
+      "eas": {
+        "projectId": "1c7b77d7-2964-4837-9371-d5d760eb22d0"
+      }
+    },
+    "owner": "kitewake"
   }
 }
