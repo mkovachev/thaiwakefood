@@ -5,14 +5,11 @@ import { RadioButton } from "react-native-paper"
 import { View, Text } from "../ui/components/Themed"
 import colors from '../ui/colors'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { SelectedItem } from '../data/SelectedItem'
-import { useToast } from 'react-native-toast-notifications'
-import storageKeys from '../constants/storageKeys'
-import useStorage from '../context/storage'
-import { parseSelectedItem } from '../utils/parseSelectedItem'
+import { parseCartItem } from '../utils/parseCartItem'
 import fontFamily from '../ui/fontFamily'
 import { formatInTHB } from '../utils/formatInTHB'
 import { Feather } from '@expo/vector-icons'
+import { cart, favorites } from '../context/store'
 
 
 interface Props {
@@ -20,7 +17,8 @@ interface Props {
 }
 
 export const ItemDetailsView = ({ item }: Props) => {
-  const { addItem } = useStorage<SelectedItem>(storageKeys.shoppingcart)
+  const { operations: cartStore } = cart
+  const { operations: favoritesStore } = favorites
   const [selectedOption, setSelectedOption] = useState<string | null>(null)
   const [spicy, setSpicy] = useState(false)
 
@@ -29,8 +27,8 @@ export const ItemDetailsView = ({ item }: Props) => {
       return
     }
 
-    const selectedItem = parseSelectedItem(item, selectedOption || '')
-    addItem(selectedItem, storageKeys.shoppingcart)
+    const cartItem = parseCartItem(item, selectedOption || '')
+    cartStore.addItem(cartItem)
   }
 
   const handleAddToFavorites = async () => {
@@ -38,8 +36,8 @@ export const ItemDetailsView = ({ item }: Props) => {
       return
     }
 
-    const selectedItem = parseSelectedItem(item, selectedOption || '')
-    addItem(selectedItem, storageKeys.favorites)
+    const cartItem = parseCartItem(item, selectedOption || '')
+    favoritesStore.addItem(cartItem)
   }
 
   return (

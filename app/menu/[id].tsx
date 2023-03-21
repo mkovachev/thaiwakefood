@@ -3,22 +3,22 @@ import { Stack, useSearchParams } from 'expo-router'
 import { useEffect, useState } from 'react'
 import { MenuItem } from '../../data/MenuItem'
 import NotFoundScreen from '../[...missing]'
-import useStorage from '../../context/storage'
-import storageKeys from '../../constants/storageKeys'
 import { ItemDetailsView } from '../../components/ItemDetailsView'
+import { menu } from '../../context/store'
 
 
 const FoodItem = () => {
   const { id } = useSearchParams()
-  const { getItem } = useStorage<MenuItem>(storageKeys.menu)
+  const { operations: store } = menu
   const [item, setItem] = useState<MenuItem | null>(null)
 
   useEffect(() => {
-    const getItemById = async () => {
-      const item = await getItem(id) || null
-      setItem(item)
+    try {
+      const item = store.getById(id)
+      setItem(item as MenuItem)
+    } catch (error) {
+      console.error(error)
     }
-    if (id) getItemById()
   }, [id])
 
   if (!item) return <NotFoundScreen />
@@ -39,5 +39,5 @@ const FoodItem = () => {
   )
 }
 
-// keep to parse route correctly
+// keep to parse route correctly!
 export default FoodItem

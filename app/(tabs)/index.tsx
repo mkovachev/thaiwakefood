@@ -6,24 +6,25 @@ import SearchBar from '../../components/SearchBar'
 import { useEffect, useState } from 'react'
 import { CategoryItem } from '../../data/CategoryItem'
 import { View } from '../../ui/components/Themed'
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import storageKeys from '../../constants/storageKeys'
 import { categories } from '../../data/categories'
 import { menu } from '../../data/menu'
+import { menu as menuStorage, categories as categoriesStorage } from '../../context/store'
 
 
 export default function HomeScreen() {
+  const { operations: categoriesStore } = categoriesStorage
+  const { operations: menuStore } = menuStorage
   const [activeCategory, setActiveCategory] = useState<CategoryItem | null>(null)
 
   useEffect(() => {
     if (categories) {
-      AsyncStorage.setItem(storageKeys.categories, JSON.stringify(categories))
+      categoriesStore.setItems(categories)
     }
   }, [categories])
 
   useEffect(() => {
     if (menu) {
-      AsyncStorage.setItem(storageKeys.menu, JSON.stringify(menu))
+      menuStore.setItems(menu)
     }
   }, [menu])
 

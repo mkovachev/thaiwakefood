@@ -22,7 +22,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/logo.png",
         "backgroundColor": "#fff"
-      }
+      },
+      "package": "com.anonymous.thaiwakefood"
     },
     "web": {
       "bundler": "metro",
@@ -30,6 +31,7 @@
       "build": {
         "babel": {}
       }
-    }
+    },
+    "plugins": []
   }
 }

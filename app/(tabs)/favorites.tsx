@@ -1,39 +1,39 @@
 import { useState, useEffect } from 'react'
 import { FlatList, StyleSheet } from 'react-native'
-import storageKeys from '../../constants/storageKeys'
-import { SelectedItem } from '../../data/SelectedItem'
-import useStorage from '../../context/storage'
-import { SelectedItemView } from '../../components/SelectedItemView'
+import { CartItem } from '../../data/CartItem'
+import { CartItemView } from '../../components/CartItemView'
 import { View } from '../../ui/components/Themed'
 import { EmptyView } from '../../components/EmptyView'
+import { favorites } from '../../context/store'
 
 
 export default function FavoritesScreen() {
-  const { getAll, addItem, setItem, removeItem } = useStorage<SelectedItem>(storageKeys.favorites)
-  const [items, setItems] = useState<SelectedItem[]>([])
+  const { operations: store } = favorites
+  const [items, setItems] = useState<CartItem[]>([])
 
   useEffect(() => {
-    const getItems = async () => {
-      const items = await getAll()
-      setItems(items.map(item => item as SelectedItem))
+    try {
+      const items = store.getAll()
+      setItems(items)
+    } catch (error) {
+      console.error(error)
     }
-    getItems()
   }, [])
 
-  const handleAddToCart = async (item: SelectedItem) => {
-    addItem(item, storageKeys.shoppingcart)
-  }
-
-  const handleRemoveItem = async (item: SelectedItem) => {
-    await removeItem(item.id)
+  const handleRemoveItem = (item: CartItem) => {
+    store.removeById(item.id)
     const updatedItems = items.filter(i => i.id !== item.id)
     setItems(updatedItems)
   }
 
-  const handleItemAmountDecrease = async (item: SelectedItem) => {
+  const handleAddToCart = (item: CartItem) => {
+    store.addItem(item)
+  }
+
+  const handleItemAmountDecrease = (item: CartItem) => {
     if (item.amount === 1) return
     item.amount -= 1
-    await setItem(item.id, item)
+    store.updateById(item.id, item)
     setItems(prevItems => {
       const updatedItems = [...prevItems]
       const index = updatedItems.findIndex(i => i.id === item.id)
@@ -42,9 +42,9 @@ export default function FavoritesScreen() {
     })
   }
 
-  const handleItemAmountIncrease = async (item: SelectedItem) => {
+  const handleItemAmountIncrease = (item: CartItem) => {
     item.amount += 1
-    await setItem(item.id, item)
+    store.updateById(item.id, item)
     setItems(prevItems => {
       const updatedItems = [...prevItems]
       const index = updatedItems.findIndex(i => i.id === item.id)
@@ -59,7 +59,7 @@ export default function FavoritesScreen() {
         data={items}
         keyExtractor={(item) => `${item.id}${item.option}`}
         renderItem={({ item }) =>
-          <SelectedItemView
+          <CartItemView
             item={item}
             onAddToCart={() => handleAddToCart(item)}
             onRemove={() => handleRemoveItem(item)}

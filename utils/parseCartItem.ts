@@ -1,9 +1,9 @@
 import { MenuItem } from '../data/MenuItem'
-import { SelectedItem } from '../data/SelectedItem'
+import { CartItem } from '../data/CartItem'
 
-export const parseSelectedItem = (menuItem: MenuItem, selectedOption: string) => {
-  
-  const selectedItem: SelectedItem = {
+export const parseCartItem = (menuItem: MenuItem, selectedOption: string) => {
+
+  const selectedItem: CartItem = {
     id: menuItem.id + selectedOption,
     title: menuItem.title,
     amount: 1,
