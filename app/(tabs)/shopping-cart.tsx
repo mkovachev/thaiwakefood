@@ -5,23 +5,25 @@ import { View } from '../../ui/components/Themed'
 import { CartItemView } from '../../components/CartItemView'
 import { CartTotal } from '../../components/CartTotal'
 import { EmptyView } from '../../components/EmptyView'
-import { cart } from '../../context/mmkv'
+import { cartStorage } from '../../context/asyncStorage'
 
 export default function ShoppingCartScreen() {
-  const { operations: store } = cart
+  const { store } = cartStorage
   const [items, setItems] = useState<CartItem[]>([])
 
   useEffect(() => {
-    try {
-      const items = store.getAll()
-      setItems(items)
-    } catch (error) {
-      console.error(error)
-    }
-  }, [])
+    (async () => {
+      try {
+        const items = await store.getAll()
+        setItems(items as CartItem[])
+      } catch (error) {
+        console.error(error)
+      }
+    })()
+  }, []);
 
   const handleRemoveItem = (item: CartItem) => {
-    store.removeById(item.id)
+    store.removeItem(item.id)
     const updatedItems = items.filter(i => i.id !== item.id)
     setItems(updatedItems)
   }
@@ -31,7 +33,7 @@ export default function ShoppingCartScreen() {
 
     if (updatedItem.amount < 1) return
 
-    store.updateById(item.id, updatedItem)
+    store.setItem(item.id, updatedItem)
     setItems(items => items.map(i => i.id === updatedItem.id ? updatedItem : i))
   }
 

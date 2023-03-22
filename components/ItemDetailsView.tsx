@@ -9,7 +9,7 @@ import { parseCartItem } from '../utils/parseCartItem'
 import fontFamily from '../ui/fontFamily'
 import { formatInTHB } from '../utils/formatInTHB'
 import { Feather } from '@expo/vector-icons'
-import { cart, favorites } from '../context/mmkv'
+import { favoritesStorage, cartStorage } from '../context/asyncStorage'
 
 
 interface Props {
@@ -17,8 +17,8 @@ interface Props {
 }
 
 export const ItemDetailsView = ({ item }: Props) => {
-  const { operations: cartStore } = cart
-  const { operations: favoritesStore } = favorites
+  const { store: cartStore } = cartStorage
+  const { store: favoritesStore } = favoritesStorage
   const [selectedOption, setSelectedOption] = useState<string | null>(null)
   const [spicy, setSpicy] = useState(false)
 

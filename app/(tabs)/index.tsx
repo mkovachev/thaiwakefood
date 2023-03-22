@@ -4,27 +4,27 @@ import NavbarView from '../../components/NavbarView'
 import Header from '../../components/Header'
 import SearchBar from '../../components/SearchBar'
 import { useEffect, useState } from 'react'
-import { CategoryItem } from '../../data/CategoryItem'
+import { Category } from '../../data/Category'
 import { View } from '../../ui/components/Themed'
 import { categories } from '../../data/categories'
 import { menu } from '../../data/menu'
-import { menu as menuStorage, categories as categoriesStorage } from '../../context/mmkv'
+import { categoryStorage, menuStorage } from '../../context/asyncStorage'
 
 
 export default function HomeScreen() {
-  const { operations: categoriesStore } = categoriesStorage
-  const { operations: menuStore } = menuStorage
-  const [activeCategory, setActiveCategory] = useState<CategoryItem | null>(null)
+  const { store: categoriesStore } = categoryStorage
+  const { store: menuStore } = menuStorage
+  const [activeCategory, setActiveCategory] = useState<Category | null>(null)
 
   useEffect(() => {
     if (categories) {
-      categoriesStore.setItems(categories)
+      categoriesStore.setAll(categories)
     }
   }, [categories])
 
   useEffect(() => {
     if (menu) {
-      menuStore.setItems(menu)
+      menuStore.setAll(menu)
     }
   }, [menu])
 

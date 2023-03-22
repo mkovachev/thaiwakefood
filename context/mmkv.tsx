@@ -1,5 +1,5 @@
 import { MMKV } from 'react-native-mmkv'
-import { CategoryItem } from '../data/CategoryItem'
+import { Category } from '../data/Category'
 import { MenuItem } from '../data/MenuItem'
 import { CartItem } from '../data/CartItem'
 
@@ -111,9 +111,9 @@ const menu: Store<MenuItem> = {
   operations: createEntityOperations<MenuItem>('menu', storeData.menu),
 }
 
-const categories: Store<CategoryItem> = {
+const categories: Store<Category> = {
   storeName: 'categories',
-  operations: createEntityOperations<CategoryItem>('categories', storeData.categories),
+  operations: createEntityOperations<Category>('categories', storeData.categories),
 }
 
 const cart: Store<CartItem> = {

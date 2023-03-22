@@ -4,21 +4,23 @@ import { useEffect, useState } from 'react'
 import { MenuItem } from '../../data/MenuItem'
 import NotFoundScreen from '../[...missing]'
 import { ItemDetailsView } from '../../components/ItemDetailsView'
-import { menu } from '../../context/mmkv'
+import { menuStorage } from '../../context/asyncStorage'
 
 
 const FoodItem = () => {
   const { id } = useSearchParams()
-  const { operations: store } = menu
+  const { store } = menuStorage
   const [item, setItem] = useState<MenuItem | null>(null)
 
   useEffect(() => {
-    try {
-      const item = store.getById(id)
-      setItem(item as MenuItem)
-    } catch (error) {
-      console.error(error)
-    }
+    (async () => {
+      try {
+        const item = await store.getItem(id)
+        setItem(item)
+      } catch (error) {
+        console.error(error)
+      }
+    })()
   }, [id])
 
   if (!item) return <NotFoundScreen />

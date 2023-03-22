@@ -4,24 +4,26 @@ import { CartItem } from '../../data/CartItem'
 import { CartItemView } from '../../components/CartItemView'
 import { View } from '../../ui/components/Themed'
 import { EmptyView } from '../../components/EmptyView'
-import { favorites } from '../../context/mmkv'
+import { favoritesStorage } from '../../context/asyncStorage'
 
 
 export default function FavoritesScreen() {
-  const { operations: store } = favorites
+  const { store } = favoritesStorage
   const [items, setItems] = useState<CartItem[]>([])
 
   useEffect(() => {
-    try {
-      const items = store.getAll()
-      setItems(items)
-    } catch (error) {
-      console.error(error)
-    }
-  }, [])
+    (async () => {
+      try {
+        const items = await store.getAll()
+        setItems(items as CartItem[])
+      } catch (error) {
+        console.error(error)
+      }
+    })()
+  }, []);
 
   const handleRemoveItem = (item: CartItem) => {
-    store.removeById(item.id)
+    store.removeItem(item.id)
     const updatedItems = items.filter(i => i.id !== item.id)
     setItems(updatedItems)
   }
@@ -31,11 +33,12 @@ export default function FavoritesScreen() {
 
     if (updatedItem.amount < 1) return
 
-    store.updateById(item.id, updatedItem)
+    store.setItem(item.id, updatedItem)
     setItems(items => items.map(i => i.id === updatedItem.id ? updatedItem : i))
   }
 
   const handleAddToCart = (item: CartItem) => {
+    console.log(item)
     store.addItem(item)
   }
 
@@ -49,6 +52,7 @@ export default function FavoritesScreen() {
             item={item}
             onRemove={() => handleRemoveItem(item)}
             onAmountChange={(newAmount) => handleItemAmountChange(item, newAmount - item.amount)}
+            onAddToCart={() => handleAddToCart(item)}
             isInFavorites={true}
           />}
         ListEmptyComponent={<EmptyView />}

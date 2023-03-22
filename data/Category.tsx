@@ -1,6 +1,6 @@
 import { CategoryEnum } from "./CategoryEnum"
 
-export interface CategoryItem {
+export interface Category {
   id: string
   title: CategoryEnum
   image: string

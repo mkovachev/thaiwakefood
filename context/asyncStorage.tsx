@@ -1,20 +1,24 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { CartItem } from '../data/CartItem'
+import { Category } from '../data/Category'
+import { MenuItem } from '../data/MenuItem'
 
-type StorageValue<T extends { id: string }> = T | null
+type StorageValue<T> = T | null
 
-export interface StorageInterface<T extends { id: string }> {
-  getAll: () => Promise<StorageValue<T>[]>
-  setAll: (values: StorageValue<T>[]) => Promise<void>
-  getItem: (id: string) => Promise<StorageValue<T>>
-  addItem: (item: T & { id: string }) => Promise<void>
-  addMany: (items: T[]) => Promise<void>
-  setItem: (id: string, item: T) => Promise<void>
-  removeItem: (id: string) => Promise<void>
-  clear: () => Promise<void>
+export interface StorageInterface<T> {
+  store: {
+    getAll: () => Promise<StorageValue<T>[]>
+    setAll: (values: StorageValue<T>[]) => Promise<void>
+    getItem: (id: string) => Promise<StorageValue<T>>
+    addItem: (item: T & { id: string, amount?: number }) => Promise<void>
+    setItem: (id: string, item: T) => Promise<void>
+    removeItem: (id: string) => Promise<void>
+    clear: () => Promise<void>
+  }
 }
 
-export function asyncStorage<T extends { id: string }>(key: string): StorageInterface<T> {
-  
+export function storage<T extends { id: string, amount?: number }>(key: string): StorageInterface<T> {
+
   const getAll = async (): Promise<StorageValue<T>[]> => {
     try {
       const data = await AsyncStorage.getItem(key)
@@ -49,29 +53,18 @@ export function asyncStorage<T extends { id: string }>(key: string): StorageInte
     return null
   }
 
-  const addItem = async (item: T & { id: string }): Promise<void> => {
+  const addItem = async (item: T & { id: string, amount?: number }): Promise<void> => {
     try {
-      const items = await getAll()
-      const existingItemIndex = items.findIndex((i) => i?.id === item.id)
-      if (existingItemIndex !== -1) {
-        items[existingItemIndex] = { ...items[existingItemIndex], ...item }
+      let items = await getAll()
+      const existingItem = items.find((i) => i?.id === item.id)
+      if (existingItem && existingItem.amount) {
+        items = [{ ...existingItem, amount: existingItem?.amount + 1 }]
       } else {
         items.push(item)
       }
       await setAll(items)
     } catch (error) {
       console.error(`Error adding item ${JSON.stringify(item)} to AsyncStorage: ${error}`)
-    }
-  }
-
-  const addMany = async (items: T[]): Promise<void> => {
-    try {
-      const existingItems = await getAll()
-      const newItems = items.filter((i) => !existingItems.some((ei) => ei?.id === i.id))
-      const allItems = existingItems.concat(newItems)
-      await setAll(allItems)
-    } catch (error) {
-      console.error(`Error adding many items to AsyncStorage: ${error}`)
     }
   }
 
@@ -83,7 +76,7 @@ export function asyncStorage<T extends { id: string }>(key: string): StorageInte
         const newData = parsedData.map((i: any) => (i.id === id ? { ...i, ...item } : i))
         await AsyncStorage.setItem(key, JSON.stringify(newData))
       } else {
-        const newData = [{...item }]
+        const newData = [{ ...item }]
         await AsyncStorage.setItem(key, JSON.stringify(newData))
       }
     } catch (error) {
@@ -113,15 +106,21 @@ export function asyncStorage<T extends { id: string }>(key: string): StorageInte
   }
 
   return {
-    getAll,
-    setAll,
-    addMany,
-    getItem,
-    addItem,
-    setItem,
-    removeItem,
-    clear
+    store: {
+      getAll,
+      setAll,
+      getItem,
+      addItem,
+      setItem,
+      removeItem,
+      clear
+    }
   }
 }
 
-export default asyncStorage
+export const categoryStorage: StorageInterface<Category> = storage('categories')
+export const menuStorage: StorageInterface<MenuItem> = storage('menu')
+export const cartStorage: StorageInterface<CartItem> = storage('cart')
+export const favoritesStorage: StorageInterface<CartItem> = storage('favorites')
+
+export default storage

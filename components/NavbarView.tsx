@@ -1,27 +1,27 @@
 import React, { useState } from 'react'
 import { FlatList, StyleSheet, Image, TouchableOpacity, Dimensions, Platform } from 'react-native'
 import { Text, View } from '../ui/components/Themed'
-import { CategoryItem } from '../data/CategoryItem'
+import { Category } from '../data/Category'
 import colors from '../ui/colors'
 import fontFamily from '../ui/fontFamily'
 
 interface Props {
-  categories: CategoryItem[]
-  onActiveCategory: (category: CategoryItem | null) => void
+  categories: Category[]
+  onActiveCategory: (category: Category | null) => void
 }
 
 const { width } = Dimensions.get('window')
 const isWeb = Platform.OS === 'web'
 
 const NavbarView = ({ categories, onActiveCategory }: Props) => {
-  const [activeCategory, setActiveCategory] = useState<CategoryItem | null>(null)
+  const [activeCategory, setActiveCategory] = useState<Category | null>(null)
 
-  const handleActiveCategory = (category: CategoryItem | null) => {
+  const handleActiveCategory = (category: Category | null) => {
     setActiveCategory(category)
     onActiveCategory(category)
   }
 
-  const renderItem = ({ item }: { item: CategoryItem }) => {
+  const renderItem = ({ item }: { item: Category }) => {
 
     return (
       <TouchableOpacity
@@ -35,7 +35,7 @@ const NavbarView = ({ categories, onActiveCategory }: Props) => {
         <Text style={styles.title}>{item.title}</Text>
       </TouchableOpacity>
     )
-  };
+  }
 
 
   return (

@@ -1,12 +1,12 @@
 import React, { } from 'react'
 import { StyleSheet, FlatList, Platform, Dimensions, useWindowDimensions } from 'react-native'
 import { MenuItem } from '../data/MenuItem'
-import { CategoryItem } from '../data/CategoryItem'
+import { Category } from '../data/Category'
 import MenuItemView from './MenuItemView'
 
 interface Props {
   data: MenuItem[]
-  category?: CategoryItem | null
+  category?: Category | null
   handleShowDetails?: (item: MenuItem) => void
 }
 

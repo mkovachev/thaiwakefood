@@ -1,7 +1,7 @@
 import { CategoryEnum } from './CategoryEnum'
-import { CategoryItem } from './CategoryItem'
+import { Category } from './Category'
 
-export const categories: CategoryItem[] = [
+export const categories: Category[] = [
   {
     "id": "1",
     "title": CategoryEnum.Drinks,
