@@ -5,7 +5,7 @@ import { View } from '../../ui/components/Themed'
 import { CartItemView } from '../../components/CartItemView'
 import { CartTotal } from '../../components/CartTotal'
 import { EmptyView } from '../../components/EmptyView'
-import { cart } from '../../context/store'
+import { cart } from '../../context/mmkv'
 
 export default function ShoppingCartScreen() {
   const { operations: store } = cart

@@ -9,7 +9,7 @@ import { parseCartItem } from '../utils/parseCartItem'
 import fontFamily from '../ui/fontFamily'
 import { formatInTHB } from '../utils/formatInTHB'
 import { Feather } from '@expo/vector-icons'
-import { cart, favorites } from '../context/store'
+import { cart, favorites } from '../context/mmkv'
 
 
 interface Props {

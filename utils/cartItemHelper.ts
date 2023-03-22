@@ -1,4 +1,4 @@
-import { Store } from '../context/store'
+import { Store } from '../context/mmkv'
 import { CartItem } from "../data/CartItem"
 
 export const handleRemoveItem = (item: CartItem, store: Store<CartItem>) => {

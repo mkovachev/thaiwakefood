@@ -1,19 +1,20 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-type StorageValue<T> = T | null
+type StorageValue<T extends { id: string }> = T | null
 
-export interface StorageInterface<T> {
+export interface StorageInterface<T extends { id: string }> {
   getAll: () => Promise<StorageValue<T>[]>
   setAll: (values: StorageValue<T>[]) => Promise<void>
-  getItem: (key: string) => Promise<StorageValue<T>>
-  addItem: (value: T extends { id: string, amount: number } ? T : never, key: string) => Promise<void>
-  setItem: (key: string, value: T) => Promise<void>
-  removeItem: (key: string) => Promise<void>
+  getItem: (id: string) => Promise<StorageValue<T>>
+  addItem: (item: T & { id: string }) => Promise<void>
+  addMany: (items: T[]) => Promise<void>
+  setItem: (id: string, item: T) => Promise<void>
+  removeItem: (id: string) => Promise<void>
   clear: () => Promise<void>
 }
 
-export function storage<T>(key: string): StorageInterface<T> {
-
+export function asyncStorage<T extends { id: string }>(key: string): StorageInterface<T> {
+  
   const getAll = async (): Promise<StorageValue<T>[]> => {
     try {
       const data = await AsyncStorage.getItem(key)
@@ -21,7 +22,7 @@ export function storage<T>(key: string): StorageInterface<T> {
         return JSON.parse(data)
       }
     } catch (error) {
-      console.log(error)
+      console.error(`Error getting all items from AsyncStorage: ${error}`)
     }
     return []
   }
@@ -30,7 +31,7 @@ export function storage<T>(key: string): StorageInterface<T> {
     try {
       await AsyncStorage.setItem(key, JSON.stringify(values))
     } catch (error) {
-      console.log(error)
+      console.error(`Error setting all items in AsyncStorage: ${error}`)
     }
   }
 
@@ -43,38 +44,50 @@ export function storage<T>(key: string): StorageInterface<T> {
         return item ?? null
       }
     } catch (error) {
-      console.log(error)
+      console.error(`Error getting item with id ${id} from AsyncStorage: ${error}`)
     }
     return null
   }
 
-  const addItem = async <T extends { id: string, amount: number }>(item: T, key: string): Promise<void> => {
-    const cartStorage: StorageInterface<T> = storage(key)
-    const existingItem = await cartStorage.getItem(item.id)
-
-    if (existingItem) {
-      existingItem.amount += item.amount
-      await cartStorage.setItem(item.id, existingItem)
-    } else {
-      const items = await cartStorage.getAll() || []
-      items.push(item)
-      await AsyncStorage.setItem(key, JSON.stringify(items))
+  const addItem = async (item: T & { id: string }): Promise<void> => {
+    try {
+      const items = await getAll()
+      const existingItemIndex = items.findIndex((i) => i?.id === item.id)
+      if (existingItemIndex !== -1) {
+        items[existingItemIndex] = { ...items[existingItemIndex], ...item }
+      } else {
+        items.push(item)
+      }
+      await setAll(items)
+    } catch (error) {
+      console.error(`Error adding item ${JSON.stringify(item)} to AsyncStorage: ${error}`)
     }
   }
 
-  const setItem = async (id: string, value: T): Promise<void> => {
+  const addMany = async (items: T[]): Promise<void> => {
+    try {
+      const existingItems = await getAll()
+      const newItems = items.filter((i) => !existingItems.some((ei) => ei?.id === i.id))
+      const allItems = existingItems.concat(newItems)
+      await setAll(allItems)
+    } catch (error) {
+      console.error(`Error adding many items to AsyncStorage: ${error}`)
+    }
+  }
+
+  const setItem = async (id: string, item: T): Promise<void> => {
     try {
       const data = await AsyncStorage.getItem(key)
       if (data) {
         const parsedData = JSON.parse(data)
-        const newData = parsedData.map((item: any) => (item.id === id ? { ...item, ...value } : item))
+        const newData = parsedData.map((i: any) => (i.id === id ? { ...i, ...item } : i))
         await AsyncStorage.setItem(key, JSON.stringify(newData))
       } else {
-        const newData = [{ id, ...value }]
+        const newData = [{...item }]
         await AsyncStorage.setItem(key, JSON.stringify(newData))
       }
     } catch (error) {
-      console.log(error)
+      console.error(`Error setting item with id ${id} in AsyncStorage: ${error}`)
     }
   }
 
@@ -102,6 +115,7 @@ export function storage<T>(key: string): StorageInterface<T> {
   return {
     getAll,
     setAll,
+    addMany,
     getItem,
     addItem,
     setItem,
@@ -110,4 +124,4 @@ export function storage<T>(key: string): StorageInterface<T> {
   }
 }
 
-export default storage
+export default asyncStorage

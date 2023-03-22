@@ -8,7 +8,7 @@ import { CategoryItem } from '../../data/CategoryItem'
 import { View } from '../../ui/components/Themed'
 import { categories } from '../../data/categories'
 import { menu } from '../../data/menu'
-import { menu as menuStorage, categories as categoriesStorage } from '../../context/store'
+import { menu as menuStorage, categories as categoriesStorage } from '../../context/mmkv'
 
 
 export default function HomeScreen() {

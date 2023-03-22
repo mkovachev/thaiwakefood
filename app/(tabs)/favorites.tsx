@@ -4,7 +4,7 @@ import { CartItem } from '../../data/CartItem'
 import { CartItemView } from '../../components/CartItemView'
 import { View } from '../../ui/components/Themed'
 import { EmptyView } from '../../components/EmptyView'
-import { favorites } from '../../context/store'
+import { favorites } from '../../context/mmkv'
 
 
 export default function FavoritesScreen() {

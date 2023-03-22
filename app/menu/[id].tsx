@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { MenuItem } from '../../data/MenuItem'
 import NotFoundScreen from '../[...missing]'
 import { ItemDetailsView } from '../../components/ItemDetailsView'
-import { menu } from '../../context/store'
+import { menu } from '../../context/mmkv'
 
 
 const FoodItem = () => {
