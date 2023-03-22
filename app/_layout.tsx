@@ -5,6 +5,7 @@ import React, { useEffect } from 'react'
 import { useColorScheme } from 'react-native'
 import { FontAwesome5 } from '@expo/vector-icons'
 import { Provider as PaperProvider } from 'react-native-paper'
+import { QueryClient, QueryClientProvider } from 'react-query'
 
 
 export {
@@ -16,6 +17,10 @@ export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
   initialRouteName: '(tabs)',
 }
+
+const queryClient = new QueryClient({
+  defaultOptions: { queries: { retry: 2 } },
+})
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
@@ -45,13 +50,15 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme()
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <PaperProvider>
-        <Stack>
-          <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
-          <Stack.Screen name='menu/[id]' options={{ headerShown: false, presentation: 'modal' }} />
-        </Stack>
-      </PaperProvider>
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+        <PaperProvider>
+          <Stack>
+            <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
+            <Stack.Screen name='menu/[id]' options={{ headerShown: false, presentation: 'modal' }} />
+          </Stack>
+        </PaperProvider>
+      </ThemeProvider>
+    </QueryClientProvider>
   )
 }
