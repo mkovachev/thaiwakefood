@@ -4,17 +4,18 @@ import { CartItem } from '../../data/CartItem'
 import { CartItemView } from '../../components/CartItemView'
 import { View } from '../../ui/components/Themed'
 import { EmptyView } from '../../components/EmptyView'
-import { favoritesStorage } from '../../context/asyncStorage'
+import { favoritesStorage, cartStorage } from '../../context/asyncStorage'
 
 
 export default function FavoritesScreen() {
-  const { store } = favoritesStorage
+  const { store: cartStore } = cartStorage
+  const { store: favoritesStore } = favoritesStorage
   const [items, setItems] = useState<CartItem[]>([])
 
   useEffect(() => {
     (async () => {
       try {
-        const items = await store.getAll()
+        const items = await favoritesStore.getAll()
         setItems(items as CartItem[])
       } catch (error) {
         console.error(error)
@@ -23,7 +24,7 @@ export default function FavoritesScreen() {
   }, []);
 
   const handleRemoveItem = (item: CartItem) => {
-    store.removeItem(item.id)
+    favoritesStore.removeItem(item.id)
     const updatedItems = items.filter(i => i.id !== item.id)
     setItems(updatedItems)
   }
@@ -33,13 +34,12 @@ export default function FavoritesScreen() {
 
     if (updatedItem.amount < 1) return
 
-    store.setItem(item.id, updatedItem)
+    favoritesStore.setItem(item.id, updatedItem)
     setItems(items => items.map(i => i.id === updatedItem.id ? updatedItem : i))
   }
 
   const handleAddToCart = (item: CartItem) => {
-    console.log(item)
-    store.addItem(item)
+    cartStore.addItem(item)
   }
 
   return (

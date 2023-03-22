@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { CartItem } from '../data/CartItem'
 import { Category } from '../data/Category'
 import { MenuItem } from '../data/MenuItem'
+import storeKeys from './storeKeys'
 
 type StorageValue<T> = T | null
 
@@ -118,9 +119,9 @@ export function storage<T extends { id: string, amount?: number }>(key: string):
   }
 }
 
-export const categoryStorage: StorageInterface<Category> = storage('categories')
-export const menuStorage: StorageInterface<MenuItem> = storage('menu')
-export const cartStorage: StorageInterface<CartItem> = storage('cart')
-export const favoritesStorage: StorageInterface<CartItem> = storage('favorites')
+export const categoryStorage: StorageInterface<Category> = storage(storeKeys.categories)
+export const menuStorage: StorageInterface<MenuItem> = storage(storeKeys.menu)
+export const cartStorage: StorageInterface<CartItem> = storage(storeKeys.cart)
+export const favoritesStorage: StorageInterface<CartItem> = storage(storeKeys.favorites)
 
 export default storage
