@@ -27,7 +27,7 @@
     "metro4-dist": "^4.5.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-native": "0.71.3",
+    "react-native": "0.71.4",
     "react-native-dotenv": "^3.4.8",
     "react-native-mmkv": "^2.6.3",
     "react-native-paper": "^5.2.0",

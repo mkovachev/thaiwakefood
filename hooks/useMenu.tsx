@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useQuery } from 'react-query'
-import { MenuItem } from '../../data/MenuItem'
+import { MenuItem } from '../data/MenuItem'
 
 
 const getFoodItemList = async (): Promise<MenuItem[]> => {
