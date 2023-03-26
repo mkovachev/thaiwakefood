@@ -25,7 +25,6 @@ const store = (key: string): Store => {
 
   const getItem = async (id: string): Promise<any> => {
     const data = await AsyncStorage.getItem(key)
-    console.log(key)
     if (!data) return ''
     const parsedData = JSON.parse(data)
     const item = parsedData.find((i: any) => i.id === id)
@@ -80,7 +79,6 @@ const store = (key: string): Store => {
     clear
   }
 }
-
 
 export default store
 
