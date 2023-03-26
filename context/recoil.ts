@@ -1,36 +1,10 @@
-import { atom, useRecoilValueLoadable } from 'recoil'
+import { recoilPersist } from 'recoil-persist'
 import { Category } from '../data/Category'
 import { MenuItem } from '../data/MenuItem'
 import { CartItem } from '../data/CartItem'
-import { recoilPersist } from 'recoil-persist'
 import storeKeys from './storeKeys'
-import { categoriesStore, menuStore, cartStore, favoritesStore } from './store'
-
-const { persistAtom } = recoilPersist()
-
-export const categoriesAtom = atom<Category[]>({
-  key: storeKeys.categories,
-  default: categoriesStore.getAll() as unknown as Category[],
-  effects_UNSTABLE: [persistAtom],
-})
-
-export const menuAtom = atom<MenuItem[]>({
-  key: storeKeys.menu,
-  default: menuStore.getAll() as unknown as MenuItem[],
-  effects_UNSTABLE: [persistAtom],
-})
-
-export const cartAtom = atom<CartItem[]>({
-  key: storeKeys.cart,
-  default: cartStore.getAll() as unknown as CartItem[],
-  effects_UNSTABLE: [persistAtom],
-})
-
-export const favoritesAtom = atom<CartItem[]>({
-  key: storeKeys.favorites,
-  default: favoritesStore.getAll() as unknown as CartItem[],
-  effects_UNSTABLE: [persistAtom],
-})
+import { cartStore, categoriesStore, favoritesStore, menuStore } from './store'
+import { atom } from 'recoil'
 
 export const categories = recoilPersist({
   key: storeKeys.categories,
@@ -50,4 +24,37 @@ export const cart = recoilPersist({
 export const favorites = recoilPersist({
   key: storeKeys.favorites,
   storage: favoritesStore,
+})
+
+
+export const categoriesAtom = atom<Category[]>({
+  key: storeKeys.categoriesAtom,
+  default: [],
+  effects_UNSTABLE: [
+    ({ onSet }) => onSet(newValue => categoriesStore.setAll(newValue))
+  ]
+})
+
+export const menuAtom = atom<MenuItem[]>({
+  key: storeKeys.menuAtom,
+  default: [],
+  effects_UNSTABLE: [
+    ({ onSet }) => onSet(newValue => menuStore.setAll(newValue))
+  ]
+})
+
+export const cartAtom = atom<CartItem[]>({
+  key: storeKeys.cartAtom,
+  default: [],
+  effects_UNSTABLE: [
+    ({ onSet }) => onSet(newValue => cartStore.setAll(newValue))
+  ]
+})
+
+export const favoritesAtom = atom<CartItem[]>({
+  key: storeKeys.favoritesAtom,
+  default: [],
+  effects_UNSTABLE: [
+    ({ onSet }) => onSet(newValue => favoritesStore.setAll(newValue))
+  ]
 })

@@ -1,10 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import storeKeys from './storeKeys'
 
-type Store = {
+export type Store = {
   getAll: () => Promise<any[]>
   setAll: (values: any[]) => Promise<void>
-  getItem: (id: string) => Promise<any>
+  getItem: (id: string) => string | Promise<string> | null
   addItem: (item: any) => Promise<void>
   setItem: (id: string, item: any) => Promise<void>
   removeItem: (id: string) => Promise<void>
@@ -28,7 +28,7 @@ const store = (key: string): Store => {
     if (!data) return ''
     const parsedData = JSON.parse(data)
     const item = parsedData.find((i: any) => i.id === id)
-    return item ? item : ''
+    return item ?? ''
   }
 
   const addItem = async (item: any) => {
