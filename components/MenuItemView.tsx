@@ -20,7 +20,7 @@ const MenuItemView = ({ item }: Props) => {
       <View style={styles.header} >
         <MaterialIcons name="menu-book" size={Platform.OS === 'web' ? 24 : 16} color={colors.blue} />
         <Text style={styles.orderNumberText} numberOfLines={1}>{item.id}</Text>
-        <Feather style={styles.favoriteIcon} name="heart" size={Platform.OS === 'web' ? 28 : 18} />
+        {/* <Feather style={styles.favoriteIcon} name="heart" size={Platform.OS === 'web' ? 28 : 18} /> */}
       </View>
       <Image style={styles.image} source={require('../assets/images/fast-food.png')} />
       <Text numberOfLines={3} style={styles.title}>{item.title}</Text>
