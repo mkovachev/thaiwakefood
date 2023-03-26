@@ -1,42 +1,29 @@
-import React, { useState, useEffect } from 'react'
 import { StyleSheet, FlatList } from 'react-native'
 import { CartItem } from '../../data/CartItem'
 import { View } from '../../ui/components/Themed'
 import { CartItemView } from '../../components/CartItemView'
 import { CartTotal } from '../../components/CartTotal'
 import { EmptyView } from '../../components/EmptyView'
-import { cartStorage } from '../../context/asyncStorage'
+import { useRecoilState } from 'recoil'
+import { cartAtom } from '../../context/recoil'
+import { cartStore } from '../../context/store'
+
 
 export default function ShoppingCartScreen() {
-  const { store } = cartStorage
-  const [items, setItems] = useState<CartItem[]>([])
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const items = await store.getAll()
-        setItems(items as CartItem[])
-      } catch (error) {
-        console.error(error)
-      }
-    })()
-  }, []);
+  const [items, setItems] = useRecoilState(cartAtom)
 
   const handleRemoveItem = (item: CartItem) => {
-    store.removeItem(item.id)
     const updatedItems = items.filter(i => i.id !== item.id)
     setItems(updatedItems)
+    //cartStore.removeItem(item.id)
   }
 
   const handleItemAmountChange = (item: CartItem, amountChange: number) => {
     const updatedItem = { ...item, amount: item.amount + amountChange }
-
     if (updatedItem.amount < 1) return
-
-    store.setItem(item.id, updatedItem)
     setItems(items => items.map(i => i.id === updatedItem.id ? updatedItem : i))
+    //cartStore.setItem(item.id, updatedItem)
   }
-
 
   const cartTotal = items.length > 0 ? items.reduce((total, item) => {
     return total + (item.price * item.amount)
@@ -56,6 +43,7 @@ export default function ShoppingCartScreen() {
           />}
         ListFooterComponent={<CartTotal total={cartTotal} />}
         ListEmptyComponent={<EmptyView />}
+        //extraData={items}
       />
     </View>
   )

@@ -9,7 +9,9 @@ import { parseCartItem } from '../utils/parseCartItem'
 import fontFamily from '../ui/fontFamily'
 import { formatInTHB } from '../utils/formatInTHB'
 import { Feather } from '@expo/vector-icons'
-import { favoritesStorage, cartStorage } from '../context/asyncStorage'
+import { useRecoilState } from 'recoil'
+import { cartAtom, favoritesAtom } from '../context/recoil'
+import { CartItem } from '../data/CartItem'
 
 
 interface Props {
@@ -17,27 +19,33 @@ interface Props {
 }
 
 export const ItemDetailsView = ({ item }: Props) => {
-  const { store: cartStore } = cartStorage
-  const { store: favoritesStore } = favoritesStorage
+  const [cartItems, setCartItems] = useRecoilState(cartAtom)
+  const [favoriteItems, setFavoriteItems] = useRecoilState(favoritesAtom)
   const [selectedOption, setSelectedOption] = useState<string | null>(null)
   const [spicy, setSpicy] = useState(false)
 
   const handleAddToCart = async () => {
-    if (item.options && !selectedOption) {
-      return
-    }
-
+    if (item.options && !selectedOption) return
     const cartItem = parseCartItem(item, selectedOption || '')
-    cartStore.addItem(cartItem)
+    const existingItem = cartItems.find(i => i.id === cartItem.id && i.option === cartItem.option)
+    if (existingItem) {
+      const updatedItem: CartItem = { ...existingItem, amount: existingItem.amount + 1 }
+      setCartItems(items => items.map(i => i.id === updatedItem.id ? updatedItem : i))
+    } else {
+      setCartItems(items => [...items, cartItem])
+    }
   }
 
   const handleAddToFavorites = async () => {
-    if (item.options && !selectedOption) {
-      return
-    }
-
+    if (item.options && !selectedOption) return
     const cartItem = parseCartItem(item, selectedOption || '')
-    favoritesStore.addItem(cartItem)
+    const existingItem = favoriteItems.find(i => i.id === cartItem.id && i.option === cartItem.option)
+    if (existingItem) {
+      const updatedItem: CartItem = { ...existingItem, amount: existingItem.amount + 1 }
+      setFavoriteItems(items => items.map(i => i.id === updatedItem.id ? updatedItem : i))
+    } else {
+      setFavoriteItems(items => [...items, cartItem])
+    }
   }
 
   return (

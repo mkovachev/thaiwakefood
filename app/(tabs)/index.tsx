@@ -8,23 +8,27 @@ import { Category } from '../../data/Category'
 import { View } from '../../ui/components/Themed'
 import { categories } from '../../data/categories'
 import { menu } from '../../data/menu'
-import { categoryStorage, menuStorage } from '../../context/asyncStorage'
+import { useRecoilState } from 'recoil'
+import { categoriesAtom, menuAtom } from '../../context/recoil'
+import { categoriesStore, menuStore } from '../../context/store'
 
 
 export default function HomeScreen() {
-  const { store: categoriesStore } = categoryStorage
-  const { store: menuStore } = menuStorage
+  const [menuItems, setMenuItems] = useRecoilState(menuAtom)
+  const [categoryItems, setCategoryItems] = useRecoilState(categoriesAtom)
   const [activeCategory, setActiveCategory] = useState<Category | null>(null)
 
   useEffect(() => {
     if (categories) {
-      categoriesStore.setAll(categories)
+      setCategoryItems(categories)
+      //categoriesStore.setAll(categories)
     }
   }, [categories])
 
   useEffect(() => {
     if (menu) {
-      menuStore.setAll(menu)
+      setMenuItems(menu)
+      //menuStore.setAll(menu)
     }
   }, [menu])
 

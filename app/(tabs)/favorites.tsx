@@ -1,51 +1,41 @@
-import { useState, useEffect } from 'react'
 import { FlatList, StyleSheet } from 'react-native'
 import { CartItem } from '../../data/CartItem'
 import { CartItemView } from '../../components/CartItemView'
 import { View } from '../../ui/components/Themed'
 import { EmptyView } from '../../components/EmptyView'
-import { favoritesStorage, cartStorage } from '../../context/asyncStorage'
+import { useRecoilState } from 'recoil'
+import { cartAtom, favoritesAtom } from '../../context/recoil'
 
 
 export default function FavoritesScreen() {
-  const { store: cartStore } = cartStorage
-  const { store: favoritesStore } = favoritesStorage
-  const [items, setItems] = useState<CartItem[]>([])
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const items = await favoritesStore.getAll()
-        setItems(items as CartItem[])
-      } catch (error) {
-        console.error(error)
-      }
-    })()
-  }, []);
+  const [cartItems, setCartItems] = useRecoilState(cartAtom)
+  const [favoriteItems, setFavoriteItems] = useRecoilState(favoritesAtom)
 
   const handleRemoveItem = (item: CartItem) => {
-    favoritesStore.removeItem(item.id)
-    const updatedItems = items.filter(i => i.id !== item.id)
-    setItems(updatedItems)
+    const updatedItems = favoriteItems.filter(i => i.id !== item.id)
+    setFavoriteItems(updatedItems)
   }
 
   const handleItemAmountChange = (item: CartItem, amountChange: number) => {
     const updatedItem = { ...item, amount: item.amount + amountChange }
-
     if (updatedItem.amount < 1) return
-
-    favoritesStore.setItem(item.id, updatedItem)
-    setItems(items => items.map(i => i.id === updatedItem.id ? updatedItem : i))
+    setFavoriteItems(items => items.map(i => i.id === updatedItem.id ? updatedItem : i))
   }
 
   const handleAddToCart = (item: CartItem) => {
-    cartStore.addItem(item)
+    const existingItem = cartItems.find(i => i.id === item.id && i.option === item.option)
+    if (existingItem) {
+      const updatedItem = { ...existingItem, amount: existingItem.amount + 1 }
+      setCartItems(items => items.map(i => i.id === updatedItem.id ? updatedItem : i))
+    } else {
+      setCartItems(items => [...items, item])
+    }
   }
 
   return (
     <View style={styles.container}>
       <FlatList
-        data={items}
+        data={favoriteItems}
         keyExtractor={(item) => `${item.id}${item.option}`}
         renderItem={({ item }) =>
           <CartItemView
@@ -56,11 +46,11 @@ export default function FavoritesScreen() {
             isInFavorites={true}
           />}
         ListEmptyComponent={<EmptyView />}
-        extraData={items}
+        extraData={favoriteItems}
       />
     </View>
   )
-};
+}
 
 const styles = StyleSheet.create({
   container: {

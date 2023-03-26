@@ -4,26 +4,30 @@ import { useEffect, useState } from 'react'
 import { MenuItem } from '../../data/MenuItem'
 import NotFoundScreen from '../[...missing]'
 import { ItemDetailsView } from '../../components/ItemDetailsView'
-import { menuStorage } from '../../context/asyncStorage'
+import { menuAtom } from '../../context/recoil'
+import { useRecoilValueLoadable } from 'recoil'
 
-
-const FoodItem = () => {
+const MenuItemScreen = () => {
   const { id } = useSearchParams()
-  const { store } = menuStorage
-  const [item, setItem] = useState<MenuItem | null>(null)
+  const [item, setItem] = useState<MenuItem>()
+  const menu = useRecoilValueLoadable(menuAtom)
 
   useEffect(() => {
-    (async () => {
-      try {
-        const item = await store.getItem(id)
-        setItem(item)
-      } catch (error) {
-        console.error(error)
+    if (menu.state === 'hasValue') {
+      const foundItem = menu.contents.find((menuItem: MenuItem) => menuItem.id === id)
+      if (foundItem) {
+        setItem(foundItem)
       }
-    })()
-  }, [id])
+    }
+  }, [id, menu])
 
-  if (!item) return <NotFoundScreen />
+  if (menu.state === 'loading') {
+    return <View>Loading...</View>
+  }
+
+  if (!item) {
+    return <NotFoundScreen />
+  }
 
   return (
     <View>
@@ -31,7 +35,7 @@ const FoodItem = () => {
         options={{
           title: item.title,
           presentation: 'modal',
-          headerShown: true
+          headerShown: true,
         }}
       />
       <View>
@@ -41,5 +45,4 @@ const FoodItem = () => {
   )
 }
 
-// keep to parse route correctly!
-export default FoodItem
+export default MenuItemScreen
