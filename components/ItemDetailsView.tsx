@@ -27,7 +27,10 @@ export const ItemDetailsView = ({ item }: Props) => {
   const [spicy, setSpicy] = useState(false)
 
   const handleAddToCart = async () => {
-    if (item.options && !selectedOption) return
+    if (item.options && !selectedOption) {
+      toast.show('Please select an option', { type: 'warning'})
+      return
+    }
     const cartItem = parseCartItem(item, selectedOption || '')
     const existingItem = cartItems.find(i => i.id === cartItem.id && i.option === cartItem.option)
     if (existingItem) {
@@ -40,7 +43,10 @@ export const ItemDetailsView = ({ item }: Props) => {
   }
 
   const handleAddToFavorites = async () => {
-    if (item.options && !selectedOption) return
+    if (item.options && !selectedOption) {
+      toast.show('Please select an option', { type: 'warning' })
+      return
+    }
     const cartItem = parseCartItem(item, selectedOption || '')
     const existingItem = favoriteItems.find(i => i.id === cartItem.id && i.option === cartItem.option)
     if (existingItem) {
@@ -49,6 +55,7 @@ export const ItemDetailsView = ({ item }: Props) => {
     } else {
       setFavoriteItems(items => [...items, cartItem])
     }
+    toast.show(`${item.title} added to favorites`, { type: 'success' })
   }
 
   return (

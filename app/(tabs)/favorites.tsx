@@ -16,6 +16,7 @@ export default function FavoritesScreen() {
   const handleRemoveItem = (item: CartItem) => {
     const updatedItems = favoriteItems.filter(i => i.id !== item.id)
     setFavoriteItems(updatedItems)
+    toast.show(`${item.title} removed from favorites`, { type: 'danger' })
   }
 
   const handleItemAmountChange = (item: CartItem, amountChange: number) => {

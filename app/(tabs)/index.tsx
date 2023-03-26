@@ -37,19 +37,16 @@ export default function HomeScreen() {
     setSearchTerm(text)
   }
 
-  const filteredData = menuItems.filter((item) => {
-    const hasSearchTerm = item.title.toLowerCase().includes(searchTerm.toLowerCase())
-    const hasActiveCategory = activeCategory && item.category === activeCategory.title
-    return hasSearchTerm && hasActiveCategory
-  })
-
+  const filteredMenu = menuItems
+    .filter(item => activeCategory ? item.category === activeCategory.title : true)
+    .filter(item => searchTerm ? item.title.toLowerCase().includes(searchTerm.toLowerCase()) : true)
 
   return (
     <View style={styles.container}>
       <Header />
       <NavbarView categories={categories} onActiveCategory={setActiveCategory} />
       <SearchBar onSearch={handleSearch} />
-      <MenuGridView data={filteredData} />
+      <MenuGridView data={filteredMenu} />
     </View>
   )
 }
