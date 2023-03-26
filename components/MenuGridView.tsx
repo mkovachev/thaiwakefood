@@ -1,29 +1,27 @@
 import React, { } from 'react'
 import { StyleSheet, FlatList, Platform, Dimensions, useWindowDimensions } from 'react-native'
 import { MenuItem } from '../data/MenuItem'
-import { Category } from '../data/Category'
 import MenuItemView from './MenuItemView'
+import { EmptyView } from './EmptyView'
 
 interface Props {
   data: MenuItem[]
-  category?: Category | null
   handleShowDetails?: (item: MenuItem) => void
 }
 
-const MenuGridView = ({ data, category }: Props) => {
+const MenuGridView = ({ data }: Props) => {
   const { width } = useWindowDimensions()
   const mobileColumns = Math.floor(width / 150)
   const webColumns = Math.floor(window.innerWidth / 400)
 
-  const filteredMenu = category ? data.filter(item => item.category === category.title) : data
-
   return (
     <FlatList
-      data={filteredMenu}
+      data={data}
       numColumns={Platform.OS === 'web' ? webColumns : mobileColumns}
       renderItem={({ item }) => (<MenuItemView item={item} />)}
       keyExtractor={(item) => item.id}
       contentContainerStyle={[styles.container, Platform.OS === 'web' && styles.webContainer]}
+      ListEmptyComponent={<EmptyView />}
     />
   )
 }

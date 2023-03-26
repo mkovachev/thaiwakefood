@@ -6,7 +6,7 @@ import Link from '../ui/components/Link'
 export const EmptyView = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.noItemsText}>No items added yet...</Text>
+      <Text style={styles.noItemsText}>No items found...</Text>
       <Link url='' text='go to menu' />
     </View>
   )

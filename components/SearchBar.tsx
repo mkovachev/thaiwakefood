@@ -1,31 +1,27 @@
 import React, { useState } from 'react'
 import { TextInput, StyleSheet, Platform } from 'react-native'
-import { MenuItem } from '../data/MenuItem'
 import colors from '../ui/colors'
 import fontFamily from '../ui/fontFamily'
-import MenuGridView from './MenuGridView'
 
 interface Props {
-  items: MenuItem[]
+  onSearch: (searchTerm: string) => void
 }
 
-const SearchBar = ({ items }: Props) => {
-  const [searchInput, setSearchInput] = useState('')
+const SearchBar = ({ onSearch }: Props) => {
+  const [text, setText] = useState('')
 
-  const filteredItems = items.filter((item) =>
-    item.title.toLowerCase().includes(searchInput.toLowerCase())
-  )
+  const handleChange = (text: string) => {
+    setText(text)
+    onSearch(text)
+  }
 
   return (
-    <>
-      <TextInput
-        style={styles.textInput}
-        onChangeText={setSearchInput}
-        value={searchInput}
-        placeholder="Search..."
-      />
-      {searchInput && <MenuGridView data={filteredItems} />}
-    </>
+    <TextInput
+      style={styles.textInput}
+      placeholder='Search...'
+      value={text}
+      onChangeText={handleChange}
+    />
   )
 }
 

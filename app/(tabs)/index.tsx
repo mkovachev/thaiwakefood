@@ -10,25 +10,22 @@ import { categories } from '../../data/categories'
 import { menu } from '../../data/menu'
 import { useRecoilState } from 'recoil'
 import { categoriesAtom, menuAtom } from '../../context/recoil'
-import { categoriesStore, menuStore } from '../../context/store'
-
 
 export default function HomeScreen() {
   const [menuItems, setMenuItems] = useRecoilState(menuAtom)
   const [categoryItems, setCategoryItems] = useRecoilState(categoriesAtom)
   const [activeCategory, setActiveCategory] = useState<Category | null>(null)
+  const [searchTerm, setSearchTerm] = useState('')
 
   useEffect(() => {
     if (categories) {
       setCategoryItems(categories)
-      //categoriesStore.setAll(categories)
     }
   }, [categories])
 
   useEffect(() => {
     if (menu) {
       setMenuItems(menu)
-      //menuStore.setAll(menu)
     }
   }, [menu])
 
@@ -36,12 +33,23 @@ export default function HomeScreen() {
     return null
   }
 
+  const handleSearch = (text: string) => {
+    setSearchTerm(text)
+  }
+
+  const filteredData = menuItems.filter((item) => {
+    const hasSearchTerm = item.title.toLowerCase().includes(searchTerm.toLowerCase())
+    const hasActiveCategory = activeCategory && item.category === activeCategory.title
+    return hasSearchTerm && hasActiveCategory
+  })
+
+
   return (
     <View style={styles.container}>
       <Header />
       <NavbarView categories={categories} onActiveCategory={setActiveCategory} />
-      <SearchBar items={menu} />
-      <MenuGridView data={menu} category={activeCategory} />
+      <SearchBar onSearch={handleSearch} />
+      <MenuGridView data={filteredData} />
     </View>
   )
 }

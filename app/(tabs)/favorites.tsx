@@ -5,9 +5,11 @@ import { View } from '../../ui/components/Themed'
 import { EmptyView } from '../../components/EmptyView'
 import { useRecoilState } from 'recoil'
 import { cartAtom, favoritesAtom } from '../../context/recoil'
+import { useToast } from 'react-native-toast-notifications'
 
 
 export default function FavoritesScreen() {
+  const toast = useToast()
   const [cartItems, setCartItems] = useRecoilState(cartAtom)
   const [favoriteItems, setFavoriteItems] = useRecoilState(favoritesAtom)
 
@@ -30,6 +32,7 @@ export default function FavoritesScreen() {
     } else {
       setCartItems(items => [...items, item])
     }
+    toast.show(`${item.title} added to cart`, { type: 'success' })
   }
 
   return (

@@ -5,7 +5,8 @@ import React, { useEffect } from 'react'
 import { useColorScheme } from 'react-native'
 import { FontAwesome5 } from '@expo/vector-icons'
 import { Provider as PaperProvider } from 'react-native-paper'
-import { RecoilRoot } from "recoil";
+import { RecoilRoot } from "recoil"
+import { ToastProvider } from 'react-native-toast-notifications'
 
 
 export {
@@ -48,14 +49,16 @@ function RootLayoutNav() {
 
   return (
     <RecoilRoot>
-        <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-          <PaperProvider>
+      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+        <PaperProvider>
+          <ToastProvider>
             <Stack>
               <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
               <Stack.Screen name='menu/[id]' options={{ headerShown: false, presentation: 'modal' }} />
             </Stack>
-          </PaperProvider>
-        </ThemeProvider>
+          </ToastProvider>
+        </PaperProvider>
+      </ThemeProvider>
     </RecoilRoot>
   )
 }

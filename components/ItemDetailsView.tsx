@@ -12,6 +12,7 @@ import { Feather } from '@expo/vector-icons'
 import { useRecoilState } from 'recoil'
 import { cartAtom, favoritesAtom } from '../context/recoil'
 import { CartItem } from '../data/CartItem'
+import { useToast } from 'react-native-toast-notifications'
 
 
 interface Props {
@@ -19,6 +20,7 @@ interface Props {
 }
 
 export const ItemDetailsView = ({ item }: Props) => {
+  const toast = useToast()
   const [cartItems, setCartItems] = useRecoilState(cartAtom)
   const [favoriteItems, setFavoriteItems] = useRecoilState(favoritesAtom)
   const [selectedOption, setSelectedOption] = useState<string | null>(null)
@@ -34,6 +36,7 @@ export const ItemDetailsView = ({ item }: Props) => {
     } else {
       setCartItems(items => [...items, cartItem])
     }
+    toast.show(`${item.title} added to cart`, { type: 'success' })
   }
 
   const handleAddToFavorites = async () => {
