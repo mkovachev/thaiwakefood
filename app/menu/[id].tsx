@@ -6,6 +6,7 @@ import NotFoundScreen from '../[...missing]'
 import { ItemDetailsView } from '../../components/ItemDetailsView'
 import { menuAtom } from '../../context/recoil'
 import { useRecoilValueLoadable } from 'recoil'
+import { StyleSheet } from 'react-native'
 
 const MenuItemDetailsScreen = () => {
   const { id } = useSearchParams()
@@ -30,7 +31,7 @@ const MenuItemDetailsScreen = () => {
   }
 
   return (
-    <View>
+    <View style={styles.container}>
       <Stack.Screen
         options={{
           title: item.title,
@@ -46,3 +47,9 @@ const MenuItemDetailsScreen = () => {
 }
 
 export default MenuItemDetailsScreen
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  }
+})

@@ -4,6 +4,7 @@ import { EmptyView } from '../components/EmptyView'
 import { CartTotal } from './CartTotal'
 import { Order } from '../data/Order'
 import { OrderItemListView } from './OrderItemListView'
+import colors from '../ui/colors'
 
 interface Props {
   order: Order
@@ -26,6 +27,7 @@ export default function OrderDetailsView({ order }: Props) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    height: '100%',
+    backgroundColor: colors.white,
   }
 })

@@ -1,4 +1,4 @@
-import { StyleSheet, FlatList, TouchableOpacity } from 'react-native'
+import { StyleSheet, FlatList } from 'react-native'
 import { CartItem } from '../../data/CartItem'
 import { View } from '../../ui/components/Themed'
 import { CartItemListView } from '../../components/CartItemListView'
@@ -34,9 +34,8 @@ export default function ShoppingCartScreen() {
 
   const handleCheckout = () => {
     let id = 1
-    if (orders.length > 0) {
-      id = Number(orders[orders.length - 1].id) + 1
-    }
+    if (orders.length > 0) id = Number(orders[orders.length - 1].id) + 1
+
     const order: Order = {
       id: id.toString(),
       total: cartTotal,

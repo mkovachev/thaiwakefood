@@ -6,6 +6,8 @@ import { ordersAtom } from '../../context/recoil'
 import { useRecoilValueLoadable } from 'recoil'
 import { Order } from '../../data/Order'
 import OrderDetailsView from '../../components/OrderDetailsView'
+import { StyleSheet } from 'react-native'
+
 
 const OrderDetailsScreen = () => {
   const { id } = useSearchParams()
@@ -30,7 +32,7 @@ const OrderDetailsScreen = () => {
   }
 
   return (
-    <View>
+    <View style={styles.container}>
       <Stack.Screen
         options={{
           title: item.id,
@@ -46,3 +48,10 @@ const OrderDetailsScreen = () => {
 }
 
 export default OrderDetailsScreen
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  }
+})
