@@ -3,8 +3,5 @@ export default {
   categories: 'categories',
   cart: 'cart',
   favorites: 'favorites',
-  menuAtom: 'menu-atom',
-  categoriesAtom: 'categories-atom',
-  cartAtom: 'cart-atom',
-  favoritesAtom: 'favorites-atom',
+  orders: 'orders',
 }

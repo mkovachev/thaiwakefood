@@ -10,4 +10,4 @@ export enum CategoryEnum {
   Desserts = 'Desserts',
   Addons = 'Add ons',
   None = 'None'
-};
+}

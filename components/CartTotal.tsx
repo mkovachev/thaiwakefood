@@ -8,15 +8,11 @@ interface Props {
 }
 
 export const CartTotal = ({ total }: Props) => {
-  if (total > 0) {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.totalText}>Total price: {formatInTHB(total)}</Text>
-      </View>
-    )
-  } else {
-    return null
-  }
+  return (
+    <View style={styles.container}>
+      <Text style={styles.totalText}>Total price: {formatInTHB(total)}</Text>
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({

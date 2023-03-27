@@ -22,7 +22,7 @@ const Link = ({ url, text, children }: Props) => {
 const styles = StyleSheet.create({
   container: {
     padding: 10,
-    borderRadius: 15,
+    borderRadius: 20,
     borderWidth: 1,
     borderColor: colors.yellow,
     borderStyle: 'solid',

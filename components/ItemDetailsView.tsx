@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     paddingHorizontal: 10,
     paddingVertical: 10,
-    borderRadius: 15,
+    borderRadius: 20,
     borderWidth: 1,
     borderColor: colors.yellow,
     borderStyle: 'solid',

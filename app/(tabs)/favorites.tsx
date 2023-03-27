@@ -50,7 +50,6 @@ export default function FavoritesScreen() {
             isInFavorites={true}
           />}
         ListEmptyComponent={<EmptyView />}
-        extraData={favoriteItems}
       />
     </View>
   )

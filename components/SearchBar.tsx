@@ -29,17 +29,19 @@ const SearchBar = ({ onSearch }: Props) => {
         placeholder='Search...'
         value={text}
         onChangeText={handleChange}
-        clearButtonMode='while-editing'
-        clearTextOnFocus={true}
+        // clearButtonMode='while-editing'
+        // clearTextOnFocus={true}
       />
-      {text &&
-        <MaterialIcons
-          style={styles.clearButton}
-          name="clear"
-          size={24}
-          color={colors.red}
-          onPress={handleClear}
-        />
+      {text !== '' &&
+        <View>
+          <MaterialIcons
+            style={styles.clearButton}
+            name="clear"
+            size={24}
+            color={colors.red}
+            onPress={handleClear}
+          />
+        </View>
       }
     </View>
   )
@@ -50,7 +52,6 @@ export default SearchBar
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    alignItems: 'center',
   },
   textInput: {
     fontFamily: fontFamily.MontserratMedium,
@@ -65,6 +66,8 @@ const styles = StyleSheet.create({
     borderColor: colors.grey,
   },
   clearButton: {
-    right: 40,
+    position: 'absolute',
+    right: 10,
+    padding: 20
   },
 })

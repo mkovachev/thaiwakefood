@@ -1,4 +1,3 @@
-import { Feather } from '@expo/vector-icons'
 import { MenuItem } from '../data/MenuItem'
 import { Image, StyleSheet, Platform, Dimensions } from 'react-native'
 import { Text, View } from '../ui/components/Themed'
@@ -20,7 +19,6 @@ const MenuItemView = ({ item }: Props) => {
       <View style={styles.header} >
         <MaterialIcons name="menu-book" size={Platform.OS === 'web' ? 24 : 16} color={colors.blue} />
         <Text style={styles.orderNumberText} numberOfLines={1}>{item.id}</Text>
-        {/* <Feather style={styles.favoriteIcon} name="heart" size={Platform.OS === 'web' ? 28 : 18} /> */}
       </View>
       <Image style={styles.image} source={require('../assets/images/fast-food.png')} />
       <Text numberOfLines={3} style={styles.title}>{item.title}</Text>
@@ -40,7 +38,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderWidth: .5,
     borderColor: colors.yellow,
-    borderRadius: 15,
+    borderRadius: 20,
   },
   image: {
     width: Platform.OS === 'web' ? window.innerHeight / 3 : width / 3,
@@ -73,7 +71,7 @@ const styles = StyleSheet.create({
   },
   showDetails: {
     padding: 10,
-    borderRadius: 15,
+    borderRadius: 20,
     borderWidth: .5,
     borderColor: colors.yellow,
   },
