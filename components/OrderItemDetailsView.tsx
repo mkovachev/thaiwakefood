@@ -10,7 +10,7 @@ interface Props {
   item: CartItem
 }
 
-export const OrderItemListView = ({ item }: Props) => {
+export const OrderItemDetailsView = ({ item }: Props) => {
 
   return (
     <View style={styles.container}>

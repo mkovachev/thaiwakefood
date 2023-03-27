@@ -15,7 +15,7 @@ const MenuItemDetailsScreen = () => {
 
   useEffect(() => {
     if (menu.state === 'hasValue') {
-      const foundItem = menu.contents.find((menuItem: MenuItem) => menuItem.id === id)
+      const foundItem = menu.contents.find(item => item.id === id)
       if (foundItem) {
         setItem(foundItem)
       }

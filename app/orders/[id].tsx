@@ -11,14 +11,14 @@ import { StyleSheet } from 'react-native'
 
 const OrderDetailsScreen = () => {
   const { id } = useSearchParams()
-  const [item, setItem] = useState<Order>()
+  const [order, setOrder] = useState<Order>()
   const orders = useRecoilValueLoadable(ordersAtom)
 
   useEffect(() => {
     if (orders.state === 'hasValue') {
-      const foundItem = orders.contents.find((order: Order) => order.id === id)
-      if (foundItem) {
-        setItem(foundItem)
+      const foundOrder = orders.contents.find(order => order.id === id)
+      if (foundOrder) {
+        setOrder(foundOrder)
       }
     }
   }, [id, orders])
@@ -27,7 +27,7 @@ const OrderDetailsScreen = () => {
     return <View>Loading...</View>
   }
 
-  if (!item) {
+  if (!order) {
     return <NotFoundScreen />
   }
 
@@ -35,13 +35,13 @@ const OrderDetailsScreen = () => {
     <View style={styles.container}>
       <Stack.Screen
         options={{
-          title: item.id,
+          title: `#${order.id}`,
           presentation: 'modal',
           headerShown: true,
         }}
       />
       <View>
-        <OrderDetailsView order={item} />
+        <OrderDetailsView order={order} />
       </View>
     </View>
   )
