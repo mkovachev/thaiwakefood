@@ -22,7 +22,7 @@ const Link = ({ text, style, children, ...props }: Props) => {
     linkText: {
       fontFamily: fontFamily.MontserratMedium,
       marginRight: 5,
-      fontSize: Platform.OS === 'web' ? 16 : 14,
+      fontSize: Platform.OS === 'web' ? 18 : 12,
     },
   })
 
