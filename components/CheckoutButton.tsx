@@ -21,10 +21,9 @@ export const CheckoutButton = ({ onCheckout }: Props) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
+    //flex: 1,
+    //display: 'flex',
+    alignItems: 'flex-end',
   },
   checkoutButton: {
     backgroundColor: colors.yellow,

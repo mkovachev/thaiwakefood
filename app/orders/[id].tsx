@@ -1,7 +1,6 @@
 import { View } from '../../ui/components/Themed'
 import { Stack, useSearchParams } from 'expo-router'
 import { useEffect, useState } from 'react'
-import { MenuItem } from '../../data/MenuItem'
 import NotFoundScreen from '../[...missing]'
 import { ordersAtom } from '../../context/recoil'
 import { useRecoilValueLoadable } from 'recoil'
@@ -12,9 +11,6 @@ const OrderDetailsScreen = () => {
   const { id } = useSearchParams()
   const [item, setItem] = useState<Order>()
   const orders = useRecoilValueLoadable(ordersAtom)
-
-  console.log(id)
-  console.log(orders)
 
   useEffect(() => {
     if (orders.state === 'hasValue') {
@@ -43,7 +39,7 @@ const OrderDetailsScreen = () => {
         }}
       />
       <View>
-        <OrderDetailsView />
+        <OrderDetailsView order={item} />
       </View>
     </View>
   )

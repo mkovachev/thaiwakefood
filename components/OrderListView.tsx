@@ -17,7 +17,7 @@ export const OrderListView = ({ order: item }: Props) => {
         <Text>Order: {item.id}</Text>
         <Text>Status: {item.status}</Text>
         <Text>Total: {formatInTHB(item.total)}</Text>
-        <Link style={styles.link} href={`order/${item.id}`} text='show details' />
+        <Link style={styles.link} href={`orders/${item.id}`} text='show details' />
       </View>
     </View>
   )
