@@ -23,7 +23,7 @@ export default function ShoppingCartScreen() {
   const handleRemoveItem = (item: CartItem) => {
     const updatedItems = cartItems.filter(i => i.id !== item.id)
     setCartItems(updatedItems)
-    toast.show(`${item.title} removed from cart`, { type: 'danger' })
+    toast.show(`${item.title} removed successfully`, { type: 'danger' })
   }
 
   const handleItemAmountChange = (item: CartItem, amountChange: number) => {
@@ -44,7 +44,7 @@ export default function ShoppingCartScreen() {
     }
     setOrders(orders => [...orders, order])
     setCartItems([])
-    toast.show('Order successfully created', { type: 'success' })
+    toast.show('Order created successfully', { type: 'success' })
   }
 
 

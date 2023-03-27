@@ -1,4 +1,5 @@
-import { StyleSheet } from 'react-native'
+import { MaterialIcons } from '@expo/vector-icons'
+import { Pressable, StyleSheet } from 'react-native'
 import { Order } from '../data/Order'
 import colors from '../ui/colors'
 import Link from '../ui/components/Link'
@@ -7,17 +8,23 @@ import { formatInTHB } from '../utils/formatInTHB'
 
 interface Props {
   order: Order
+  onRemove: () => void
 }
 
-export const OrderListView = ({ order: item }: Props) => {
+export const OrderListView = ({ order, onRemove }: Props) => {
 
   return (
     <View style={styles.container}>
       <View style={styles.details}>
-        <Text>Order: {item.id}</Text>
-        <Text>Status: {item.status}</Text>
-        <Text>Total: {formatInTHB(item.total)}</Text>
-        <Link style={styles.link} href={`orders/${item.id}`} text='show details' />
+        <Text>Order: {order.id}</Text>
+        <Text>Status: {order.status}</Text>
+        <Text>Total: {formatInTHB(order.total)}</Text>
+      </View>
+      <View style={styles.actions}>
+        <Pressable onPress={onRemove} style={{ alignSelf: 'flex-end' }}>
+          <MaterialIcons name="highlight-remove" size={24} color={colors.red} />
+        </Pressable>
+        <Link href={`orders/${order.id}`} text='show details' />
       </View>
     </View>
   )
@@ -25,6 +32,8 @@ export const OrderListView = ({ order: item }: Props) => {
 
 const styles = StyleSheet.create({
   container: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     padding: 10,
     borderRadius: 10,
     borderBottomColor: colors.blue,
@@ -33,7 +42,7 @@ const styles = StyleSheet.create({
   details: {
     gap: 8
   },
-  link: {
-    alignSelf: 'flex-end',
+  actions: {
+    gap: 10
   },
 })
