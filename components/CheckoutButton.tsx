@@ -1,4 +1,3 @@
-import { Link } from 'expo-router'
 import { StyleSheet, TouchableOpacity } from 'react-native'
 import colors from '../ui/colors'
 import { Text, View } from '../ui/components/Themed'

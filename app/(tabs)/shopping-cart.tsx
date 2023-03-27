@@ -10,9 +10,11 @@ import { useToast } from 'react-native-toast-notifications'
 import { CheckoutButton } from '../../components/CheckoutButton'
 import { Order } from '../../data/Order'
 import { OrderStatus } from '../../data/OrderStatus'
+import { useRouter } from 'expo-router'
 
 export default function ShoppingCartScreen() {
   const toast = useToast()
+  const router = useRouter()
   const [cartItems, setCartItems] = useRecoilState(cartAtom)
   const [orders, setOrders] = useRecoilState(ordersAtom)
 
@@ -44,6 +46,7 @@ export default function ShoppingCartScreen() {
     }
     setOrders(orders => [...orders, order])
     setCartItems([])
+    router.push('/orders')
     toast.show('Order created successfully', { type: 'success' })
   }
 
