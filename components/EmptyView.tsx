@@ -7,7 +7,7 @@ export const EmptyView = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.noItemsText}>No items found...</Text>
-      <Link url='' text='go to menu' />
+      <Link href='/' text='go to menu' />
     </View>
   )
 }

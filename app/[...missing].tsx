@@ -1,8 +1,9 @@
-import { Link, Stack } from 'expo-router'
+import { Stack } from 'expo-router'
 import { StyleSheet } from 'react-native'
 import { Text, View } from '../ui/components/Themed'
 import colors from '../ui/colors'
 import fontFamily from '../ui/fontFamily'
+import Link from '../ui/components/Link'
 
 export default function NotFoundScreen() {
   return (
@@ -10,9 +11,7 @@ export default function NotFoundScreen() {
       <Stack.Screen options={{ title: 'Oops!' }} />
       <View style={styles.container}>
         <Text style={styles.title}>Sorry, not found...</Text>
-        <Link href="/" style={styles.link}>
-          <Text style={styles.linkText}>return home</Text>
-        </Link>
+        <Link href='/' text='go to menu' />
       </View>
     </>
   )
@@ -24,14 +23,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
+    gap: 16
   },
   title: {
     fontFamily: fontFamily.MontserratSemiBold,
     fontSize: 20,
-  },
-  link: {
-    marginTop: 15,
-    paddingVertical: 15,
   },
   linkText: {
     fontFamily: fontFamily.Montserrat,

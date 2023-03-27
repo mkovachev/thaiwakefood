@@ -1,4 +1,4 @@
-import { Feather, Octicons } from '@expo/vector-icons'
+import { Feather, MaterialIcons, Octicons } from '@expo/vector-icons'
 import { Tabs } from 'expo-router'
 import { useColorScheme } from 'react-native'
 import colors from '../../ui/colors'
@@ -34,6 +34,14 @@ export default function TabLayout() {
           title: 'Shopping Cart',
           headerShown: true,
           tabBarIcon: ({ color }) => <Feather size={24} name="shopping-bag" color={color} />
+        }}
+      />
+      <Tabs.Screen
+        name="orders"
+        options={{
+          title: 'Orders',
+          headerShown: true,
+          tabBarIcon: ({ color }) => <MaterialIcons size={24} name="view-list" color={color} />
         }}
       />
     </Tabs>

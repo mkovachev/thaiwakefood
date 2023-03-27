@@ -13,7 +13,7 @@ interface Props {
 const { width } = Dimensions.get('window')
 const isWeb = Platform.OS === 'web'
 
-const NavbarView = ({ categories, onActiveCategory }: Props) => {
+const NavbarCategoriesView = ({ categories, onActiveCategory }: Props) => {
   const [activeCategory, setActiveCategory] = useState<Category | null>(null)
 
   const handleActiveCategory = (category: Category | null) => {
@@ -76,4 +76,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default NavbarView
+export default NavbarCategoriesView

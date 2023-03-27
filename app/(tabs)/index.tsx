@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native'
 import MenuGridView from '../../components/MenuGridView'
-import NavbarView from '../../components/NavbarView'
+import NavbarCategoriesView from '../../components/NavbarCategoriesView'
 import Header from '../../components/Header'
 import SearchBar from '../../components/SearchBar'
 import { useEffect, useState } from 'react'
@@ -44,7 +44,7 @@ export default function HomeScreen() {
   return (
     <View style={styles.container}>
       <Header />
-      <NavbarView categories={categories} onActiveCategory={setActiveCategory} />
+      <NavbarCategoriesView categories={categories} onActiveCategory={setActiveCategory} />
       <SearchBar onSearch={handleSearch} />
       <MenuGridView data={filteredMenu} />
     </View>

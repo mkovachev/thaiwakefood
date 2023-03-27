@@ -1,6 +1,6 @@
 import { FlatList, StyleSheet } from 'react-native'
 import { CartItem } from '../../data/CartItem'
-import { CartItemView } from '../../components/CartItemView'
+import { CartItemListView } from '../../components/CartItemListView'
 import { View } from '../../ui/components/Themed'
 import { EmptyView } from '../../components/EmptyView'
 import { useRecoilState } from 'recoil'
@@ -42,7 +42,7 @@ export default function FavoritesScreen() {
         data={favoriteItems}
         keyExtractor={(item) => `${item.id}${item.option}`}
         renderItem={({ item }) =>
-          <CartItemView
+          <CartItemListView
             item={item}
             onRemove={() => handleRemoveItem(item)}
             onAmountChange={(newAmount) => handleItemAmountChange(item, newAmount - item.amount)}

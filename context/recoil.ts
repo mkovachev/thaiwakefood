@@ -35,15 +35,15 @@ export const orders = recoilPersist({
 
 export const categoriesAtom = atom<Category[]>({
   key: storeKeys.categories,
-  default: [],
+  default: categoriesStore.getAll() ?? [],
   effects_UNSTABLE: [
-    ({ onSet }) => onSet(newValue => categoriesStore.setAll(newValue))
+    ({ onSet }) => onSet(newValue => menuStore.setAll(newValue))
   ]
 })
 
 export const menuAtom = atom<MenuItem[]>({
   key: storeKeys.menu,
-  default: [],
+  default: menuStore.getAll() ?? [],
   effects_UNSTABLE: [
     ({ onSet }) => onSet(newValue => menuStore.setAll(newValue))
   ]
@@ -51,15 +51,15 @@ export const menuAtom = atom<MenuItem[]>({
 
 export const cartAtom = atom<CartItem[]>({
   key: storeKeys.cart,
-  default: [],
+  default: cartStore.getAll() ?? [],
   effects_UNSTABLE: [
-    ({ onSet }) => onSet(newValue => cartStore.setAll(newValue))
+    ({ onSet }) => onSet(newValue => menuStore.setAll(newValue))
   ]
 })
 
 export const favoritesAtom = atom<CartItem[]>({
   key: storeKeys.favorites,
-  default: [],
+  default: favoritesStore.getAll() ?? [],
   effects_UNSTABLE: [
     ({ onSet }) => onSet(newValue => favoritesStore.setAll(newValue))
   ]
@@ -67,7 +67,7 @@ export const favoritesAtom = atom<CartItem[]>({
 
 export const ordersAtom = atom<Order[]>({
   key: storeKeys.orders,
-  default: [],
+  default: ordersStore.getAll() ?? [],
   effects_UNSTABLE: [
     ({ onSet }) => onSet(newValue => ordersStore.setAll(newValue))
   ]

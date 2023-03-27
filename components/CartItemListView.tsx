@@ -1,8 +1,9 @@
 import { AntDesign, Feather, MaterialIcons } from '@expo/vector-icons'
 import { Link } from 'expo-router'
-import { StyleSheet, Image, View, Text, Pressable } from 'react-native'
+import { StyleSheet, Image, Pressable } from 'react-native'
 import { CartItem } from '../data/CartItem'
 import colors from '../ui/colors'
+import { View, Text } from '../ui/components/Themed'
 import fontFamily from '../ui/fontFamily'
 import { formatInTHB } from '../utils/formatInTHB'
 
@@ -14,7 +15,7 @@ interface Props {
   isInFavorites?: boolean
 }
 
-export const CartItemView = ({ item, onRemove, onAddToCart, onAmountChange, isInFavorites }: Props) => {
+export const CartItemListView = ({ item, onRemove, onAddToCart, onAmountChange, isInFavorites }: Props) => {
 
   return (
     <View style={styles.container}>

@@ -12,7 +12,7 @@ interface Props {
 
 const { width, height } = Dimensions.get('window')
 
-const MenuItemView = ({ item }: Props) => {
+const MenuItemGridView = ({ item }: Props) => {
 
   return (
     <View key={item.id} style={styles.container}>
@@ -22,7 +22,7 @@ const MenuItemView = ({ item }: Props) => {
       </View>
       <Image style={styles.image} source={require('../assets/images/fast-food.png')} />
       <Text numberOfLines={3} style={styles.title}>{item.title}</Text>
-      <Link url={`menu/${item.id}`} text='show details' />
+      <Link href={`menu/${item.id}`} text='show details' />
     </View>
   )
 }
@@ -58,10 +58,6 @@ const styles = StyleSheet.create({
     color: colors.blue,
     fontSize: Platform.OS === 'web' ? 20 : 12,
   },
-  favoriteIcon: {
-    alignSelf: 'flex-end', //TODO: not working on web
-    color: colors.blue
-  },
   title: {
     flex: 1,
     fontFamily: fontFamily.MontserratSemiBold,
@@ -82,4 +78,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default MenuItemView
+export default MenuItemGridView

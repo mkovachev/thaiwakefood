@@ -1,12 +1,11 @@
 import React, { } from 'react'
-import { StyleSheet, FlatList, Platform, Dimensions, useWindowDimensions } from 'react-native'
+import { StyleSheet, FlatList, Platform, useWindowDimensions } from 'react-native'
 import { MenuItem } from '../data/MenuItem'
-import MenuItemView from './MenuItemView'
+import MenuItemGridView from './MenuItemGridView'
 import { EmptyView } from './EmptyView'
 
 interface Props {
   data: MenuItem[]
-  handleShowDetails?: (item: MenuItem) => void
 }
 
 const MenuGridView = ({ data }: Props) => {
@@ -18,7 +17,7 @@ const MenuGridView = ({ data }: Props) => {
     <FlatList
       data={data}
       numColumns={Platform.OS === 'web' ? webColumns : mobileColumns}
-      renderItem={({ item }) => (<MenuItemView item={item} />)}
+      renderItem={({ item }) => (<MenuItemGridView item={item} />)}
       keyExtractor={(item) => item.id}
       contentContainerStyle={[styles.container, Platform.OS === 'web' && styles.webContainer]}
       ListEmptyComponent={<EmptyView />}

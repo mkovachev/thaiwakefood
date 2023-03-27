@@ -3,25 +3,29 @@ import { Stack, useSearchParams } from 'expo-router'
 import { useEffect, useState } from 'react'
 import { MenuItem } from '../../data/MenuItem'
 import NotFoundScreen from '../[...missing]'
-import { ItemDetailsView } from '../../components/ItemDetailsView'
-import { menuAtom } from '../../context/recoil'
+import { ordersAtom } from '../../context/recoil'
 import { useRecoilValueLoadable } from 'recoil'
+import { Order } from '../../data/Order'
+import OrderDetailsView from '../../components/OrderDetailsView'
 
-const MenuItemDetailsScreen = () => {
+const OrderDetailsScreen = () => {
   const { id } = useSearchParams()
-  const [item, setItem] = useState<MenuItem>()
-  const menu = useRecoilValueLoadable(menuAtom)
+  const [item, setItem] = useState<Order>()
+  const orders = useRecoilValueLoadable(ordersAtom)
+
+  console.log(id)
+  console.log(orders)
 
   useEffect(() => {
-    if (menu.state === 'hasValue') {
-      const foundItem = menu.contents.find((menuItem: MenuItem) => menuItem.id === id)
+    if (orders.state === 'hasValue') {
+      const foundItem = orders.contents.find((order: Order) => order.id === id)
       if (foundItem) {
         setItem(foundItem)
       }
     }
-  }, [id, menu])
+  }, [id, orders])
 
-  if (menu.state === 'loading') {
+  if (orders.state === 'loading') {
     return <View>Loading...</View>
   }
 
@@ -33,16 +37,16 @@ const MenuItemDetailsScreen = () => {
     <View>
       <Stack.Screen
         options={{
-          title: item.title,
+          title: item.id,
           presentation: 'modal',
           headerShown: true,
         }}
       />
       <View>
-        <ItemDetailsView item={item} />
+        <OrderDetailsView />
       </View>
     </View>
   )
 }
 
-export default MenuItemDetailsScreen
+export default OrderDetailsScreen

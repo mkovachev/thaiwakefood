@@ -1,37 +1,38 @@
 import fontFamily from '../fontFamily'
 import colors from '../colors'
-import { View, Text } from './Themed'
-import { Platform, StyleSheet } from 'react-native'
+import { Text } from './Themed'
+import { Platform, StyleSheet, TextStyle, ViewStyle } from 'react-native'
 import { Link as ExpoLink } from 'expo-router'
 
-interface Props {
-  url: string
+interface Props extends React.ComponentProps<typeof ExpoLink> {
   text: string
+  style?: ViewStyle & TextStyle
   children?: React.ReactNode
 }
 
-const Link = ({ url, text, children }: Props) => {
+const Link = ({ text, style, children, ...props }: Props) => {
+  const defaultStyles = StyleSheet.create({
+    container: {
+      padding: 10,
+      borderRadius: 20,
+      borderWidth: 1,
+      borderColor: colors.yellow,
+      borderStyle: 'solid',
+    },
+    linkText: {
+      fontFamily: fontFamily.MontserratMedium,
+      marginRight: 5,
+      fontSize: Platform.OS === 'web' ? 16 : 14,
+    },
+  })
+
   return (
-    <ExpoLink href={url} style={styles.container}>
+    <ExpoLink style={[defaultStyles.container, style]} {...props}>
       {children}
-      <Text style={styles.linkText}>{text}</Text>
+      <Text style={[defaultStyles.linkText]}>{text}</Text>
     </ExpoLink>
   )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    padding: 10,
-    borderRadius: 20,
-    borderWidth: 1,
-    borderColor: colors.yellow,
-    borderStyle: 'solid',
-  },
-  linkText: {
-    fontFamily: fontFamily.MontserratMedium,
-    marginRight: 5,
-    fontSize: Platform.OS === 'web' ? 16 : 14,
-  }
-})
 
 export default Link
