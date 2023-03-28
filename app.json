@@ -32,13 +32,13 @@
         "babel": {}
       },
       "plugins": [
-        [
-          "@stripe/stripe-react-native",
-          {
-            "merchantIdentifier": ["MERCHANT_ID"],
-            "enableGooglePay": true
-          }
-        ]
+        // [
+        //   "@stripe/stripe-react-native",
+        //   {
+        //     "merchantIdentifier": ["MERCHANT_ID"],
+        //     "enableGooglePay": true
+        //   }
+        // ]
       ]
     },
     "plugins": [],
