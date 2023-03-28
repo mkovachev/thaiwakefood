@@ -12,6 +12,8 @@ export default function OrdersScreen() {
   const toast = useToast()
   const [orders, setOrders] = useRecoilState(ordersAtom)
 
+  console.log(orders)
+
   const handleRemove = (order: Order) => {
     const filteredItems = orders.filter(i => i.id !== order.id)
     setOrders(filteredItems)
@@ -23,7 +25,11 @@ export default function OrdersScreen() {
       <FlatList
         data={orders}
         keyExtractor={order => order.id}
-        renderItem={({ item }) => <OrderListView order={item} onRemove={() => handleRemove(item)} />}
+        renderItem={({ item }) =>
+          <OrderListView
+            order={item}
+            onRemove={() => handleRemove(item)}
+          />}
         ListEmptyComponent={<EmptyView />}
       />
     </View>

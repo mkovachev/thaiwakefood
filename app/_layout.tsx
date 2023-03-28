@@ -7,6 +7,7 @@ import { FontAwesome5 } from '@expo/vector-icons'
 import { Provider as PaperProvider } from 'react-native-paper'
 import { RecoilRoot } from "recoil"
 import { ToastProvider } from 'react-native-toast-notifications'
+import { StripeProvider } from '@stripe/stripe-react-native'
 
 
 export {
@@ -48,18 +49,24 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme()
 
   return (
-    <RecoilRoot>
-      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <PaperProvider>
-          <ToastProvider>
-            <Stack>
-              <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
-              <Stack.Screen name='menu/[id]' options={{ headerShown: false, presentation: 'modal' }} />
-              <Stack.Screen name='orders/[id]' options={{ headerShown: false, presentation: 'modal' }} />
-            </Stack>
-          </ToastProvider>
-        </PaperProvider>
-      </ThemeProvider>
-    </RecoilRoot>
+    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      <PaperProvider>
+        <StripeProvider
+          publishableKey=''
+          merchantIdentifier="merchant.identifier"
+          urlScheme="your-url-scheme">
+          <RecoilRoot>
+            <ToastProvider>
+              <Stack>
+                <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
+                <Stack.Screen name='menu/[id]' options={{ headerShown: false, presentation: 'modal' }} />
+                <Stack.Screen name='orders/[id]' options={{ headerShown: false, presentation: 'modal' }} />
+                <Stack.Screen name='payment' options={{ headerShown: true, presentation: 'modal' }} />
+              </Stack>
+            </ToastProvider>
+          </RecoilRoot>
+        </StripeProvider >
+      </PaperProvider>
+    </ThemeProvider>
   )
 }

@@ -1,8 +1,8 @@
-import { MaterialIcons } from '@expo/vector-icons'
+import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
+import { Link } from 'expo-router'
 import { Pressable, StyleSheet } from 'react-native'
 import { Order } from '../data/Order'
 import colors from '../ui/colors'
-import Link from '../ui/components/Link'
 import { View, Text } from '../ui/components/Themed'
 import { formatInTHB } from '../utils/formatInTHB'
 
@@ -24,7 +24,9 @@ export const OrderListView = ({ order, onRemove }: Props) => {
         <Pressable onPress={onRemove} style={{ alignSelf: 'flex-end' }}>
           <MaterialIcons name="highlight-remove" size={24} color={colors.red} />
         </Pressable>
-        <Link href={`orders/${order.id}`} text='show details' />
+        <Link href={`orders/${order.id}`}>
+          <MaterialCommunityIcons name="table-search" size={24} color={colors.blue} />
+        </Link>
       </View>
     </View>
   )
