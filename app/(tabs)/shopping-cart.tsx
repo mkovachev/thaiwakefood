@@ -1,4 +1,4 @@
-import { StyleSheet, FlatList } from 'react-native'
+import { StyleSheet, FlatList, Platform } from 'react-native'
 import { CartItem } from '../../data/CartItem'
 import { View } from '../../ui/components/Themed'
 import { CartItemListView } from '../../components/CartItemListView'
@@ -9,14 +9,23 @@ import { cartAtom, ordersAtom } from '../../context/recoil'
 import { useToast } from 'react-native-toast-notifications'
 import { CheckoutButton } from '../../components/CheckoutButton'
 import { Order } from '../../data/Order'
-import { OrderStatus } from '../../data/OrderStatus'
-import { useRouter } from 'expo-router'
+import { shareAsync } from 'expo-sharing'
+import { printToFileAsync } from 'expo-print'
+import * as FileSystem from 'expo-file-system'
+import { generateOrderHTML } from '../../utils/generateOrderHTML'
+import { useState } from 'react'
+import { PaymentOptions } from '../../data/PaymentOptions'
+import { DeliveryOptions } from '../../data/DeliveryOptions'
+import { PaymentOptionsView } from '../../components/PaymentOptionsView'
+import { DeliveryOptionsView } from '../../components/DeliveryOptionsView'
+
 
 export default function ShoppingCartScreen() {
   const toast = useToast()
-  const router = useRouter()
   const [cartItems, setCartItems] = useRecoilState(cartAtom)
   const [orders, setOrders] = useRecoilState(ordersAtom)
+  const [paymentOption, setPaymentOption] = useState(PaymentOptions.Cash)
+  const [deliveryOption, setDeliveryOption] = useState(DeliveryOptions.Pickup)
 
   const cartTotal = cartItems.length > 0 ? cartItems.reduce((total, item) => {
     return total + (item.price * item.amount)
@@ -34,7 +43,7 @@ export default function ShoppingCartScreen() {
     setCartItems(items => items.map(i => i.id === updatedItem.id ? updatedItem : i))
   }
 
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
     let id = 1
     if (orders.length > 0) id = Number(orders[orders.length - 1].id) + 1
 
@@ -42,14 +51,24 @@ export default function ShoppingCartScreen() {
       id: id.toString(),
       total: cartTotal,
       items: cartItems,
-      status: OrderStatus.PendingPayment,
+      date: new Date(),
+      payment: paymentOption,
+      delivery: deliveryOption
     }
-    setOrders(orders => [...orders, order])
-    setCartItems([])
-    router.push('/payment')
-    toast.show('Please wait...', { type: 'warning' })
-  }
 
+    const html = generateOrderHTML(order)
+    const { uri } = await printToFileAsync({ html })
+
+    try {
+      await shareAsync(uri, { UTI: '.pdf', mimeType: 'application/pdf' })
+      setOrders(orders => [...orders, order])
+      setCartItems([])
+    } catch (error) {
+      console.log(error)
+      toast.show('Failed to share order...', { type: 'danger' })
+    }
+    await FileSystem.deleteAsync(uri)
+  }
 
   return (
     <View style={styles.container}>
@@ -66,6 +85,8 @@ export default function ShoppingCartScreen() {
           <>
             {cartTotal > 0 && <CartTotal total={cartTotal} />}
             {cartTotal > 0 && <CheckoutButton onCheckout={handleCheckout} />}
+            {cartTotal > 0 && <PaymentOptionsView />}
+            {cartTotal > 0 && <DeliveryOptionsView />}
           </>
         }
         ListEmptyComponent={<EmptyView />}

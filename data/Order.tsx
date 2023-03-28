@@ -5,5 +5,7 @@ export interface Order {
   id: string
   items: CartItem[]
   total: number
-  status: OrderStatus
+  date: Date
+  payment: string
+  delivery: string
 }
