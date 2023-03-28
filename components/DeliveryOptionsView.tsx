@@ -3,29 +3,32 @@ import { RadioButton } from 'react-native-paper'
 import { DeliveryOptions } from '../data/DeliveryOptions'
 import { View, Text } from '../ui/components/Themed'
 import { StyleSheet } from 'react-native'
+import colors from '../ui/colors'
 
+interface Props {
+  onDeliveryOption: (option: DeliveryOptions) => void
+}
 
-export const DeliveryOptionsView = () => {
-  const [deliveryOption, setDeliveryOption] = useState<string | null>(null)
+export const DeliveryOptionsView = ({ onDeliveryOption }: Props) => {
+  const [selectedOption, setSelectedOption] = useState(DeliveryOptions.Pickup)
+
+  const deliveryOptionItems = Object.values(DeliveryOptions).map((option) => (
+    <View style={styles.deliveryOptionRow} key={option}>
+      <RadioButton
+        value={option}
+        status={option === selectedOption ? 'checked' : 'unchecked'}
+        onPress={() => {
+          setSelectedOption(option)
+          onDeliveryOption(option)
+        }}
+      />
+      <Text style={styles.deliveryOptionText}>{option}</Text>
+    </View>
+  ))
 
   return (
     <View style={styles.deliveryOptionsContainer}>
-      <View style={styles.deliveryOptionRow}>
-        <RadioButton
-          value={DeliveryOptions.Pickup}
-          status={deliveryOption === DeliveryOptions.Pickup ? 'checked' : 'unchecked'}
-          onPress={() => setDeliveryOption(DeliveryOptions.Pickup)}
-        />
-        <Text style={styles.deliveryOptionText}>Pickup</Text>
-      </View>
-      <View style={styles.deliveryOptionRow}>
-        <RadioButton
-          value={DeliveryOptions.Delivery}
-          status={deliveryOption === DeliveryOptions.Delivery ? 'checked' : 'unchecked'}
-          onPress={() => setDeliveryOption(DeliveryOptions.Delivery)}
-        />
-        <Text style={styles.deliveryOptionText}>Delivery</Text>
-      </View>
+      {deliveryOptionItems}
     </View>
   )
 }
@@ -35,7 +38,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     paddingHorizontal: 20,
     paddingVertical: 10,
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.white,
     borderRadius: 5,
   },
   deliveryOptionRow: {

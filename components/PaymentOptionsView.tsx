@@ -1,31 +1,33 @@
+import { useState } from 'react'
 import { RadioButton } from 'react-native-paper'
 import { PaymentOptions } from '../data/PaymentOptions'
 import { View, Text } from '../ui/components/Themed'
 import { StyleSheet } from 'react-native'
-import { useState } from 'react'
 
+interface Props {
+  onPaymentOption: (option: PaymentOptions) => void
+}
 
-export const PaymentOptionsView = () => {
-  const [paymentOption, setPaymentOption] = useState<string | null>(null)
+export const PaymentOptionsView = ({ onPaymentOption }: Props) => {
+  const [paymentOption, setPaymentOption] = useState(PaymentOptions.Cash)
+
+  const handlePaymentOptionChange = (option: PaymentOptions) => {
+    setPaymentOption(option)
+    onPaymentOption(option)
+  }
 
   return (
     <View style={styles.paymentOptionsContainer}>
-      <View style={styles.paymentOptionRow}>
-        <RadioButton
-          value={PaymentOptions.Cash}
-          status={paymentOption === PaymentOptions.Cash ? 'checked' : 'unchecked'}
-          onPress={() => setPaymentOption(PaymentOptions.Cash)}
-        />
-        <Text style={styles.paymentOptionText}>Cash on delivery</Text>
-      </View>
-      <View style={styles.paymentOptionRow}>
-        <RadioButton
-          value={PaymentOptions.Card}
-          status={paymentOption === PaymentOptions.Card ? 'checked' : 'unchecked'}
-          onPress={() => setPaymentOption(PaymentOptions.Card)}
-        />
-        <Text style={styles.paymentOptionText}>Credit / Debit card</Text>
-      </View>
+      {Object.values(PaymentOptions).map((option) => (
+        <View key={option} style={styles.paymentOptionRow}>
+          <RadioButton
+            value={option}
+            status={paymentOption === option ? 'checked' : 'unchecked'}
+            onPress={() => handlePaymentOptionChange(option)}
+          />
+          <Text style={styles.paymentOptionText}>{option}</Text>
+        </View>
+      ))}
     </View>
   )
 }
@@ -46,5 +48,5 @@ const styles = StyleSheet.create({
   paymentOptionText: {
     marginLeft: 10,
     fontSize: 16,
-  }
+  },
 })

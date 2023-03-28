@@ -35,7 +35,7 @@ export const generateOrderHTML = (order: Order) => {
       </head>
       <body>
         <h1>Thank you for your order!</h1>
-        <p>Your order has been received and will be processed shortly.</p>
+        <p>You will receive a confirmation once your order is ready.</p>
         <h2>Order Details</h2>
         <ul>
           <li><strong>Order ID:</strong> ${order.id}</li>
@@ -46,8 +46,9 @@ export const generateOrderHTML = (order: Order) => {
           <ul>
             ${itemsHTML}
           </ul>
-          <li class="total"><strong>Order Total:</strong> ${order.total.toFixed(2)}</li>
+          <li><strong>Order Total:</strong> ${order.total.toFixed(2)}</li>
         </ul>
+        <p>Your TWP</p>
       </body>
     </html>
   `

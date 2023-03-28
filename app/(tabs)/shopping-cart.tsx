@@ -43,6 +43,14 @@ export default function ShoppingCartScreen() {
     setCartItems(items => items.map(i => i.id === updatedItem.id ? updatedItem : i))
   }
 
+  const handlePaymentOption = (option: PaymentOptions) => {
+    setPaymentOption(option)
+  }
+
+  const handleDeliveryOption = (option: DeliveryOptions) => {
+    setDeliveryOption(option)
+  }
+
   const handleCheckout = async () => {
     let id = 1
     if (orders.length > 0) id = Number(orders[orders.length - 1].id) + 1
@@ -55,6 +63,8 @@ export default function ShoppingCartScreen() {
       payment: paymentOption,
       delivery: deliveryOption
     }
+
+    console.log(order)
 
     const html = generateOrderHTML(order)
     const { uri } = await printToFileAsync({ html })
@@ -85,8 +95,8 @@ export default function ShoppingCartScreen() {
           <>
             {cartTotal > 0 && <CartTotal total={cartTotal} />}
             {cartTotal > 0 && <CheckoutButton onCheckout={handleCheckout} />}
-            {cartTotal > 0 && <PaymentOptionsView />}
-            {cartTotal > 0 && <DeliveryOptionsView />}
+            {cartTotal > 0 && <PaymentOptionsView onPaymentOption={handlePaymentOption} />}
+            {cartTotal > 0 && <DeliveryOptionsView onDeliveryOption={handleDeliveryOption} />}
           </>
         }
         ListEmptyComponent={<EmptyView />}
