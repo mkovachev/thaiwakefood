@@ -30,7 +30,16 @@
       "favicon": "./assets/images/logo.png",
       "build": {
         "babel": {}
-      }
+      },
+      "plugins": [
+        [
+          "@stripe/stripe-react-native",
+          {
+            "merchantIdentifier": ["MERCHANT_ID"],
+            "enableGooglePay": true
+          }
+        ]
+      ]
     },
     "plugins": [],
     "extra": {

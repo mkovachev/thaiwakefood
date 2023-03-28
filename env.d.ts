@@ -6,4 +6,5 @@ declare module '@env' {
   export const API_KEY: string
   export const PAYMENT_URL: string
   export const STRIPE_PUBLISHABLE_KEY: string
+  export const MERCHANT_ID: string
 }

@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import { StyleSheet, TouchableOpacity } from 'react-native'
-import { BillingDetails, CardField, CardFieldInput, useConfirmPayment } from '@stripe/stripe-react-native'
+import { BillingDetails, CardField, useConfirmPayment } from '@stripe/stripe-react-native'
 import colors from '../ui/colors'
 import { View, Text } from "../ui/components/Themed"
 import { getPaymentClientSecret } from '../utils/getPaymentClientSecret'
 import { useToast } from 'react-native-toast-notifications'
+import fontFamily from '../ui/fontFamily'
 
 
 interface Props {
@@ -13,9 +14,9 @@ interface Props {
 
 export default function PaymentScreen({ amount }: Props) {
   const { confirmPayment, loading } = useConfirmPayment()
-  const [cardDetails, setCardDetails] = useState<CardFieldInput.Details>()
+  const [cardDetails, setCardDetails] = useState()
 
-  const handleCardDetails = (cardDetails: CardFieldInput.Details) => {
+  const handleCardDetails = (cardDetails: any) => {
     setCardDetails(cardDetails)
     console.log(cardDetails)
   }
@@ -62,19 +63,15 @@ export default function PaymentScreen({ amount }: Props) {
         placeholders={{
           number: '4242 4242 4242 4242',
         }}
-        cardStyle={{
-          backgroundColor: colors.white,
-          textColor: colors.black,
-        }}
         onCardChange={handleCardDetails}
         onFocus={(focusedField) => {
           console.log('focusField', focusedField)
         }}
       />
-      {/* <Text style={styles.pay} onPress={handlePayment} disabled={loading}>Pay</Text> */}
-      <TouchableOpacity style={styles.pay} onPress={handlePayment}>
+      <Text style={styles.pay} onPress={handlePayment} disabled={loading}>Pay</Text>
+      {/* <TouchableOpacity style={styles.pay} onPress={handlePayment}> */}
         <Text style={styles.payText}>Pay</Text>
-      </TouchableOpacity>
+      {/* </TouchableOpacity> */}
     </View>
   )
 }
@@ -91,9 +88,17 @@ const styles = StyleSheet.create({
     marginVertical: 30,
   },
   pay: {
-
+    fontFamily: fontFamily.MontserratSemiBold,
+    width: '30%',
+    alignSelf: 'center',
+    textAlign: 'center',
+    backgroundColor: colors.blue,
+    color: colors.white,
+    borderRadius: 16,
+    padding: 10
   },
   payText: {
-
+    alignSelf: 'center',
+    color: colors.white,
   }
 })

@@ -8,6 +8,7 @@ import { Provider as PaperProvider } from 'react-native-paper'
 import { RecoilRoot } from "recoil"
 import { ToastProvider } from 'react-native-toast-notifications'
 import { StripeProvider } from '@stripe/stripe-react-native'
+import { MERCHANT_ID, STRIPE_PUBLISHABLE_KEY } from '@env'
 
 
 export {
@@ -51,10 +52,7 @@ function RootLayoutNav() {
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <PaperProvider>
-        <StripeProvider
-          publishableKey=''
-          merchantIdentifier="merchant.identifier"
-          urlScheme="your-url-scheme">
+        <StripeProvider publishableKey={STRIPE_PUBLISHABLE_KEY}>
           <RecoilRoot>
             <ToastProvider>
               <Stack>
