@@ -70,7 +70,7 @@ export default function PaymentScreen({ amount }: Props) {
       />
       <Text style={styles.pay} onPress={handlePayment} disabled={loading}>Pay</Text>
       {/* <TouchableOpacity style={styles.pay} onPress={handlePayment}> */}
-        <Text style={styles.payText}>Pay</Text>
+        {/* <Text style={styles.payText}>Pay</Text> */}
       {/* </TouchableOpacity> */}
     </View>
   )
@@ -97,8 +97,4 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     padding: 10
   },
-  payText: {
-    alignSelf: 'center',
-    color: colors.white,
-  }
 })

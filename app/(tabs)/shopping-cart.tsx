@@ -47,7 +47,7 @@ export default function ShoppingCartScreen() {
     setOrders(orders => [...orders, order])
     setCartItems([])
     router.push('/payment')
-    toast.show('We are forwarding you to payment. Please wait...', { type: 'warning' })
+    toast.show('Please wait...', { type: 'warning' })
   }
 
 
