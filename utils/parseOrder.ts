@@ -1,14 +1,22 @@
+import { CartItem } from '../data/CartItem'
+import { DeliveryOptions } from '../data/DeliveryOptions'
 import { Order } from '../data/Order'
+import { PaymentOptions } from '../data/PaymentOptions'
 
-export const parseOrderForSharing = (order: Order) => {
-  const formattedItems = order.items.map((item) => {
-    const itemDetails = `${item.quantity} x ${item.name} (${item.price.toFixed(2)} each)`
-    return `${itemDetails}\n`
-  }).join('')
 
-  const formattedTotal = `Total: $${order.total.toFixed(2)}`
+export const parseOrder = (orders: Order[], cartItems: CartItem[], cartTotal: number, paymentOption: PaymentOptions, deliveryOption: DeliveryOptions, deliveryNote: string) => {
+  let id = 1
+  if (orders.length > 0) id = Number(orders[orders.length - 1].id) + 1
 
-  const formattedOrder = `Order #${order.id}\n\nItems:\n${formattedItems}\n${formattedTotal}`
+  const order: Order = {
+    id: id.toString(),
+    total: cartTotal,
+    items: cartItems,
+    date: new Date(),
+    payment: paymentOption,
+    delivery: deliveryOption,
+    deliveryNote: deliveryNote
+  }
 
-  return formattedOrder
+  return order
 }

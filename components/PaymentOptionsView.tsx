@@ -4,13 +4,15 @@ import { PaymentOptions } from '../data/PaymentOptions'
 import { View, Text } from '../ui/components/Themed'
 import { StyleSheet } from 'react-native'
 import colors from '../ui/colors'
+import { Order } from '../data/Order'
 
 interface Props {
+  order?: Order
   onPaymentOptionChange: (option: PaymentOptions) => void
 }
 
-export const PaymentOptionsView = ({ onPaymentOptionChange }: Props) => {
-  const [selectedOption, setSelectedOption] = useState(PaymentOptions.Cash)
+export const PaymentOptionsView = ({ order, onPaymentOptionChange }: Props) => {
+  const [selectedOption, setSelectedOption] = useState(order?.payment || PaymentOptions.Cash)
 
   const handlePaymentOptionChange = (option: PaymentOptions) => {
     setSelectedOption(option)

@@ -1,5 +1,6 @@
+import { AntDesign, MaterialIcons } from '@expo/vector-icons'
 import { Link } from 'expo-router'
-import { StyleSheet, Image } from 'react-native'
+import { StyleSheet, Image, Pressable } from 'react-native'
 import { CartItem } from '../data/CartItem'
 import colors from '../ui/colors'
 import { View, Text } from '../ui/components/Themed'
@@ -8,9 +9,12 @@ import { formatInTHB } from '../utils/formatInTHB'
 
 interface Props {
   item: CartItem
+  onRemove: () => void
+  onAmountChange: (newAmount: number) => void
+  isInCart?: boolean
 }
 
-export const OrderItemDetailsView = ({ item }: Props) => {
+export const OrderItemListView = ({ item, onRemove, onAmountChange }: Props) => {
 
   return (
     <View style={styles.container}>
@@ -24,6 +28,20 @@ export const OrderItemDetailsView = ({ item }: Props) => {
         {item.option && <Text>Option: {item.option}</Text>}
         {item.spicy && <Text>Spicy: Yes</Text>}
         <Text>Price: {formatInTHB(item.price)}</Text>
+        <View style={styles.quantity}>
+          <Pressable onPress={() => onAmountChange(item.quantity - 1)}>
+            <AntDesign name="leftcircleo" size={20} color="black" />
+          </Pressable>
+          <Text style={styles.quantityText}>{item.quantity}</Text>
+          <Pressable onPress={() => onAmountChange(item.quantity + 1)}>
+            <AntDesign name="rightcircleo" size={20} color="black" />
+          </Pressable>
+        </View>
+        <View>
+          <Pressable onPress={onRemove} style={{ flex: 1 }}>
+            <MaterialIcons name="highlight-remove" size={24} color={colors.red} />
+          </Pressable>
+        </View>
       </View>
     </View>
   )

@@ -47,7 +47,6 @@ export default function FavoritesScreen() {
             onRemove={() => handleRemoveItem(item)}
             onAmountChange={(newAmount) => handleItemAmountChange(item, newAmount - item.quantity)}
             onAddToCart={() => handleAddToCart(item)}
-            isInFavorites={true}
           />}
         ListEmptyComponent={<EmptyView />}
       />

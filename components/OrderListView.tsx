@@ -17,7 +17,6 @@ export const OrderListView = ({ order, onRemove }: Props) => {
     <View style={styles.container}>
       <View style={styles.details}>
         <Text>Order: {order.id}</Text>
-        <Text>Status: {order.status}</Text>
         <Text>Total: {formatInTHB(order.total)}</Text>
       </View>
       <View style={styles.actions}>

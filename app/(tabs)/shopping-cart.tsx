@@ -1,4 +1,4 @@
-import { StyleSheet, FlatList, Platform } from 'react-native'
+import { StyleSheet, FlatList } from 'react-native'
 import { CartItem } from '../../data/CartItem'
 import { View } from '../../ui/components/Themed'
 import { CartItemListView } from '../../components/CartItemListView'
@@ -8,7 +8,6 @@ import { useRecoilState } from 'recoil'
 import { cartAtom, ordersAtom } from '../../context/recoil'
 import { useToast } from 'react-native-toast-notifications'
 import { PlaceOrderButton as PlaceOrderButton } from '../../components/PlaceOrderButton'
-import { Order } from '../../data/Order'
 import { shareAsync } from 'expo-sharing'
 import { printToFileAsync } from 'expo-print'
 import * as FileSystem from 'expo-file-system'
@@ -19,6 +18,8 @@ import { DeliveryOptions } from '../../data/DeliveryOptions'
 import { PaymentOptionsView } from '../../components/PaymentOptionsView'
 import { DeliveryOptionsView } from '../../components/DeliveryOptionsView'
 import { useRouter } from 'expo-router'
+import { SaveOrderButton } from '../../components/SaveOrder'
+import { parseOrder } from '../../utils/parseOrder'
 
 
 export default function ShoppingCartScreen() {
@@ -56,34 +57,24 @@ export default function ShoppingCartScreen() {
   }
 
   const handlePlaceOrder = async () => {
-    let id = 1
-    if (orders.length > 0) id = Number(orders[orders.length - 1].id) + 1
-
-    const order: Order = {
-      id: id.toString(),
-      total: cartTotal,
-      items: cartItems,
-      date: new Date(),
-      payment: paymentOption,
-      delivery: deliveryOption,
-      deliveryNote: deliveryNote
-    }
-
+    const order = parseOrder(orders, cartItems, cartTotal, paymentOption, deliveryOption, deliveryNote)
     const html = generateOrderHTML(order)
     const { uri } = await printToFileAsync({ html })
 
     try {
       await shareAsync(uri, { UTI: '.pdf', mimeType: 'application/pdf' })
-      //TODO: only if shared
-      setOrders(orders => [...orders, order])
-      setCartItems([])
     } catch (error) {
-      setCartItems(items => [...items, ...cartItems])
       toast.show('Failed to share order...', { type: 'danger' })
     }
     await FileSystem.deleteAsync(uri)
-    toast.show('Your order has been saved in orders', { type: 'success' })
     router.push('/')
+  }
+
+  const handleSaveOrder = () => {
+    const order = parseOrder(orders, cartItems, cartTotal, paymentOption, deliveryOption, deliveryNote)
+    setOrders(orders => [...orders, order])
+    setCartItems([])
+    toast.show('Your order has been saved successfully', { type: 'success' })
   }
 
   return (
@@ -94,6 +85,7 @@ export default function ShoppingCartScreen() {
         renderItem={({ item }) =>
           <CartItemListView
             item={item}
+            inCart={true}
             onRemove={() => handleRemoveItem(item)}
             onAmountChange={(newAmount) => handleItemAmountChange(item, newAmount - item.quantity)}
           />}
@@ -102,7 +94,10 @@ export default function ShoppingCartScreen() {
             {cartTotal > 0 && <PaymentOptionsView onPaymentOptionChange={handlePaymentOption} />}
             {cartTotal > 0 && <DeliveryOptionsView onDeliveryOptionChange={handleDeliveryOption} />}
             {cartTotal > 0 && <CartTotal total={cartTotal} />}
-            {cartTotal > 0 && <PlaceOrderButton onCheckout={handlePlaceOrder} />}
+            <View style={styles.actions}>
+              {cartTotal > 0 && <PlaceOrderButton onPlaceOrder={handlePlaceOrder} />}
+              {cartTotal > 0 && <SaveOrderButton onSave={handleSaveOrder} />}
+            </View>
           </>
         }
         ListEmptyComponent={<EmptyView />}
@@ -114,5 +109,9 @@ export default function ShoppingCartScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  actions: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
   }
 })

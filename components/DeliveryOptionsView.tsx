@@ -4,15 +4,17 @@ import { DeliveryOptions } from '../data/DeliveryOptions'
 import { View, Text } from '../ui/components/Themed'
 import { StyleSheet } from 'react-native'
 import colors from '../ui/colors'
+import { Order } from '../data/Order'
 
 interface Props {
+  order?: Order
   onDeliveryOptionChange: (option: DeliveryOptions, deliveryNote?: string) => void
 }
 
-export const DeliveryOptionsView = ({ onDeliveryOptionChange }: Props) => {
-  const [selectedOption, setSelectedOption] = useState(DeliveryOptions.Pickup)
-  const [deliveryNote, setDeliveryNote] = useState('')
-  
+export const DeliveryOptionsView = ({ order, onDeliveryOptionChange }: Props) => {
+  const [selectedOption, setSelectedOption] = useState(order?.delivery || DeliveryOptions.Pickup)
+  const [deliveryNote, setDeliveryNote] = useState(order?.deliveryNote || '')
+
   const handleDeliveryOptionChange = (option: DeliveryOptions) => {
     setSelectedOption(option)
     if (option === DeliveryOptions.Delivery) {
@@ -52,7 +54,7 @@ export const DeliveryOptionsView = ({ onDeliveryOptionChange }: Props) => {
           value={deliveryNote}
           numberOfLines={2}
           maxLength={80}
-        onChangeText={handleDeliveryNoteChange}
+          onChangeText={handleDeliveryNoteChange}
           cursorColor={colors.yellow}
           underlineColor={colors.yellow}
           activeUnderlineColor={colors.yellow}

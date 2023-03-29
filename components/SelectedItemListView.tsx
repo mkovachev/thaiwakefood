@@ -15,7 +15,7 @@ interface Props {
   inCart?: boolean
 }
 
-export const CartItemListView = ({ item, onRemove, onAddToCart, onAmountChange, inCart }: Props) => {
+export const SelectedItem = ({ item, onRemove, onAddToCart, onAmountChange, inCart }: Props) => {
 
   return (
     <View style={styles.container}>
