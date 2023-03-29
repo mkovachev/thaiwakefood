@@ -7,7 +7,7 @@ import { EmptyView } from '../../components/EmptyView'
 import { useRecoilState } from 'recoil'
 import { cartAtom, ordersAtom } from '../../context/recoil'
 import { useToast } from 'react-native-toast-notifications'
-import { CheckoutButton } from '../../components/CheckoutButton'
+import { PlaceOrderButton as PlaceOrderButton } from '../../components/PlaceOrderButton'
 import { Order } from '../../data/Order'
 import { shareAsync } from 'expo-sharing'
 import { printToFileAsync } from 'expo-print'
@@ -41,8 +41,8 @@ export default function ShoppingCartScreen() {
   }
 
   const handleItemAmountChange = (item: CartItem, amountChange: number) => {
-    const updatedItem = { ...item, amount: item.quantity + amountChange }
-    if (updatedItem.amount < 1) return
+    const updatedItem = { ...item, quantity: item.quantity + amountChange }
+    if (updatedItem.quantity < 1) return
     setCartItems(items => items.map(i => i.id === updatedItem.id ? updatedItem : i))
   }
 
@@ -55,7 +55,7 @@ export default function ShoppingCartScreen() {
     if (deliveryNote) setDeliveryNote(deliveryNote)
   }
 
-  const handleCheckout = async () => {
+  const handlePlaceOrder = async () => {
     let id = 1
     if (orders.length > 0) id = Number(orders[orders.length - 1].id) + 1
 
@@ -78,6 +78,7 @@ export default function ShoppingCartScreen() {
       setOrders(orders => [...orders, order])
       setCartItems([])
     } catch (error) {
+      setCartItems(items => [...items, ...cartItems])
       toast.show('Failed to share order...', { type: 'danger' })
     }
     await FileSystem.deleteAsync(uri)
@@ -101,7 +102,7 @@ export default function ShoppingCartScreen() {
             {cartTotal > 0 && <PaymentOptionsView onPaymentOptionChange={handlePaymentOption} />}
             {cartTotal > 0 && <DeliveryOptionsView onDeliveryOptionChange={handleDeliveryOption} />}
             {cartTotal > 0 && <CartTotal total={cartTotal} />}
-            {cartTotal > 0 && <CheckoutButton onCheckout={handleCheckout} />}
+            {cartTotal > 0 && <PlaceOrderButton onCheckout={handlePlaceOrder} />}
           </>
         }
         ListEmptyComponent={<EmptyView />}

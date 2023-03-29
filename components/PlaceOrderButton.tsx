@@ -9,7 +9,7 @@ interface Props {
   onCheckout: () => void
 }
 
-export const CheckoutButton = ({ onCheckout }: Props) => {
+export const PlaceOrderButton = ({ onCheckout }: Props) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.checkoutButton} onPress={onCheckout}>
@@ -26,7 +26,6 @@ const styles = StyleSheet.create({
   },
   checkoutButton: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: colors.yellow,
     padding: 10,
