@@ -4,7 +4,7 @@ import { MenuItem } from './MenuItem'
 export const menu: MenuItem[] = [
   {
     "id": "1",
-    "title": "Americano",
+    "name": "Americano",
     "category": CategoryEnum.Drinks,
     "image": '../assets/images/fast-food.png',
     "options": [
@@ -25,7 +25,7 @@ export const menu: MenuItem[] = [
   },
   {
     "id": "2",
-    "title": "Latte",
+    "name": "Latte",
     "category": CategoryEnum.Drinks,
     "image": '../assets/images/fast-food.png',
     "options": [
@@ -46,7 +46,7 @@ export const menu: MenuItem[] = [
   },
   {
     "id": "3",
-    "title": "Mocha",
+    "name": "Mocha",
     "category": CategoryEnum.Drinks,
     "image": '../assets/images/fast-food.png',
     "options": [
@@ -67,7 +67,7 @@ export const menu: MenuItem[] = [
   },
   {
     "id": "4",
-    "title": "Cappuccino",
+    "name": "Cappuccino",
     "category": CategoryEnum.Drinks,
     "image": '../assets/images/fast-food.png',
     "options": [
@@ -88,7 +88,7 @@ export const menu: MenuItem[] = [
   },
   {
     "id": "5",
-    "title": "Chocolate",
+    "name": "Chocolate",
     "category": CategoryEnum.Drinks,
     "image": '../assets/images/fast-food.png',
     "options": [
@@ -109,7 +109,7 @@ export const menu: MenuItem[] = [
   },
   {
     "id": "6",
-    "title": "Thai Tea",
+    "name": "Thai Tea",
     "category": CategoryEnum.Drinks,
     "image": '../assets/images/fast-food.png',
     "options": [
@@ -130,7 +130,7 @@ export const menu: MenuItem[] = [
   },
   {
     "id": "7",
-    "title": "Green Tea",
+    "name": "Green Tea",
     "category": CategoryEnum.Drinks,
     "image": '../assets/images/fast-food.png',
     "options": [
@@ -151,7 +151,7 @@ export const menu: MenuItem[] = [
   },
   {
     "id": "8",
-    "title": "Strawberry Italian Soda",
+    "name": "Strawberry Italian Soda",
     "category": CategoryEnum.Drinks,
     "image": '../assets/images/fast-food.png',
     "price": 75,
@@ -159,7 +159,7 @@ export const menu: MenuItem[] = [
   },
   {
     "id": "9",
-    "title": "Green Apple Italian Soda",
+    "name": "Green Apple Italian Soda",
     "category": CategoryEnum.Drinks,
     "image": '../assets/images/fast-food.png',
     "price": 75,
@@ -167,7 +167,7 @@ export const menu: MenuItem[] = [
   },
   {
     "id": "10",
-    "title": "Blueberry Italian Soda",
+    "name": "Blueberry Italian Soda",
 
     "category": CategoryEnum.Drinks,
     "image": '../assets/images/fast-food.png',
@@ -176,7 +176,7 @@ export const menu: MenuItem[] = [
   },
   {
     "id": "11",
-    "title": "Lychee Italian Soda",
+    "name": "Lychee Italian Soda",
     "category": CategoryEnum.Drinks,
     "image": '../assets/images/fast-food.png',
     "price": 75,
@@ -184,7 +184,7 @@ export const menu: MenuItem[] = [
   },
   {
     "id": "12",
-    "title": "Honey Lime",
+    "name": "Honey Lime",
 
     "category": CategoryEnum.Drinks,
     "image": '../assets/images/fast-food.png',
@@ -193,7 +193,7 @@ export const menu: MenuItem[] = [
   },
   {
     "id": "13",
-    "title": "Strawberry Shake",
+    "name": "Strawberry Shake",
     "category": CategoryEnum.Drinks,
     "image": '../assets/images/fast-food.png',
     "price": 75,
@@ -201,7 +201,7 @@ export const menu: MenuItem[] = [
   },
   {
     "id": "14",
-    "title": "Blueberry Shake",
+    "name": "Blueberry Shake",
 
     "category": CategoryEnum.Drinks,
     "image": '../assets/images/fast-food.png',
@@ -210,7 +210,7 @@ export const menu: MenuItem[] = [
   },
   {
     "id": "15",
-    "title": "Orange Shake",
+    "name": "Orange Shake",
     "category": CategoryEnum.Drinks,
     "image": '../assets/images/fast-food.png',
     "price": 75,
@@ -218,7 +218,7 @@ export const menu: MenuItem[] = [
   },
   {
     "id": "16",
-    "title": "Lime Shake",
+    "name": "Lime Shake",
 
     "category": CategoryEnum.Drinks,
     "image": '../assets/images/fast-food.png',
@@ -227,7 +227,7 @@ export const menu: MenuItem[] = [
   },
   {
     "id": "17",
-    "title": "Pineapple Shake",
+    "name": "Pineapple Shake",
 
     "category": CategoryEnum.Drinks,
     "image": '../assets/images/fast-food.png',
@@ -236,7 +236,7 @@ export const menu: MenuItem[] = [
   },
   {
     "id": "18",
-    "title": "Green Apple Shake",
+    "name": "Green Apple Shake",
     "category": CategoryEnum.Drinks,
     "image": '../assets/images/fast-food.png',
     "price": 75,
@@ -244,7 +244,7 @@ export const menu: MenuItem[] = [
   },
   {
     "id": "19",
-    "title": "Watermelon Shake",
+    "name": "Watermelon Shake",
     "category": CategoryEnum.Drinks,
     "image": '../assets/images/fast-food.png',
     "price": 75,
@@ -252,7 +252,7 @@ export const menu: MenuItem[] = [
   },
   {
     "id": "20",
-    "title": "Banana Shake",
+    "name": "Banana Shake",
 
     "category": CategoryEnum.Drinks,
     "image": '../assets/images/fast-food.png',
@@ -261,7 +261,7 @@ export const menu: MenuItem[] = [
   },
   {
     "id": "21",
-    "title": "Thai Papaya Salad with peanuts",
+    "name": "Thai Papaya Salad with peanuts",
     "category": CategoryEnum.Salads,
     "image": '../assets/images/fast-food.png',
     "options": [
@@ -290,7 +290,7 @@ export const menu: MenuItem[] = [
   },
   {
     "id": "22",
-    "title": "Soup with Rice",
+    "name": "Soup with Rice",
     "category": CategoryEnum.Soups,
     "image": '../assets/images/fast-food.png',
     "options": [
@@ -315,7 +315,7 @@ export const menu: MenuItem[] = [
   },
   {
     "id": "23",
-    "title": "Club Sandwich",
+    "name": "Club Sandwich",
     "category": CategoryEnum.FastFood,
     "image": '../assets/images/fast-food.png',
     "price": 159,
@@ -323,7 +323,7 @@ export const menu: MenuItem[] = [
   },
   {
     "id": "24",
-    "title": "Pasta Green Pesto with Shrimps",
+    "name": "Pasta Green Pesto with Shrimps",
 
     "category": CategoryEnum.Pasta,
     "image": '../assets/images/fast-food.png',
@@ -332,7 +332,7 @@ export const menu: MenuItem[] = [
   },
   {
     "id": "25",
-    "title": "Wide Rice Noodles in Thick Gravy",
+    "name": "Wide Rice Noodles in Thick Gravy",
     "category": CategoryEnum.Noodles,
     "image": '../assets/images/fast-food.png',
     "options": [
@@ -357,7 +357,7 @@ export const menu: MenuItem[] = [
   },
   {
     "id": "26",
-    "title": "Crispy Egg Noodles in Thick Gravy",
+    "name": "Crispy Egg Noodles in Thick Gravy",
     "category": CategoryEnum.Noodles,
     "image": '../assets/images/fast-food.png',
     "options": [
@@ -382,7 +382,7 @@ export const menu: MenuItem[] = [
   },
   {
     "id": "27",
-    "title": "Rice with stir-fried options",
+    "name": "Rice with stir-fried options",
     "category": CategoryEnum.Rice,
     "image": '../assets/images/fast-food.png',
     "options": [
@@ -407,7 +407,7 @@ export const menu: MenuItem[] = [
   },
   {
     "id": "28",
-    "title": "Waffle",
+    "name": "Waffle",
     "category": CategoryEnum.Desserts,
     "image": '../assets/images/fast-food.png',
     "options": [
@@ -440,7 +440,7 @@ export const menu: MenuItem[] = [
   },
   {
     "id": "29",
-    "title": "Muesli with Yogurt",
+    "name": "Muesli with Yogurt",
     "category": CategoryEnum.Desserts,
     "image": '../assets/images/fast-food.png',
     "price": 99,

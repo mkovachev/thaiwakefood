@@ -38,8 +38,8 @@ export default function HomeScreen() {
   }
 
   const filteredMenu = menuItems
-    .filter(item => activeCategory ? item.category === activeCategory.title : true)
-    .filter(item => searchTerm ? item.title.toLowerCase().includes(searchTerm.toLowerCase()) : true)
+    .filter(item => activeCategory ? item.category === activeCategory.name : true)
+    .filter(item => searchTerm ? item.name.toLowerCase().includes(searchTerm.toLowerCase()) : true)
 
   return (
     <View style={styles.container}>

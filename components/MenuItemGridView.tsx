@@ -21,7 +21,7 @@ const MenuItemGridView = ({ item }: Props) => {
         <Text style={styles.orderNumberText} numberOfLines={1}>{item.id}</Text>
       </View>
       <Image style={styles.image} source={require('../assets/images/fast-food.png')} />
-      <Text numberOfLines={3} style={styles.title}>{item.title}</Text>
+      <Text numberOfLines={3} style={styles.title}>{item.name}</Text>
       <Link href={`menu/${item.id}`} text='show details' />
     </View>
   )

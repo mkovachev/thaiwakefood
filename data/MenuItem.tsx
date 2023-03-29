@@ -3,7 +3,7 @@ import { Option } from "./Option"
 
 export interface MenuItem {
   id: string
-  title: string
+  name: string
   category: CategoryEnum
   image: string
   options?: Option[]

@@ -1,53 +1,80 @@
 import { useState } from 'react'
-import { RadioButton } from 'react-native-paper'
+import { Divider, RadioButton, TextInput } from 'react-native-paper'
 import { DeliveryOptions } from '../data/DeliveryOptions'
 import { View, Text } from '../ui/components/Themed'
 import { StyleSheet } from 'react-native'
 import colors from '../ui/colors'
 
 interface Props {
-  onDeliveryOption: (option: DeliveryOptions) => void
+  onDeliveryOptionChange: (option: DeliveryOptions, deliveryNote?: string) => void
 }
 
-export const DeliveryOptionsView = ({ onDeliveryOption }: Props) => {
+export const DeliveryOptionsView = ({ onDeliveryOptionChange }: Props) => {
   const [selectedOption, setSelectedOption] = useState(DeliveryOptions.Pickup)
+  const [deliveryNote, setDeliveryNote] = useState('')
+  
+  const handleDeliveryOptionChange = (option: DeliveryOptions) => {
+    setSelectedOption(option)
+    if (option === DeliveryOptions.Delivery) {
+      onDeliveryOptionChange(option, deliveryNote)
+    } else {
+      onDeliveryOptionChange(option)
+    }
+  }
 
-  const deliveryOptionItems = Object.values(DeliveryOptions).map((option) => (
-    <View style={styles.deliveryOptionRow} key={option}>
-      <RadioButton
-        value={option}
-        status={option === selectedOption ? 'checked' : 'unchecked'}
-        onPress={() => {
-          setSelectedOption(option)
-          onDeliveryOption(option)
-        }}
-      />
-      <Text style={styles.deliveryOptionText}>{option}</Text>
-    </View>
-  ))
+  const handleDeliveryNoteChange = (text: string) => {
+    setDeliveryNote(text)
+    if (selectedOption === DeliveryOptions.Delivery) {
+      onDeliveryOptionChange(selectedOption, text)
+    }
+  }
 
   return (
-    <View style={styles.deliveryOptionsContainer}>
-      {deliveryOptionItems}
+    <View style={styles.container}>
+      <Text style={styles.title}>Delivery Options:</Text>
+      {Object.values(DeliveryOptions).map((option) => (
+        <View style={styles.deliveryOption} key={option}>
+          <RadioButton
+            value={option}
+            color={colors.yellow}
+            uncheckedColor={colors.blue}
+            status={option === selectedOption ? 'checked' : 'unchecked'}
+            onPress={() => handleDeliveryOptionChange(option)}
+          />
+          <Text>{option}</Text>
+        </View>
+      ))}
+      {selectedOption === DeliveryOptions.Delivery &&
+        <TextInput
+          style={styles.deliveryNote}
+          label='Add delivery note...'
+          placeholder='room number...'
+          value={deliveryNote}
+          numberOfLines={2}
+          maxLength={80}
+        onChangeText={handleDeliveryNoteChange}
+          cursorColor={colors.yellow}
+          underlineColor={colors.yellow}
+          activeUnderlineColor={colors.yellow}
+          placeholderTextColor={colors.blue}
+        />
+      }
     </View>
   )
 }
-
 const styles = StyleSheet.create({
-  deliveryOptionsContainer: {
-    marginVertical: 10,
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    backgroundColor: colors.white,
-    borderRadius: 5,
+  container: {
+    margin: 10,
   },
-  deliveryOptionRow: {
+  title: {
+    marginVertical: 5
+  },
+  deliveryOption: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 10,
   },
-  deliveryOptionText: {
-    marginLeft: 10,
-    fontSize: 16,
+  deliveryNote: {
+    backgroundColor: colors.transparent,
+    color: colors.yellow
   },
 })

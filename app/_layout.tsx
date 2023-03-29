@@ -51,7 +51,7 @@ function RootLayoutNav() {
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <PaperProvider>
         <RecoilRoot>
-          <ToastProvider>
+          <ToastProvider placement='top'>
             <Stack>
               <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
               <Stack.Screen name='menu/[id]' options={{ headerShown: false, presentation: 'modal' }} />

@@ -20,7 +20,7 @@ export const OrderItemDetailsView = ({ item }: Props) => {
         </View>
       </Link>
       <View style={styles.details}>
-        <Text>{item.title}</Text>
+        <Text>{item.name}</Text>
         {item.option && <Text>Option: {item.option}</Text>}
         {item.spicy && <Text>Spicy: Yes</Text>}
         <Text>Price: {formatInTHB(item.price)}</Text>

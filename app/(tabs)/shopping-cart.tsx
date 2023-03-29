@@ -18,27 +18,30 @@ import { PaymentOptions } from '../../data/PaymentOptions'
 import { DeliveryOptions } from '../../data/DeliveryOptions'
 import { PaymentOptionsView } from '../../components/PaymentOptionsView'
 import { DeliveryOptionsView } from '../../components/DeliveryOptionsView'
+import { useRouter } from 'expo-router'
 
 
 export default function ShoppingCartScreen() {
+  const router = useRouter()
   const toast = useToast()
   const [cartItems, setCartItems] = useRecoilState(cartAtom)
   const [orders, setOrders] = useRecoilState(ordersAtom)
   const [paymentOption, setPaymentOption] = useState(PaymentOptions.Cash)
   const [deliveryOption, setDeliveryOption] = useState(DeliveryOptions.Pickup)
+  const [deliveryNote, setDeliveryNote] = useState('')
 
   const cartTotal = cartItems.length > 0 ? cartItems.reduce((total, item) => {
-    return total + (item.price * item.amount)
+    return total + (item.price * item.quantity)
   }, 0) : 0
 
   const handleRemoveItem = (item: CartItem) => {
     const updatedItems = cartItems.filter(i => i.id !== item.id)
     setCartItems(updatedItems)
-    toast.show(`${item.title} removed successfully`, { type: 'danger' })
+    toast.show(`${item.name} removed successfully`, { type: 'danger' })
   }
 
   const handleItemAmountChange = (item: CartItem, amountChange: number) => {
-    const updatedItem = { ...item, amount: item.amount + amountChange }
+    const updatedItem = { ...item, amount: item.quantity + amountChange }
     if (updatedItem.amount < 1) return
     setCartItems(items => items.map(i => i.id === updatedItem.id ? updatedItem : i))
   }
@@ -47,8 +50,9 @@ export default function ShoppingCartScreen() {
     setPaymentOption(option)
   }
 
-  const handleDeliveryOption = (option: DeliveryOptions) => {
+  const handleDeliveryOption = (option: DeliveryOptions, deliveryNote?: string) => {
     setDeliveryOption(option)
+    if (deliveryNote) setDeliveryNote(deliveryNote)
   }
 
   const handleCheckout = async () => {
@@ -61,23 +65,24 @@ export default function ShoppingCartScreen() {
       items: cartItems,
       date: new Date(),
       payment: paymentOption,
-      delivery: deliveryOption
+      delivery: deliveryOption,
+      deliveryNote: deliveryNote
     }
-
-    console.log(order)
 
     const html = generateOrderHTML(order)
     const { uri } = await printToFileAsync({ html })
 
     try {
       await shareAsync(uri, { UTI: '.pdf', mimeType: 'application/pdf' })
+      //TODO: only if shared
       setOrders(orders => [...orders, order])
       setCartItems([])
     } catch (error) {
-      console.log(error)
       toast.show('Failed to share order...', { type: 'danger' })
     }
     await FileSystem.deleteAsync(uri)
+    toast.show('Your order has been saved in orders', { type: 'success' })
+    router.push('/')
   }
 
   return (
@@ -89,14 +94,14 @@ export default function ShoppingCartScreen() {
           <CartItemListView
             item={item}
             onRemove={() => handleRemoveItem(item)}
-            onAmountChange={(newAmount) => handleItemAmountChange(item, newAmount - item.amount)}
+            onAmountChange={(newAmount) => handleItemAmountChange(item, newAmount - item.quantity)}
           />}
         ListFooterComponent={
           <>
+            {cartTotal > 0 && <PaymentOptionsView onPaymentOptionChange={handlePaymentOption} />}
+            {cartTotal > 0 && <DeliveryOptionsView onDeliveryOptionChange={handleDeliveryOption} />}
             {cartTotal > 0 && <CartTotal total={cartTotal} />}
             {cartTotal > 0 && <CheckoutButton onCheckout={handleCheckout} />}
-            {cartTotal > 0 && <PaymentOptionsView onPaymentOption={handlePaymentOption} />}
-            {cartTotal > 0 && <DeliveryOptionsView onDeliveryOption={handleDeliveryOption} />}
           </>
         }
         ListEmptyComponent={<EmptyView />}

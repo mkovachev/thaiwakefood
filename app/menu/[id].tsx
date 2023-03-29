@@ -34,7 +34,7 @@ const MenuItemDetailsScreen = () => {
     <View style={styles.container}>
       <Stack.Screen
         options={{
-          title: item.title,
+          title: item.name,
           presentation: 'modal',
           headerShown: true,
         }}

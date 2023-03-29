@@ -25,16 +25,16 @@ export const CartItemListView = ({ item, onRemove, onAddToCart, onAmountChange, 
         </View>
       </Link>
       <View style={styles.details}>
-        <Text>{item.title}</Text>
+        <Text>{item.name}</Text>
         {item.option && <Text>Option: {item.option}</Text>}
         {item.spicy && <Text>Spicy: Yes</Text>}
         <Text>Price: {formatInTHB(item.price)}</Text>
         <View style={styles.quantity}>
-          <Pressable onPress={() => onAmountChange(item.amount - 1)}>
+          <Pressable onPress={() => onAmountChange(item.quantity - 1)}>
             <AntDesign name="leftcircleo" size={20} color="black" />
           </Pressable>
-          <Text style={styles.quantityText}>{item.amount}</Text>
-          <Pressable onPress={() => onAmountChange(item.amount + 1)}>
+          <Text style={styles.quantityText}>{item.quantity}</Text>
+          <Pressable onPress={() => onAmountChange(item.quantity + 1)}>
             <AntDesign name="rightcircleo" size={20} color="black" />
           </Pressable>
         </View>

@@ -37,7 +37,7 @@ export const categoriesAtom = atom<Category[]>({
   key: storeKeys.categories,
   default: categoriesStore.getAll() ?? [],
   effects_UNSTABLE: [
-    ({ onSet }) => onSet(newValue => menuStore.setAll(newValue))
+    ({ onSet }) => onSet(newValue => categoriesStore.setAll(newValue))
   ]
 })
 
@@ -53,7 +53,7 @@ export const cartAtom = atom<CartItem[]>({
   key: storeKeys.cart,
   default: cartStore.getAll() ?? [],
   effects_UNSTABLE: [
-    ({ onSet }) => onSet(newValue => menuStore.setAll(newValue))
+    ({ onSet }) => onSet(newValue => cartStore.setAll(newValue))
   ]
 })
 

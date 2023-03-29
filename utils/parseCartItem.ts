@@ -5,8 +5,8 @@ export const parseCartItem = (menuItem: MenuItem, selectedOption: string) => {
 
   const selectedItem: CartItem = {
     id: menuItem.id + selectedOption,
-    title: menuItem.title,
-    amount: 1,
+    name: menuItem.name,
+    quantity: 1,
     image: menuItem.image,
     option: selectedOption,
     price: menuItem?.price || Number(menuItem.options?.find(o => o.label === selectedOption)?.value),

@@ -28,18 +28,18 @@ export const ItemDetailsView = ({ item }: Props) => {
 
   const handleAddToCart = async () => {
     if (item.options && !selectedOption) {
-      toast.show('Please select an option', { type: 'warning'})
+      toast.show('Please select an option', { type: 'warning' })
       return
     }
     const cartItem = parseCartItem(item, selectedOption || '')
     const existingItem = cartItems.find(i => i.id === cartItem.id && i.option === cartItem.option)
     if (existingItem) {
-      const updatedItem: CartItem = { ...existingItem, amount: existingItem.amount + 1 }
+      const updatedItem: CartItem = { ...existingItem, quantity: existingItem.quantity + 1 }
       setCartItems(items => items.map(i => i.id === updatedItem.id ? updatedItem : i))
     } else {
       setCartItems(items => [...items, cartItem])
     }
-    toast.show(`${item.title} added to cart`, { type: 'success' })
+    toast.show(`${item.name} added to cart`, { type: 'success' })
   }
 
   const handleAddToFavorites = async () => {
@@ -50,12 +50,12 @@ export const ItemDetailsView = ({ item }: Props) => {
     const cartItem = parseCartItem(item, selectedOption || '')
     const existingItem = favoriteItems.find(i => i.id === cartItem.id && i.option === cartItem.option)
     if (existingItem) {
-      const updatedItem: CartItem = { ...existingItem, amount: existingItem.amount + 1 }
+      const updatedItem: CartItem = { ...existingItem, quantity: existingItem.quantity + 1 }
       setFavoriteItems(items => items.map(i => i.id === updatedItem.id ? updatedItem : i))
     } else {
       setFavoriteItems(items => [...items, cartItem])
     }
-    toast.show(`${item.title} added to favorites`, { type: 'success' })
+    toast.show(`${item.name} added to favorites`, { type: 'success' })
   }
 
   return (
@@ -63,7 +63,7 @@ export const ItemDetailsView = ({ item }: Props) => {
       <View style={styles.header}>
         <Image style={styles.image} source={require('../assets/images/fast-food.png')} />
         <View style={{ flex: 1 }}>
-          <Text style={styles.title}>{item.title}</Text>
+          <Text style={styles.title}>{item.name}</Text>
         </View>
       </View>
 
@@ -77,8 +77,8 @@ export const ItemDetailsView = ({ item }: Props) => {
                 <RadioButton
                   value={option.label}
                   status={selectedOption === option.label ? 'checked' : 'unchecked'}
-                  color={colors.black}
-                  uncheckedColor={colors.grey}
+                  color={colors.yellow}
+                  uncheckedColor={colors.blue}
                   onPress={() => setSelectedOption(option.label)}
                 />
                 <Text style={styles.optionLabel}>{option.label}</Text>
@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
     margin: 8,
   },
   optionPrice: {
-    fontFamily: fontFamily.MontserratMedium
+    fontFamily: fontFamily.MontserratMedium,
   },
   priceOptionsContainer: {
     marginTop: 16,

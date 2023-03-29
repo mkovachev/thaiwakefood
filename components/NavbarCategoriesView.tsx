@@ -32,7 +32,7 @@ const NavbarCategoriesView = ({ categories, onActiveCategory }: Props) => {
           { backgroundColor: item === activeCategory ? colors.yellow : colors.white },
         ]}>
         <Image style={styles.image} source={require('../assets/images/fast-food.png')} />
-        <Text style={styles.title}>{item.title}</Text>
+        <Text style={styles.title}>{item.name}</Text>
       </TouchableOpacity>
     )
   }

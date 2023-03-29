@@ -3,26 +3,30 @@ import { RadioButton } from 'react-native-paper'
 import { PaymentOptions } from '../data/PaymentOptions'
 import { View, Text } from '../ui/components/Themed'
 import { StyleSheet } from 'react-native'
+import colors from '../ui/colors'
 
 interface Props {
-  onPaymentOption: (option: PaymentOptions) => void
+  onPaymentOptionChange: (option: PaymentOptions) => void
 }
 
-export const PaymentOptionsView = ({ onPaymentOption }: Props) => {
-  const [paymentOption, setPaymentOption] = useState(PaymentOptions.Cash)
+export const PaymentOptionsView = ({ onPaymentOptionChange }: Props) => {
+  const [selectedOption, setSelectedOption] = useState(PaymentOptions.Cash)
 
   const handlePaymentOptionChange = (option: PaymentOptions) => {
-    setPaymentOption(option)
-    onPaymentOption(option)
+    setSelectedOption(option)
+    onPaymentOptionChange(option)
   }
 
   return (
-    <View style={styles.paymentOptionsContainer}>
+    <View style={styles.container}>
+      <Text style={styles.title}>Payment Options:</Text>
       {Object.values(PaymentOptions).map((option) => (
-        <View key={option} style={styles.paymentOptionRow}>
+        <View key={option} style={styles.paymentOption}>
           <RadioButton
             value={option}
-            status={paymentOption === option ? 'checked' : 'unchecked'}
+            color={colors.yellow}
+            uncheckedColor={colors.blue}
+            status={selectedOption === option ? 'checked' : 'unchecked'}
             onPress={() => handlePaymentOptionChange(option)}
           />
           <Text style={styles.paymentOptionText}>{option}</Text>
@@ -33,20 +37,16 @@ export const PaymentOptionsView = ({ onPaymentOption }: Props) => {
 }
 
 const styles = StyleSheet.create({
-  paymentOptionsContainer: {
-    marginVertical: 10,
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    backgroundColor: '#ffffff',
-    borderRadius: 5,
+  container: {
+    margin: 10,
   },
-  paymentOptionRow: {
+  title: {
+    marginVertical: 5
+  },
+  paymentOption: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 10,
   },
   paymentOptionText: {
-    marginLeft: 10,
-    fontSize: 16,
   },
 })

@@ -7,4 +7,5 @@ export interface Order {
   date: Date
   payment: string
   delivery: string
+  deliveryNote?: string
 }
