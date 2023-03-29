@@ -67,14 +67,14 @@ export default function ShoppingCartScreen() {
       toast.show('Failed to share order...', { type: 'danger' })
     }
     await FileSystem.deleteAsync(uri)
+    //setCartItems([]) //TODO: maybe not needed
     router.push('/')
   }
 
   const handleSaveOrder = () => {
     const order = parseOrder(orders, cartItems, cartTotal, paymentOption, deliveryOption, deliveryNote)
     setOrders(orders => [...orders, order])
-    setCartItems([])
-    toast.show('Your order has been saved successfully', { type: 'success' })
+     toast.show('Your order has been saved successfully', { type: 'success' })
   }
 
   return (
