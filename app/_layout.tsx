@@ -55,7 +55,7 @@ function RootLayoutNav() {
             <Stack>
               <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
               <Stack.Screen name='menu/[id]' options={{ headerShown: false, presentation: 'modal' }} />
-              <Stack.Screen name='orders/[id]' options={{ headerShown: false, presentation: 'modal' }} />
+              <Stack.Screen name='my-orders/[id]' options={{ headerShown: false, presentation: 'modal' }} />
             </Stack>
           </ToastProvider>
         </RecoilRoot>

@@ -8,7 +8,7 @@ import { Order } from '../../data/Order'
 import { useToast } from 'react-native-toast-notifications'
 
 
-export default function OrdersScreen() {
+export default function MyOrdersScreen() {
   const toast = useToast()
   const [orders, setOrders] = useRecoilState(ordersAtom)
 

@@ -23,7 +23,7 @@ export const OrderListView = ({ order, onRemove }: Props) => {
         <Pressable onPress={onRemove} style={{ alignSelf: 'flex-end' }}>
           <MaterialIcons name="highlight-remove" size={24} color={colors.red} />
         </Pressable>
-        <Link href={`orders/${order.id}`}>
+        <Link href={`my-orders/${order.id}`}>
           <MaterialCommunityIcons name="table-search" size={24} color={colors.blue} />
         </Link>
       </View>
