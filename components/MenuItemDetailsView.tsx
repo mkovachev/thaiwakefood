@@ -60,11 +60,21 @@ export const MenuItemDetailsView = ({ item }: Props) => {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.header}>
         <Image style={styles.image} source={require('../assets/images/fast-food.png')} />
         <View style={{ flex: 1 }}>
           <Text style={styles.name}>{item.name}</Text>
+        </View>
+        <View style={styles.actions}>
+          <Pressable
+            onPress={handleAddToFavorites}
+            icon={<Feather size={24} name="heart" color={colors.red} />}
+          />
+          <Pressable
+            onPress={handleAddToCart}
+            icon={<Feather size={24} name="shopping-bag" />}
+          />
         </View>
       </View>
       <View style={styles.optionsContainer}>
@@ -101,32 +111,18 @@ export const MenuItemDetailsView = ({ item }: Props) => {
           </View>
         }
       </View>
-
-      <View style={styles.actions}>
-        <Pressable
-          onPress={handleAddToCart}
-          icon={<Feather size={24} name="shopping-bag" />}
-        />
-        <Pressable
-          onPress={handleAddToFavorites}
-          icon={<Feather size={24} name="heart" color={colors.red} />}
-        />
-      </View>
-    </SafeAreaView>
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
     height: '100%',
-    backgroundColor: colors.white,
-    paddingHorizontal: 12,
+    //backgroundColor: colors.white,
+    padding: 10,
   },
   header: {
-    display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
   },
   image: {
     height: 100,
@@ -171,8 +167,6 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
   actions: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    gap: 8
+    justifyContent: 'space-between',
   },
 })

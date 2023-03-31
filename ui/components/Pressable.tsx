@@ -17,8 +17,8 @@ interface Props extends PressableProps {
 const Pressable = ({ text, url, style, children, icon, ...props }: Props) => {
   const router = useRouter()
   const isOnlyIcon = icon && !text
-  const linkContainerStyle = [style, !isOnlyIcon ? styles.container : styles.containerIconOnly]
-  const linkTextStyle = [style, styles.linkText]
+  const container = [style, !isOnlyIcon ? styles.container : styles.containerIconOnly]
+  const actionText = [style, styles.actionText]
   const iconStyle = [
     styles.iconStyle,
     icon && icon.props.color && { color: icon.props.color },
@@ -27,12 +27,12 @@ const Pressable = ({ text, url, style, children, icon, ...props }: Props) => {
 
   return (
     <DefaultPressable
-      style={linkContainerStyle}
+      style={container}
       {...props}
       onPress={(event) => url ? router.push(url) : props.onPress?.(event)}>
       {icon && React.cloneElement(icon, { style: iconStyle })}
       {children}
-      {text && <Text style={linkTextStyle}>{text}</Text>}
+      {text && <Text style={actionText}>{text}</Text>}
     </DefaultPressable>
   )
 }
@@ -43,9 +43,9 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 4,
     margin: 10,
     padding: 8,
+    gap: 4,
     borderRadius: 20,
     borderWidth: 1,
     borderColor: colors.blueLight,
@@ -57,10 +57,8 @@ const styles = StyleSheet.create({
   iconStyle: {
     color: colors.blueLight
   },
-  linkText: {
+  actionText: {
     fontFamily: fontFamily.MontserratMedium,
     color: colors.blueLight,
-    marginRight: 5,
-    fontSize: Platform.OS === 'web' ? 18 : 14,
   },
 })

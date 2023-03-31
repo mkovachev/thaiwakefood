@@ -64,8 +64,18 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     padding: 10,
     borderRadius: 10,
-    borderBottomColor: colors.blue,
+    borderBottomColor: colors.blueLight,
     borderBottomWidth: .2,
+  },
+  details: {
+    flex: 1,
+    marginLeft: 10,
+    gap: 8
+  },
+  actions: {
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-start'
   },
   imageContainer: {
     alignItems: 'center',
@@ -78,11 +88,6 @@ const styles = StyleSheet.create({
     height: '100%',
     resizeMode: 'contain'
   },
-  details: {
-    flex: 1,
-    marginLeft: 10,
-    gap: 8
-  },
   containerQuantity: {
     display: 'flex',
     flexDirection: 'row',
@@ -94,8 +99,4 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: colors.blueLight
   },
-  actions: {
-    justifyContent: 'space-between',
-    //gap: 8
-  }
 })

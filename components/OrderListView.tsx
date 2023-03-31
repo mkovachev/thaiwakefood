@@ -44,9 +44,9 @@ const styles = StyleSheet.create({
     borderBottomWidth: .1,
   },
   details: {
-    gap: 8
+    justifyContent: 'space-between',
   },
   actions: {
-    gap: 10
+    justifyContent: 'space-between',
   },
 })

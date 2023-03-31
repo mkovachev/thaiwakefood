@@ -16,12 +16,12 @@ const MenuItemGridView = ({ item }: Props) => {
 
   return (
     <View key={item.id} style={styles.container}>
-      <View style={styles.header} >
-        <MaterialIcons name="menu-book" size={Platform.OS === 'web' ? 24 : 16} color={colors.blueLight} />
-        <Text style={styles.orderNumberText} numberOfLines={1}>{item.id}</Text>
+      <View style={styles.header}>
+        <MaterialIcons name="menu-book" size={18} color={colors.blueLight} />
+        <Text style={styles.orderNumber} numberOfLines={1}>{item.id}</Text>
       </View>
       <Image style={styles.image} source={require('../assets/images/fast-food.png')} />
-      <Text numberOfLines={3} style={styles.name}>{item.name}</Text>
+      <Text style={styles.name} numberOfLines={3}>{item.name}</Text>
       <Pressable url={`menu/${item.id}`} text='show details' />
     </View>
   )
@@ -36,14 +36,9 @@ const styles = StyleSheet.create({
     maxWidth: Platform.OS === 'web' ? window.innerHeight / 2 : width / 2 - 20,
     margin: 10,
     padding: 10,
-    borderWidth: .5,
+    borderWidth: 1,
     borderColor: colors.yellow,
     borderRadius: 20,
-  },
-  image: {
-    width: Platform.OS === 'web' ? window.innerHeight / 3 : width / 3,
-    height: Platform.OS === 'web' ? window.innerHeight / 5 : height / 6,
-    resizeMode: 'contain',
   },
   header: {
     alignSelf: 'flex-start',
@@ -51,31 +46,22 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     backgroundColor: colors.transparent,
   },
-  orderNumberText: {
-    flex: 1,
+  image: {
+    width: Platform.OS === 'web' ? window.innerHeight / 3 : width / 3,
+    height: Platform.OS === 'web' ? window.innerHeight / 5 : height / 6,
+    resizeMode: 'contain',
+  },
+  orderNumber: {
     marginLeft: 5,
-    fontFamily: fontFamily.MontserratMedium,
+    fontFamily: fontFamily.MontserratSemiBold,
     color: colors.blueLight,
-    fontSize: Platform.OS === 'web' ? 20 : 12,
   },
   name: {
     flex: 1,
     fontFamily: fontFamily.MontserratSemiBold,
     fontSize: Platform.OS === 'web' ? 20 : 14,
-    marginTop: 10,
-    marginBottom: 10,
+    margin: 5
   },
-  showDetails: {
-    padding: 10,
-    borderRadius: 20,
-    borderWidth: .5,
-    borderColor: colors.yellow,
-  },
-  showDetailsText: {
-    fontFamily: fontFamily.MontserratMedium,
-    marginRight: 5,
-    fontSize: Platform.OS === 'web' ? 16 : 14,
-  }
 })
 
 export default MenuItemGridView
