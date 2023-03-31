@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native'
 import { Text, View } from '../ui/components/Themed'
 import colors from '../ui/colors'
 import fontFamily from '../ui/fontFamily'
-import Link from '../ui/components/Link'
+import Pressable from '../ui/components/Pressable'
 
 export default function NotFoundScreen() {
   return (
@@ -11,7 +11,7 @@ export default function NotFoundScreen() {
       <Stack.Screen options={{ title: 'Oops!' }} />
       <View style={styles.container}>
         <Text style={styles.title}>Sorry, not found...</Text>
-        <Link href='/' text='go to menu' />
+        <Pressable url='/' text='Back to Menu' />
       </View>
     </>
   )
@@ -32,6 +32,6 @@ const styles = StyleSheet.create({
   linkText: {
     fontFamily: fontFamily.Montserrat,
     fontSize: 14,
-    color: colors.blue,
+    color: colors.blueLight,
   },
 })

@@ -4,7 +4,7 @@ import { Text, View } from '../ui/components/Themed'
 import { MaterialIcons } from '@expo/vector-icons'
 import colors from '../ui/colors'
 import fontFamily from '../ui/fontFamily'
-import Link from '../ui/components/Link'
+import Pressable from '../ui/components/Pressable'
 
 interface Props {
   item: MenuItem
@@ -17,12 +17,12 @@ const MenuItemGridView = ({ item }: Props) => {
   return (
     <View key={item.id} style={styles.container}>
       <View style={styles.header} >
-        <MaterialIcons name="menu-book" size={Platform.OS === 'web' ? 24 : 16} color={colors.blue} />
+        <MaterialIcons name="menu-book" size={Platform.OS === 'web' ? 24 : 16} color={colors.blueLight} />
         <Text style={styles.orderNumberText} numberOfLines={1}>{item.id}</Text>
       </View>
       <Image style={styles.image} source={require('../assets/images/fast-food.png')} />
       <Text numberOfLines={3} style={styles.title}>{item.name}</Text>
-      <Link href={`menu/${item.id}`} text='show details' />
+      <Pressable url={`menu/${item.id}`} text='show details' />
     </View>
   )
 }
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 5,
     fontFamily: fontFamily.MontserratMedium,
-    color: colors.blue,
+    color: colors.blueLight,
     fontSize: Platform.OS === 'web' ? 20 : 12,
   },
   title: {

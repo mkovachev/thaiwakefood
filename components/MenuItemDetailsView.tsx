@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { MenuItem } from "../data/MenuItem"
-import { StyleSheet, Image, Platform, Pressable, Switch } from "react-native"
+import { StyleSheet, Image, Platform, Switch } from "react-native"
 import { RadioButton } from "react-native-paper"
 import { View, Text } from "../ui/components/Themed"
 import colors from '../ui/colors'
@@ -13,6 +13,7 @@ import { useRecoilState } from 'recoil'
 import { cartAtom, favoritesAtom } from '../context/recoil'
 import { CartItem } from '../data/CartItem'
 import { useToast } from 'react-native-toast-notifications'
+import Pressable from '../ui/components/Pressable'
 
 
 interface Props {
@@ -78,7 +79,7 @@ export const MenuItemDetailsView = ({ item }: Props) => {
                   value={option.label}
                   status={selectedOption === option.label ? 'checked' : 'unchecked'}
                   color={colors.yellow}
-                  uncheckedColor={colors.blue}
+                  uncheckedColor={colors.blueLight}
                   onPress={() => setSelectedOption(option.label)}
                 />
                 <Text style={styles.optionLabel}>{option.label}</Text>
@@ -107,12 +108,14 @@ export const MenuItemDetailsView = ({ item }: Props) => {
       </View>
 
       <View style={styles.actions}>
-        <Pressable onPress={handleAddToCart}>
-          <Feather size={24} name="shopping-bag" color={colors.blue} />
-        </Pressable>
-        <Pressable onPress={handleAddToFavorites}>
-          <Feather size={24} name="heart" color={colors.orange} />
-        </Pressable>
+        <Pressable
+          onPress={handleAddToCart}
+          icon={<Feather size={24} name="shopping-bag" color={colors.blueLight} />}
+        />
+        <Pressable
+          onPress={handleAddToFavorites}
+          icon={<Feather size={24} name="heart" color={colors.red} />}
+        />
       </View>
     </SafeAreaView>
   )
@@ -159,11 +162,6 @@ const styles = StyleSheet.create({
   optionPrice: {
     fontFamily: fontFamily.MontserratMedium,
   },
-  priceOptionsContainer: {
-    marginTop: 16,
-    flexDirection: "row",
-    alignItems: "center",
-  },
   price: {
     fontFamily: fontFamily.MontserratMedium,
     fontSize: Platform.OS === 'web' ? 18 : 14,
@@ -177,28 +175,8 @@ const styles = StyleSheet.create({
   spicyLabel: {
     marginRight: 8,
   },
-  spicy: {
-    fontSize: 16,
-    marginRight: 8,
-  },
-  addToCart: {
-    alignSelf: 'center',
-    marginVertical: 20,
-    paddingHorizontal: 10,
-    paddingVertical: 10,
-    borderRadius: 20,
-    borderWidth: 1,
-    borderColor: colors.yellow,
-    borderStyle: 'solid',
-  },
-  addToCartText: {
-    fontFamily: fontFamily.MontserratMedium,
-    marginRight: 5,
-    fontSize: Platform.OS === 'web' ? 16 : 14,
-  },
   actions: {
     flexDirection: 'row',
     gap: 8
-
-  }
+  },
 })

@@ -1,10 +1,10 @@
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
-import { Link } from 'expo-router'
-import { Pressable, StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { Order } from '../data/Order'
 import colors from '../ui/colors'
 import { View, Text } from '../ui/components/Themed'
 import { formatInTHB } from '../utils/formatInTHB'
+import Pressable from '../ui/components/Pressable'
 
 interface Props {
   order: Order
@@ -20,12 +20,15 @@ export const OrderListView = ({ order, onRemove }: Props) => {
         <Text>Total: {formatInTHB(order.total)}</Text>
       </View>
       <View style={styles.actions}>
-        <Pressable onPress={onRemove} style={{ alignSelf: 'flex-end' }}>
-          <MaterialIcons name="highlight-remove" size={24} color={colors.red} />
-        </Pressable>
-        <Link href={`my-orders/${order.id}`}>
-          <MaterialCommunityIcons name="table-search" size={24} color={colors.blue} />
-        </Link>
+        <Pressable
+          style={{ alignSelf: 'flex-end' }}
+          onPress={onRemove}
+          icon={<MaterialIcons name="highlight-remove" size={24} color={colors.red} />}
+        />
+        <Pressable
+          url={`my-orders/${order.id}`}
+          icon={<MaterialCommunityIcons name="table-search" size={24} />}
+        />
       </View>
     </View>
   )
@@ -37,7 +40,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     padding: 10,
     borderRadius: 10,
-    borderBottomColor: colors.blue,
+    borderBottomColor: colors.blueLight,
     borderBottomWidth: .1,
   },
   details: {

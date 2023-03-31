@@ -7,7 +7,6 @@ import { EmptyView } from '../../components/EmptyView'
 import { useRecoilState } from 'recoil'
 import { cartAtom, ordersAtom } from '../../context/recoil'
 import { useToast } from 'react-native-toast-notifications'
-import { PlaceOrderButton as PlaceOrderButton } from '../../components/PlaceOrderButton'
 import { shareAsync } from 'expo-sharing'
 import { printToFileAsync } from 'expo-print'
 import * as FileSystem from 'expo-file-system'
@@ -18,8 +17,10 @@ import { DeliveryOptions } from '../../data/DeliveryOptions'
 import { OptionsPaymentView } from '../../components/OptionsPaymentView'
 import { OptionsDeliveryView } from '../../components/OptionsDeliveryView'
 import { useRouter } from 'expo-router'
-import { SaveOrderButton } from '../../components/SaveOrderButton'
 import { parseOrder } from '../../utils/parseOrder'
+import Pressable from '../../ui/components/Pressable'
+import { Ionicons } from '@expo/vector-icons'
+import colors from '../../ui/colors'
 
 
 export default function ShoppingCartScreen() {
@@ -95,8 +96,18 @@ export default function ShoppingCartScreen() {
             {cartTotal > 0 && <OptionsDeliveryView onDeliveryOptionChange={handleDeliveryOption} />}
             {cartTotal > 0 && <SelectedItemsTotal total={cartTotal} />}
             <View style={styles.actions}>
-              {cartTotal > 0 && <PlaceOrderButton onPlaceOrder={handlePlaceOrder} />}
-              {cartTotal > 0 && <SaveOrderButton onSave={handleSaveOrder} />}
+              {cartTotal > 0 &&
+                <Pressable
+                  onPress={handlePlaceOrder}
+                  text='Share'
+                  icon={<Ionicons name="share-social-outline" size={20} color={colors.white} />}
+                />}
+              {cartTotal > 0 &&
+                <Pressable
+                  onPress={handleSaveOrder}
+                  text='Save to my orders'
+                  icon={<Ionicons name="share-social-outline" size={20} color={colors.white} />}
+                />}
             </View>
           </>
         }

@@ -27,7 +27,7 @@ export const OptionsPaymentView = ({ order, onPaymentOptionChange }: Props) => {
           <RadioButton
             value={option}
             color={colors.yellow}
-            uncheckedColor={colors.blue}
+            uncheckedColor={colors.blueLight}
             status={selectedOption === option ? 'checked' : 'unchecked'}
             onPress={() => handlePaymentOptionChange(option)}
           />

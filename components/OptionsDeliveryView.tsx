@@ -39,7 +39,7 @@ export const OptionsDeliveryView = ({ order, onDeliveryOptionChange }: Props) =>
           <RadioButton
             value={option}
             color={colors.yellow}
-            uncheckedColor={colors.blue}
+            uncheckedColor={colors.blueLight}
             status={option === selectedOption ? 'checked' : 'unchecked'}
             onPress={() => handleDeliveryOptionChange(option)}
           />
@@ -58,7 +58,7 @@ export const OptionsDeliveryView = ({ order, onDeliveryOptionChange }: Props) =>
           cursorColor={colors.yellow}
           underlineColor={colors.yellow}
           activeUnderlineColor={colors.yellow}
-          placeholderTextColor={colors.blue}
+          placeholderTextColor={colors.blueLight}
         />
       }
     </View>

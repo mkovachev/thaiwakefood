@@ -6,7 +6,6 @@ import { SelectedItemsTotal } from './SelectedItemsTotal'
 import { Order } from '../data/Order'
 import { OptionsDeliveryView } from './OptionsDeliveryView'
 import { OptionsPaymentView } from './OptionsPaymentView'
-import { PlaceOrderButton } from './PlaceOrderButton'
 import { useRouter } from 'expo-router'
 import { printToFileAsync } from 'expo-print'
 import { shareAsync } from 'expo-sharing'
@@ -20,6 +19,8 @@ import { generateOrderHTML } from '../utils/generateOrderHTML'
 import * as FileSystem from 'expo-file-system'
 import { useState } from 'react'
 import { SelectedItemListView } from './SelectedItemListView'
+import Pressable from '../ui/components/Pressable'
+import { Ionicons } from '@expo/vector-icons'
 
 
 interface Props {
@@ -100,7 +101,12 @@ export default function OrderDetailsView({ order }: Props) {
             {cartTotal > 0 && <OptionsDeliveryView order={order} onDeliveryOptionChange={handleDeliveryOption} />}
             {cartTotal > 0 && <SelectedItemsTotal total={cartTotal} />}
             <View style={styles.actions}>
-              {cartTotal > 0 && <PlaceOrderButton onPlaceOrder={handlePlaceOrder} />}
+              {cartTotal > 0 &&
+                <Pressable
+                  onPress={handlePlaceOrder}
+                  text='Share'
+                  icon={<Ionicons name="share-social-outline" size={20} color={colors.white} />}
+                />}
             </View>
           </>
         }

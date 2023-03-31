@@ -1,13 +1,13 @@
 import fontFamily from '../ui/fontFamily'
 import { View, Text } from '../ui/components/Themed'
 import { Platform, StyleSheet } from 'react-native'
-import Link from '../ui/components/Link'
+import Pressable from '../ui/components/Pressable'
 
 export const EmptyView = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.noItemsText}>No items found...</Text>
-      <Link href='/' text='go to menu' />
+      <Pressable url='/' text='Back to Menu' />
     </View>
   )
 }

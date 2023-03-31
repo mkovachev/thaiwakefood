@@ -1,11 +1,12 @@
 import { AntDesign, Feather, MaterialIcons } from '@expo/vector-icons'
 import { Link } from 'expo-router'
-import { StyleSheet, Image, Pressable } from 'react-native'
+import { StyleSheet, Image } from 'react-native'
 import { CartItem } from '../data/CartItem'
 import colors from '../ui/colors'
 import { View, Text } from '../ui/components/Themed'
 import fontFamily from '../ui/fontFamily'
 import { formatInTHB } from '../utils/formatInTHB'
+import Pressable from '../ui/components/Pressable'
 
 interface Props {
   item: CartItem
@@ -30,23 +31,23 @@ export const SelectedItemListView = ({ item, onRemove, onAddToCart, onAmountChan
         {item.spicy && <Text>Spicy: Yes</Text>}
         <Text>Price: {formatInTHB(item.price)}</Text>
         <View style={styles.quantity}>
-          <Pressable onPress={() => onAmountChange(item.quantity - 1)}>
-            <AntDesign name="leftcircleo" size={20} color="black" />
-          </Pressable>
+          <Pressable onPress={() => onAmountChange(item.quantity - 1)}
+            icon={<AntDesign name="leftcircleo" size={24} />}
+          />
           <Text style={styles.quantityText}>{item.quantity}</Text>
-          <Pressable onPress={() => onAmountChange(item.quantity + 1)}>
-            <AntDesign name="rightcircleo" size={20} color="black" />
-          </Pressable>
+          <Pressable onPress={() => onAmountChange(item.quantity + 1)}
+            icon={<AntDesign name="rightcircleo" size={24} />} />
         </View>
       </View>
       <View>
-        <Pressable onPress={onRemove} style={{ flex: 1 }}>
-          <MaterialIcons name="highlight-remove" size={24} color={colors.red} />
-        </Pressable>
+        <Pressable
+          style={{ flex: 1 }}
+          onPress={onRemove}
+          icon={<MaterialIcons name="highlight-remove" size={24} color={colors.red} />} />
         {!inCart &&
-          <Pressable onPress={onAddToCart}>
-            <Feather size={24} name="shopping-bag" color={colors.blue} />
-          </Pressable>
+          <Pressable
+            onPress={onAddToCart}
+            icon={<Feather size={24} name="shopping-bag" color={colors.blueLight} />} />
         }
       </View>
     </View>
@@ -59,7 +60,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     padding: 10,
     borderRadius: 10,
-    borderBottomColor: colors.blue,
+    borderBottomColor: colors.blueLight,
     borderBottomWidth: .1,
   },
   link: {
