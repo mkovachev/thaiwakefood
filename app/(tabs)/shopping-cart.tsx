@@ -19,7 +19,7 @@ import { OptionsDeliveryView } from '../../components/OptionsDeliveryView'
 import { useRouter } from 'expo-router'
 import { parseOrder } from '../../utils/parseOrder'
 import Pressable from '../../ui/components/Pressable'
-import { Ionicons } from '@expo/vector-icons'
+import { AntDesign, Ionicons } from '@expo/vector-icons'
 import colors from '../../ui/colors'
 
 
@@ -68,14 +68,15 @@ export default function ShoppingCartScreen() {
       toast.show('Failed to share order...', { type: 'danger' })
     }
     await FileSystem.deleteAsync(uri)
-    //setCartItems([]) //TODO: maybe not needed
+    setCartItems([])
     router.push('/')
   }
 
   const handleSaveOrder = () => {
     const order = parseOrder(orders, cartItems, cartTotal, paymentOption, deliveryOption, deliveryNote)
     setOrders(orders => [...orders, order])
-    toast.show('Your order has been saved successfully', { type: 'success' })
+    setCartItems([])
+    toast.show('Your order has been saved successfully in my orders', { type: 'success' })
   }
 
   return (
@@ -98,14 +99,14 @@ export default function ShoppingCartScreen() {
               {cartTotal > 0 &&
                 <Pressable
                   onPress={handlePlaceOrder}
-                  text='Share'
+                  text='Place order'
                   icon={<Ionicons name="share-social-outline" size={20} />}
                 />}
               {cartTotal > 0 &&
                 <Pressable
                   onPress={handleSaveOrder}
-                  text='Save to my orders'
-                  icon={<Ionicons name="share-social-outline" size={20} />}
+                  text='Save'
+                  icon={<AntDesign name="save" size={20} />}
                 />}
             </View>
           </>

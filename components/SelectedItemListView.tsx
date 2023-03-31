@@ -24,7 +24,7 @@ export const SelectedItemListView = ({ item, onRemove, onAddToCart, onAmountChan
           <Image style={styles.image} source={require('../assets/images/fast-food.png')} />
         </View>
       </Link>
-      <View style={styles.details}>
+      <View style={styles.body}>
         <Text>{item.name}</Text>
         {item.option && <Text>Option: {item.option}</Text>}
         {item.spicy && <Text>Spicy: Yes</Text>}
@@ -44,7 +44,6 @@ export const SelectedItemListView = ({ item, onRemove, onAddToCart, onAmountChan
       </View>
       <View style={styles.actions}>
         <Pressable
-          style={{ flex: 1 }}
           onPress={onRemove}
           icon={<MaterialIcons name="highlight-remove" size={24} color={colors.red} />} />
         {onAddToCart &&
@@ -60,6 +59,7 @@ export const SelectedItemListView = ({ item, onRemove, onAddToCart, onAmountChan
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     flexDirection: 'row',
     alignItems: 'flex-start',
     padding: 10,
@@ -67,15 +67,14 @@ const styles = StyleSheet.create({
     borderBottomColor: colors.blueLight,
     borderBottomWidth: .2,
   },
-  details: {
+  body: {
     flex: 1,
     marginLeft: 10,
     gap: 8
   },
   actions: {
-    flexDirection: 'column',
-    justifyContent: 'flex-end',
-    alignItems: 'flex-start'
+    height: '100%',
+    justifyContent: 'space-between',
   },
   imageContainer: {
     alignItems: 'center',

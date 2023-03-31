@@ -11,7 +11,7 @@ import { printToFileAsync } from 'expo-print'
 import { shareAsync } from 'expo-sharing'
 import { useToast } from 'react-native-toast-notifications'
 import { useRecoilState } from 'recoil'
-import { ordersAtom } from '../context/recoil'
+import { cartAtom, ordersAtom } from '../context/recoil'
 import { CartItem } from '../data/CartItem'
 import { DeliveryOptions } from '../data/DeliveryOptions'
 import { PaymentOptions } from '../data/PaymentOptions'
@@ -31,6 +31,7 @@ export default function OrderDetailsView({ order }: Props) {
   const router = useRouter()
   const toast = useToast()
   const [orders, setOrders] = useRecoilState(ordersAtom)
+  const [cartItems, setCartItems] = useRecoilState(cartAtom)
   const [paymentOption, setPaymentOption] = useState(order.payment)
   const [deliveryOption, setDeliveryOption] = useState(order.delivery)
   const [deliveryNote, setDeliveryNote] = useState(order.deliveryNote || '')
@@ -50,6 +51,16 @@ export default function OrderDetailsView({ order }: Props) {
     toast.show(`${item.name} removed successfully`, { type: 'danger' })
   }
 
+  const handleAddToCart = (item: CartItem) => {
+    const existingItem = cartItems.find(i => i.id === item.id && i.option === item.option)
+    if (existingItem) {
+      const updatedItem = { ...existingItem, amount: existingItem.quantity + 1 }
+      setCartItems(items => items.map(i => i.id === updatedItem.id ? updatedItem : i))
+    } else {
+      setCartItems(items => [...items, item])
+    }
+    toast.show(`${item.name} added to cart`, { type: 'success' })
+  }
 
   const handleItemAmountChange = (item: CartItem, amountChange: number) => {
     const updatedItem = { ...item, quantity: item.quantity + amountChange }
@@ -94,6 +105,7 @@ export default function OrderDetailsView({ order }: Props) {
           <SelectedItemListView
             item={item}
             onRemove={() => handleRemoveItem(item)}
+            onAddToCart={() => handleAddToCart(item)}
             onAmountChange={(newAmount) => handleItemAmountChange(item, newAmount - item.quantity)} />}
         ListFooterComponent={
           <>
@@ -104,8 +116,8 @@ export default function OrderDetailsView({ order }: Props) {
               {cartTotal > 0 &&
                 <Pressable
                   onPress={handlePlaceOrder}
-                  text='Share'
-                  icon={<Ionicons name="share-social-outline" size={24} />}
+                  text='Place order'
+                  icon={<Ionicons name="share-social-outline" size={20} />}
                 />}
             </View>
           </>

@@ -63,9 +63,7 @@ export const MenuItemDetailsView = ({ item }: Props) => {
     <View style={styles.container}>
       <View style={styles.header}>
         <Image style={styles.image} source={require('../assets/images/fast-food.png')} />
-        <View style={{ flex: 1 }}>
-          <Text style={styles.name}>{item.name}</Text>
-        </View>
+        <Text style={styles.name}>{item.name}</Text>
         <View style={styles.actions}>
           <Pressable
             onPress={handleAddToFavorites}
@@ -118,21 +116,24 @@ export const MenuItemDetailsView = ({ item }: Props) => {
 const styles = StyleSheet.create({
   container: {
     height: '100%',
-    //backgroundColor: colors.white,
     padding: 10,
   },
   header: {
     flexDirection: 'row',
+  },
+  actions: {
+    justifyContent: 'space-between',
+  },
+  optionsContainer: {
+    marginVertical: 20,
   },
   image: {
     height: 100,
     width: 100,
     resizeMode: "contain",
   },
-  optionsContainer: {
-    marginVertical: 20,
-  },
   name: {
+    flex: 1,
     fontFamily: fontFamily.MontserratMedium,
     fontSize: Platform.OS === 'web' ? 20 : 16,
     marginHorizontal: 10,
@@ -165,8 +166,5 @@ const styles = StyleSheet.create({
   },
   spicyLabel: {
     marginRight: 8,
-  },
-  actions: {
-    justifyContent: 'space-between',
-  },
+  }
 })
