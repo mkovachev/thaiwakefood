@@ -64,7 +64,7 @@ export const MenuItemDetailsView = ({ item }: Props) => {
       <View style={styles.header}>
         <Image style={styles.image} source={require('../assets/images/fast-food.png')} />
         <View style={{ flex: 1 }}>
-          <Text style={styles.title}>{item.name}</Text>
+          <Text style={styles.name}>{item.name}</Text>
         </View>
       </View>
       <View style={styles.optionsContainer}>
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
   optionsContainer: {
     marginVertical: 20,
   },
-  title: {
+  name: {
     fontFamily: fontFamily.MontserratMedium,
     fontSize: Platform.OS === 'web' ? 20 : 16,
     marginHorizontal: 10,

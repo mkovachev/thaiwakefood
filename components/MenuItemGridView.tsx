@@ -21,7 +21,7 @@ const MenuItemGridView = ({ item }: Props) => {
         <Text style={styles.orderNumberText} numberOfLines={1}>{item.id}</Text>
       </View>
       <Image style={styles.image} source={require('../assets/images/fast-food.png')} />
-      <Text numberOfLines={3} style={styles.title}>{item.name}</Text>
+      <Text numberOfLines={3} style={styles.name}>{item.name}</Text>
       <Pressable url={`menu/${item.id}`} text='show details' />
     </View>
   )
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     color: colors.blueLight,
     fontSize: Platform.OS === 'web' ? 20 : 12,
   },
-  title: {
+  name: {
     flex: 1,
     fontFamily: fontFamily.MontserratSemiBold,
     fontSize: Platform.OS === 'web' ? 20 : 14,

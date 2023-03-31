@@ -32,7 +32,7 @@ const NavbarCategoriesView = ({ categories, onActiveCategory }: Props) => {
           { backgroundColor: item === activeCategory ? colors.yellow : colors.white },
         ]}>
         <Image style={styles.image} source={require('../assets/images/fast-food.png')} />
-        <Text style={styles.title}>{item.name}</Text>
+        <Text style={styles.name}>{item.name}</Text>
       </TouchableOpacity>
     )
   }
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     height: '90%',
     resizeMode: 'contain',
   },
-  title: {
+  name: {
     fontFamily: fontFamily.MontserratMedium,
     fontSize: isWeb ? 16 : 12,
   },
