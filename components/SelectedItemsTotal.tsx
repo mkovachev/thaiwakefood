@@ -7,7 +7,7 @@ interface Props {
   total: number
 }
 
-export const CartTotal = ({ total }: Props) => {
+export const SelectedItemsTotal = ({ total }: Props) => {
   return (
     <View style={styles.container}>
       <Text style={styles.totalText}>Total price: {formatInTHB(total)}</Text>

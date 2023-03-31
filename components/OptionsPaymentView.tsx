@@ -11,7 +11,7 @@ interface Props {
   onPaymentOptionChange: (option: PaymentOptions) => void
 }
 
-export const PaymentOptionsView = ({ order, onPaymentOptionChange }: Props) => {
+export const OptionsPaymentView = ({ order, onPaymentOptionChange }: Props) => {
   const [selectedOption, setSelectedOption] = useState(order?.payment || PaymentOptions.Cash)
 
   const handlePaymentOptionChange = (option: PaymentOptions) => {

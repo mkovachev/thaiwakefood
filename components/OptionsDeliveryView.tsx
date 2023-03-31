@@ -11,7 +11,7 @@ interface Props {
   onDeliveryOptionChange: (option: DeliveryOptions, deliveryNote?: string) => void
 }
 
-export const DeliveryOptionsView = ({ order, onDeliveryOptionChange }: Props) => {
+export const OptionsDeliveryView = ({ order, onDeliveryOptionChange }: Props) => {
   const [selectedOption, setSelectedOption] = useState(order?.delivery || DeliveryOptions.Pickup)
   const [deliveryNote, setDeliveryNote] = useState(order?.deliveryNote || '')
 

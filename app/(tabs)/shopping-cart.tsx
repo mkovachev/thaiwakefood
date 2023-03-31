@@ -1,8 +1,8 @@
 import { StyleSheet, FlatList } from 'react-native'
 import { CartItem } from '../../data/CartItem'
 import { View } from '../../ui/components/Themed'
-import { CartItemListView } from '../../components/CartItemListView'
-import { CartTotal } from '../../components/CartTotal'
+import { SelectedItemListView } from '../../components/SelectedItemListView'
+import { SelectedItemsTotal } from '../../components/SelectedItemsTotal'
 import { EmptyView } from '../../components/EmptyView'
 import { useRecoilState } from 'recoil'
 import { cartAtom, ordersAtom } from '../../context/recoil'
@@ -15,10 +15,10 @@ import { generateOrderHTML } from '../../utils/generateOrderHTML'
 import { useState } from 'react'
 import { PaymentOptions } from '../../data/PaymentOptions'
 import { DeliveryOptions } from '../../data/DeliveryOptions'
-import { PaymentOptionsView } from '../../components/PaymentOptionsView'
-import { DeliveryOptionsView } from '../../components/DeliveryOptionsView'
+import { OptionsPaymentView } from '../../components/OptionsPaymentView'
+import { OptionsDeliveryView } from '../../components/OptionsDeliveryView'
 import { useRouter } from 'expo-router'
-import { SaveOrderButton } from '../../components/SaveOrder'
+import { SaveOrderButton } from '../../components/SaveOrderButton'
 import { parseOrder } from '../../utils/parseOrder'
 
 
@@ -74,7 +74,7 @@ export default function ShoppingCartScreen() {
   const handleSaveOrder = () => {
     const order = parseOrder(orders, cartItems, cartTotal, paymentOption, deliveryOption, deliveryNote)
     setOrders(orders => [...orders, order])
-     toast.show('Your order has been saved successfully', { type: 'success' })
+    toast.show('Your order has been saved successfully', { type: 'success' })
   }
 
   return (
@@ -83,7 +83,7 @@ export default function ShoppingCartScreen() {
         data={cartItems}
         keyExtractor={(item) => `${item.id}${item.option}`}
         renderItem={({ item }) =>
-          <CartItemListView
+          <SelectedItemListView
             item={item}
             inCart={true}
             onRemove={() => handleRemoveItem(item)}
@@ -91,9 +91,9 @@ export default function ShoppingCartScreen() {
           />}
         ListFooterComponent={
           <>
-            {cartTotal > 0 && <PaymentOptionsView onPaymentOptionChange={handlePaymentOption} />}
-            {cartTotal > 0 && <DeliveryOptionsView onDeliveryOptionChange={handleDeliveryOption} />}
-            {cartTotal > 0 && <CartTotal total={cartTotal} />}
+            {cartTotal > 0 && <OptionsPaymentView onPaymentOptionChange={handlePaymentOption} />}
+            {cartTotal > 0 && <OptionsDeliveryView onDeliveryOptionChange={handleDeliveryOption} />}
+            {cartTotal > 0 && <SelectedItemsTotal total={cartTotal} />}
             <View style={styles.actions}>
               {cartTotal > 0 && <PlaceOrderButton onPlaceOrder={handlePlaceOrder} />}
               {cartTotal > 0 && <SaveOrderButton onSave={handleSaveOrder} />}

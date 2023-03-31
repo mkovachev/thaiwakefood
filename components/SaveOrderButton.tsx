@@ -13,7 +13,7 @@ export const SaveOrderButton = ({ onSave }: Props) => {
     <View style={styles.container}>
       <TouchableOpacity style={styles.saveButton} onPress={onSave}>
         <Ionicons name="save-outline" size={20} color={colors.white} />
-        <Text style={styles.saveText}>Save order</Text>
+        <Text style={styles.saveText}>Save to my order</Text>
       </TouchableOpacity>
     </View>
   )

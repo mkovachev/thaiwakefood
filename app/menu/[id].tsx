@@ -3,7 +3,7 @@ import { Stack, useSearchParams } from 'expo-router'
 import { useEffect, useState } from 'react'
 import { MenuItem } from '../../data/MenuItem'
 import NotFoundScreen from '../[...missing]'
-import { ItemDetailsView } from '../../components/ItemDetailsView'
+import { MenuItemDetailsView } from '../../components/MenuItemDetailsView'
 import { menuAtom } from '../../context/recoil'
 import { useRecoilValueLoadable } from 'recoil'
 import { StyleSheet } from 'react-native'
@@ -40,7 +40,7 @@ const MenuItemDetailsScreen = () => {
         }}
       />
       <View>
-        <ItemDetailsView item={item} />
+        <MenuItemDetailsView item={item} />
       </View>
     </View>
   )

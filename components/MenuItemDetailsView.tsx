@@ -19,7 +19,7 @@ interface Props {
   item: MenuItem
 }
 
-export const ItemDetailsView = ({ item }: Props) => {
+export const MenuItemDetailsView = ({ item }: Props) => {
   const toast = useToast()
   const [cartItems, setCartItems] = useRecoilState(cartAtom)
   const [favoriteItems, setFavoriteItems] = useRecoilState(favoritesAtom)

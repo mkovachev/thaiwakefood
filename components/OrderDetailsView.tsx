@@ -2,10 +2,10 @@ import colors from '../ui/colors'
 import { StyleSheet, FlatList } from 'react-native'
 import { View, Text } from '../ui/components/Themed'
 import { EmptyView } from '../components/EmptyView'
-import { CartTotal } from './CartTotal'
+import { SelectedItemsTotal } from './SelectedItemsTotal'
 import { Order } from '../data/Order'
-import { DeliveryOptionsView } from './DeliveryOptionsView'
-import { PaymentOptionsView } from './PaymentOptionsView'
+import { OptionsDeliveryView } from './OptionsDeliveryView'
+import { OptionsPaymentView } from './OptionsPaymentView'
 import { PlaceOrderButton } from './PlaceOrderButton'
 import { useRouter } from 'expo-router'
 import { printToFileAsync } from 'expo-print'
@@ -18,8 +18,8 @@ import { DeliveryOptions } from '../data/DeliveryOptions'
 import { PaymentOptions } from '../data/PaymentOptions'
 import { generateOrderHTML } from '../utils/generateOrderHTML'
 import * as FileSystem from 'expo-file-system'
-import { SelectedItem } from './SelectedItemListView'
 import { useState } from 'react'
+import { SelectedItemListView } from './SelectedItemListView'
 
 
 interface Props {
@@ -72,7 +72,7 @@ export default function OrderDetailsView({ order }: Props) {
     order.total = cartTotal
     order.payment = paymentOption
     order.delivery = deliveryOption
-    if(deliveryNote) order.delivery = deliveryNote
+    if (deliveryNote) order.delivery = deliveryNote
     const html = generateOrderHTML(order)
     const { uri } = await printToFileAsync({ html })
 
@@ -90,15 +90,15 @@ export default function OrderDetailsView({ order }: Props) {
         data={order.items}
         keyExtractor={item => item.id}
         renderItem={({ item }) =>
-          <SelectedItem
+          <SelectedItemListView
             item={item}
             onRemove={() => handleRemoveItem(item)}
             onAmountChange={(newAmount) => handleItemAmountChange(item, newAmount - item.quantity)} />}
         ListFooterComponent={
           <>
-            {cartTotal > 0 && <PaymentOptionsView order={order} onPaymentOptionChange={handlePaymentOption} />}
-            {cartTotal > 0 && <DeliveryOptionsView order={order} onDeliveryOptionChange={handleDeliveryOption} />}
-            {cartTotal > 0 && <CartTotal total={cartTotal} />}
+            {cartTotal > 0 && <OptionsPaymentView order={order} onPaymentOptionChange={handlePaymentOption} />}
+            {cartTotal > 0 && <OptionsDeliveryView order={order} onDeliveryOptionChange={handleDeliveryOption} />}
+            {cartTotal > 0 && <SelectedItemsTotal total={cartTotal} />}
             <View style={styles.actions}>
               {cartTotal > 0 && <PlaceOrderButton onPlaceOrder={handlePlaceOrder} />}
             </View>
