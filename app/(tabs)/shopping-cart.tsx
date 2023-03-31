@@ -100,13 +100,13 @@ export default function ShoppingCartScreen() {
                 <Pressable
                   onPress={handlePlaceOrder}
                   text='Share'
-                  icon={<Ionicons name="share-social-outline" size={20} color={colors.white} />}
+                  icon={<Ionicons name="share-social-outline" size={20} />}
                 />}
               {cartTotal > 0 &&
                 <Pressable
                   onPress={handleSaveOrder}
                   text='Save to my orders'
-                  icon={<Ionicons name="share-social-outline" size={20} color={colors.white} />}
+                  icon={<Ionicons name="share-social-outline" size={20} />}
                 />}
             </View>
           </>

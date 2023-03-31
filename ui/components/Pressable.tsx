@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
-    margin: 5,
+    margin: 10,
     padding: 8,
     borderRadius: 20,
     borderWidth: 1,
@@ -53,9 +53,6 @@ const styles = StyleSheet.create({
   containerIconOnly: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 4,
-    margin: 5,
-    padding: 8,
   },
   iconStyle: {
     color: colors.blueLight
@@ -64,6 +61,6 @@ const styles = StyleSheet.create({
     fontFamily: fontFamily.MontserratMedium,
     color: colors.blueLight,
     marginRight: 5,
-    fontSize: Platform.OS === 'web' ? 18 : 12,
+    fontSize: Platform.OS === 'web' ? 18 : 14,
   },
 })

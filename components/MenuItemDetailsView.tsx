@@ -67,9 +67,7 @@ export const MenuItemDetailsView = ({ item }: Props) => {
           <Text style={styles.title}>{item.name}</Text>
         </View>
       </View>
-
       <View style={styles.optionsContainer}>
-
         {item.options && item.options.length > 0 &&
           <View>
             <Text>Choose option:</Text>
@@ -88,13 +86,11 @@ export const MenuItemDetailsView = ({ item }: Props) => {
             ))}
           </View>
         }
-
         {!item.options && item.price &&
           <Text style={styles.price}>
             Price: {formatInTHB(item.price)}
           </Text>
         }
-
         {item.spicy &&
           <View style={styles.spicyContainer}>
             <Text style={styles.spicyLabel}>Spicy:</Text>
@@ -104,13 +100,12 @@ export const MenuItemDetailsView = ({ item }: Props) => {
             />
           </View>
         }
-
       </View>
 
       <View style={styles.actions}>
         <Pressable
           onPress={handleAddToCart}
-          icon={<Feather size={24} name="shopping-bag" color={colors.blueLight} />}
+          icon={<Feather size={24} name="shopping-bag" />}
         />
         <Pressable
           onPress={handleAddToFavorites}
@@ -177,6 +172,7 @@ const styles = StyleSheet.create({
   },
   actions: {
     flexDirection: 'row',
+    justifyContent: 'flex-end',
     gap: 8
   },
 })

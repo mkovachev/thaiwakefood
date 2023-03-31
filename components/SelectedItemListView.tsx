@@ -30,7 +30,7 @@ export const SelectedItemListView = ({ item, onRemove, onAddToCart, onAmountChan
         {item.option && <Text>Option: {item.option}</Text>}
         {item.spicy && <Text>Spicy: Yes</Text>}
         <Text>Price: {formatInTHB(item.price)}</Text>
-        <View style={styles.quantity}>
+        <View style={styles.containerQuantity}>
           <Pressable onPress={() => onAmountChange(item.quantity - 1)}
             icon={<AntDesign name="leftcircleo" size={24} />}
           />
@@ -39,7 +39,7 @@ export const SelectedItemListView = ({ item, onRemove, onAddToCart, onAmountChan
             icon={<AntDesign name="rightcircleo" size={24} />} />
         </View>
       </View>
-      <View>
+      <View style={styles.actions}>
         <Pressable
           style={{ flex: 1 }}
           onPress={onRemove}
@@ -47,7 +47,7 @@ export const SelectedItemListView = ({ item, onRemove, onAddToCart, onAmountChan
         {!inCart &&
           <Pressable
             onPress={onAddToCart}
-            icon={<Feather size={24} name="shopping-bag" color={colors.blueLight} />} />
+            icon={<Feather size={24} name="shopping-bag" />} />
         }
       </View>
     </View>
@@ -81,13 +81,20 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     gap: 8
   },
-  quantity: {
+  containerQuantity: {
     display: 'flex',
     flexDirection: 'row',
+    alignItems: 'center',
     gap: 8,
   },
   quantityText: {
     fontFamily: fontFamily.MontserratMedium,
-    fontSize: 16
+    fontSize: 16,
+    color: colors.blueLight
+  },
+  actions:{
+    //display: 'flex',
+    //flexDirection: 'row',
+    justifyContent: 'space-between',
   }
 })

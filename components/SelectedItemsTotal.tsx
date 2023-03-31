@@ -17,11 +17,10 @@ export const SelectedItemsTotal = ({ total }: Props) => {
 
 const styles = StyleSheet.create({
   container: {
-    margin: 10,
+    margin: 15,
     alignItems: 'flex-end',
   },
   totalText: {
     fontFamily: fontFamily.MontserratMedium,
-    fontSize: 16,
   }
 })
