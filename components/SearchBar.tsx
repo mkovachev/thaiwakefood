@@ -29,8 +29,9 @@ const SearchBar = ({ onSearch }: Props) => {
         placeholder='Search...'
         value={text}
         onChangeText={handleChange}
-        // clearButtonMode='while-editing'
-        // clearTextOnFocus={true}
+        clearButtonMode='while-editing'
+        clearTextOnFocus={true}
+        selectionColor={colors.blueLight}
       />
       {text !== '' &&
         <View>
@@ -60,10 +61,11 @@ const styles = StyleSheet.create({
     height: Platform.OS === 'web' ? 40 : 40,
     margin: 10,
     padding: 10,
-    color: colors.grey,
+    color: colors.blue,
     borderRadius: 15,
     borderWidth: .5,
-    borderColor: colors.grey,
+    //outlineColor: colors.blueLight,
+    borderColor: colors.blueLight,
   },
   clearButton: {
     position: 'absolute',
