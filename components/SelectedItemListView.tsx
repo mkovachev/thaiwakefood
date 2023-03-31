@@ -12,11 +12,10 @@ interface Props {
   item: CartItem
   onRemove: () => void
   onAddToCart?: () => void
-  onAmountChange: (newAmount: number) => void
-  inCart?: boolean
+  onAmountChange?: (newAmount: number) => void
 }
 
-export const SelectedItemListView = ({ item, onRemove, onAddToCart, onAmountChange, inCart }: Props) => {
+export const SelectedItemListView = ({ item, onRemove, onAddToCart, onAmountChange }: Props) => {
 
   return (
     <View style={styles.container}>
@@ -30,24 +29,29 @@ export const SelectedItemListView = ({ item, onRemove, onAddToCart, onAmountChan
         {item.option && <Text>Option: {item.option}</Text>}
         {item.spicy && <Text>Spicy: Yes</Text>}
         <Text>Price: {formatInTHB(item.price)}</Text>
-        <View style={styles.containerQuantity}>
-          <Pressable onPress={() => onAmountChange(item.quantity - 1)}
-            icon={<AntDesign name="leftcircleo" size={24} />}
-          />
-          <Text style={styles.quantityText}>{item.quantity}</Text>
-          <Pressable onPress={() => onAmountChange(item.quantity + 1)}
-            icon={<AntDesign name="rightcircleo" size={24} />} />
-        </View>
+
+        {onAmountChange &&
+          <View style={styles.containerQuantity}>
+            <Pressable onPress={() => onAmountChange(item.quantity - 1)}
+              icon={<AntDesign name="leftcircleo" size={24} />}
+            />
+            <Text style={styles.quantityText}>{item.quantity}</Text>
+            <Pressable onPress={() => onAmountChange(item.quantity + 1)}
+              icon={<AntDesign name="rightcircleo" size={24} />} />
+          </View>
+        }
+
       </View>
       <View style={styles.actions}>
         <Pressable
           style={{ flex: 1 }}
           onPress={onRemove}
           icon={<MaterialIcons name="highlight-remove" size={24} color={colors.red} />} />
-        {!inCart &&
+        {onAddToCart &&
           <Pressable
             onPress={onAddToCart}
-            icon={<Feather size={24} name="shopping-bag" />} />
+            icon={<Feather size={24} name="shopping-bag" />}
+          />
         }
       </View>
     </View>
@@ -60,10 +64,8 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     padding: 10,
     borderRadius: 10,
-    borderBottomColor: colors.blueLight,
-    borderBottomWidth: .1,
-  },
-  link: {
+    borderBottomColor: colors.blue,
+    borderBottomWidth: .2,
   },
   imageContainer: {
     alignItems: 'center',
@@ -78,7 +80,7 @@ const styles = StyleSheet.create({
   },
   details: {
     flex: 1,
-    marginLeft: 15,
+    marginLeft: 10,
     gap: 8
   },
   containerQuantity: {
@@ -92,9 +94,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: colors.blueLight
   },
-  actions:{
-    //display: 'flex',
-    //flexDirection: 'row',
+  actions: {
     justifyContent: 'space-between',
+    //gap: 8
   }
 })

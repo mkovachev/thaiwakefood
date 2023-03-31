@@ -70,7 +70,7 @@ export const MenuItemDetailsView = ({ item }: Props) => {
       <View style={styles.optionsContainer}>
         {item.options && item.options.length > 0 &&
           <View>
-            <Text>Choose option:</Text>
+            <Text>Options:</Text>
             {item.options.map((option, index) => (
               <View key={index} style={styles.foodOptions}>
                 <RadioButton
@@ -81,7 +81,7 @@ export const MenuItemDetailsView = ({ item }: Props) => {
                   onPress={() => setSelectedOption(option.label)}
                 />
                 <Text style={styles.optionLabel}>{option.label}</Text>
-                <Text style={styles.optionPrice}>{option.value}</Text>
+                <Text style={styles.optionPrice}>{formatInTHB(option.value)}</Text>
               </View>
             ))}
           </View>

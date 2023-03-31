@@ -105,7 +105,7 @@ export default function OrderDetailsView({ order }: Props) {
                 <Pressable
                   onPress={handlePlaceOrder}
                   text='Share'
-                  icon={<Ionicons name="share-social-outline" size={20} color={colors.white} />}
+                  icon={<Ionicons name="share-social-outline" size={24} />}
                 />}
             </View>
           </>

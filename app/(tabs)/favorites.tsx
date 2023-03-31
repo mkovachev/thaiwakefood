@@ -19,12 +19,6 @@ export default function FavoritesScreen() {
     toast.show(`${item.name} removed successfully`, { type: 'danger' })
   }
 
-  const handleItemAmountChange = (item: CartItem, amountChange: number) => {
-    const updatedItem = { ...item, amount: item.quantity + amountChange }
-    if (updatedItem.amount < 1) return
-    setFavoriteItems(items => items.map(i => i.id === updatedItem.id ? updatedItem : i))
-  }
-
   const handleAddToCart = (item: CartItem) => {
     const existingItem = cartItems.find(i => i.id === item.id && i.option === item.option)
     if (existingItem) {
@@ -45,7 +39,6 @@ export default function FavoritesScreen() {
           <SelectedItemListView
             item={item}
             onRemove={() => handleRemoveItem(item)}
-            onAmountChange={(newAmount) => handleItemAmountChange(item, newAmount - item.quantity)}
             onAddToCart={() => handleAddToCart(item)}
           />}
         ListEmptyComponent={<EmptyView />}

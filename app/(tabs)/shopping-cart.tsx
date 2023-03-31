@@ -86,7 +86,6 @@ export default function ShoppingCartScreen() {
         renderItem={({ item }) =>
           <SelectedItemListView
             item={item}
-            inCart={true}
             onRemove={() => handleRemoveItem(item)}
             onAmountChange={(newAmount) => handleItemAmountChange(item, newAmount - item.quantity)}
           />}
