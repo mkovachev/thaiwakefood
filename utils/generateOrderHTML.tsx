@@ -1,19 +1,20 @@
 import { Order } from '../data/Order'
-import { StyleSheet, Image } from 'react-native'
+import { formatInTHB } from './formatInTHB'
 
 export const generateOrderHTML = (order: Order) => {
-const itemsHTML = order.items
-.map(
-item =>
-`<li style="list-style: circle; margin-left: 20px; margin-top: 10px;">
-  <strong>${item.name}:</strong> ${item.quantity} x ${item.price.toFixed(
-  2
-  )} THB
-</li>`
-)
-.join('')
+  const logoUrl = 'https://drive.google.com/uc?id=1C3nCO1QKDUPLKHRWn01_YMOmt2oD_XyL'
+  const menuImageUrl = 'https://drive.google.com/uc?id=1TNXZp3ItMEgDoWBwqO7_ftqAc_Ua63nn'
 
-const html = `
+  const itemsHTML = order.items.map(item =>
+    `<li style="list-style: none; display: flex; align-items: center; margin-top: 10px;">
+      <img src=${menuImageUrl} style="width: 50px; height: 50px; margin-right: 10px;" />
+      <div>
+        <strong>${item.name} ${item?.option}:</strong> ${item.quantity} x ${formatInTHB(item.price.toFixed(2))}
+      </div>
+    </li>`)
+    .join('')
+
+  const html = `
 <html>
 
 <head>
@@ -33,7 +34,7 @@ const html = `
       align-items: center;
       justify-content: center;
       padding: 1rem;
-      background-color: #F5CA48;
+      background-color: #609436;
     }
 
     .header img {
@@ -55,38 +56,39 @@ const html = `
     }
 
     li {
-      margin-bottom: 5px;
+      font-size: 28px;
+      margin-bottom: 15px;
     }
 
     .separator {
-      margin: 10px 0;
-      border-bottom: 1px solid #696969;
+      margin: 15px 0;
+      border-bottom: 20px solid #609436;
     }
 
-    h3 {
-      color: #2F95DC;
+    p {
+      font-size: 28px;
     }
 
     .total {
-      font-size: 24px;
+      font-size: 28px;
       margin-top: 20px;
-      color: #2F95DC;
+      text-align: right;
     }
 
     .delivery-note {
       font-style: italic;
-      margin-top: 10px;
+      margin-top: 28px;
       color: #F26C68;
     }
 
     .info {
-      color: #2F95DC;
+      font-size: 28px;
+      margin-top: 30;
       text-align: center;
-      margin-top: 20px;
     }
 
     .signature {
-      color: #2F95DC;
+      font-size: 28px;
       text-align: center;
     }
   </style>
@@ -94,31 +96,39 @@ const html = `
 
 <body>
   <div class="header">
-    <img src="../assets/images/logo.png" alt="" />
+    <img src=${logoUrl} />
     <h1>THAI WAKE PARK - TWP Lumlukka</h1>
   </div>
 
-  <h3>Thank you for your order</h3>
-  <h3><strong>Order #</strong> ${order.id}</h3>
+  <p>Thank you for your order. You will find your order details below.</p>
+  <p><strong>Order: ${order.id}, ${order.date.toDateString()}</strong></p>
+
+  <div class="separator"></div>
+
   <ul>
-    <li><strong>Order date:</strong> ${order.date.toDateString()}</li>
-    <li><strong>Payment method:</strong> ${order.payment}</li>
-    <li><strong>Delivery method:</strong> ${order.delivery}</li>
     <li><strong>Order items:</strong></li>
     <ul>
-      ${itemsHTML}
+    ${itemsHTML}
     </ul>
-    ${order.deliveryNote !== '' ? `<li class="delivery-note"><strong>Delivery Note:</strong> ${order.deliveryNote}</li>`
-    : ''}
     <div class="separator"></div>
-    <li class="total"><strong>Total: ${order.total.toFixed(2)} THB </strong></li>
-    <h3 class="info">We will text you once your order is ready,</h3>
-    <h3 class="signature">Your lovely THAI WAKE PARK</h3>
-  </ul>
+    <li class="total"><strong>Total: ${formatInTHB(order.total.toFixed(2))} </strong></li>
+    
+    <p class="info"Additional Information:</p>
+    <li><strong>Payment method:</strong> ${order.payment}</li>
+    <li><strong>Delivery method:</strong> ${order.delivery}</li>
+    ${order.deliveryNote !== '' ? `<li class="delivery-note"><strong>Delivery Note:</strong>*** ${order.deliveryNote}</li>`
+    : ''}
+    </ul>
+    
+    <div class="separator"></div>
+
+    <p class="info">We will text you once your order is ready,</p>
+    <p class="signature">Your lovely THAI WAKE PARK</p>
+
 </body>
 
 </html>
 `
 
-return html
+  return html
 }

@@ -8,4 +8,5 @@ export interface Order {
   payment: string
   delivery: string
   deliveryNote?: string
+  user: string
 }

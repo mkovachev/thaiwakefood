@@ -11,7 +11,7 @@ import { shareAsync } from 'expo-sharing'
 import { printToFileAsync } from 'expo-print'
 import * as FileSystem from 'expo-file-system'
 import { generateOrderHTML } from '../../utils/generateOrderHTML'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { PaymentOptions } from '../../data/PaymentOptions'
 import { DeliveryOptions } from '../../data/DeliveryOptions'
 import { OptionsPaymentView } from '../../components/OptionsPaymentView'
@@ -20,7 +20,9 @@ import { useRouter } from 'expo-router'
 import { parseOrder } from '../../utils/parseOrder'
 import Pressable from '../../ui/components/Pressable'
 import { AntDesign, Ionicons } from '@expo/vector-icons'
-import colors from '../../ui/colors'
+import { OrderUserName } from '../../components/OrderUserName'
+import { Order } from '../../data/Order'
+import { parsePdfUri } from '../../utils/parsePdfUri'
 
 
 export default function ShoppingCartScreen() {
@@ -28,18 +30,26 @@ export default function ShoppingCartScreen() {
   const toast = useToast()
   const [cartItems, setCartItems] = useRecoilState(cartAtom)
   const [orders, setOrders] = useRecoilState(ordersAtom)
+  const [order, setOrder] = useState<Order>()
   const [paymentOption, setPaymentOption] = useState(PaymentOptions.Cash)
   const [deliveryOption, setDeliveryOption] = useState(DeliveryOptions.Pickup)
   const [deliveryNote, setDeliveryNote] = useState('')
+  const [user, setUser] = useState('')
 
   const cartTotal = cartItems.length > 0 ? cartItems.reduce((total, item) => {
     return total + (item.price * item.quantity)
   }, 0) : 0
 
+  useEffect(() => {
+    if (orders && cartItems && cartTotal && paymentOption && deliveryOption) {
+      setOrder(parseOrder(user, orders, cartItems, cartTotal, paymentOption, deliveryOption, deliveryNote))
+    }
+  }, [user, orders, cartItems, cartTotal, paymentOption, deliveryOption, deliveryNote])
+
   const handleRemoveItem = (item: CartItem) => {
     const updatedItems = cartItems.filter(i => i.id !== item.id)
     setCartItems(updatedItems)
-    toast.show(`${item.name} removed successfully`, { type: 'danger' })
+    toast.show(`${item.name} removed`, { type: 'danger' })
   }
 
   const handleItemAmountChange = (item: CartItem, amountChange: number) => {
@@ -57,26 +67,52 @@ export default function ShoppingCartScreen() {
     if (deliveryNote) setDeliveryNote(deliveryNote)
   }
 
+  const handleUser = (user: string) => {
+    if (order && user) {
+      setUser(user)
+      order.user = user
+    }
+  }
+
   const handlePlaceOrder = async () => {
-    const order = parseOrder(orders, cartItems, cartTotal, paymentOption, deliveryOption, deliveryNote)
-    const html = generateOrderHTML(order)
+    if (!order) return
+    if (!order.user) {
+      toast.show('Please add your name', { type: 'warning' })
+      return
+    }
+
+    const html = await generateOrderHTML(order)
     const { uri } = await printToFileAsync({ html })
+    const pdfUri = parsePdfUri(uri, order)
+    await FileSystem.moveAsync({ from: uri, to: pdfUri })
 
     try {
-      await shareAsync(uri, { UTI: '.pdf', mimeType: 'application/pdf' })
+      await shareAsync(pdfUri, { UTI: '.pdf', mimeType: 'application/pdf', dialogTitle: 'Share your order' })
     } catch (error) {
       toast.show('Failed to share order...', { type: 'danger' })
     }
-    await FileSystem.deleteAsync(uri)
-    setCartItems([])
-    router.push('/')
-  }
 
-  const handleSaveOrder = () => {
-    const order = parseOrder(orders, cartItems, cartTotal, paymentOption, deliveryOption, deliveryNote)
+    console.log(uri)
+    console.log(pdfUri)
+    if (uri) await FileSystem.deleteAsync(uri)
+
     setOrders(orders => [...orders, order])
     setCartItems([])
-    toast.show('Your order has been saved successfully in my orders', { type: 'success' })
+    router.push('/')
+    toast.show('Your order has been saved in my orders', { type: 'success' })
+  }
+
+  const handleSaveOrder = async () => {
+    if (!order) return
+    if (!order.user) {
+      toast.show('Please add your name', { type: 'warning' })
+      return
+    }
+
+    setOrders(orders => [...orders, order])
+    setCartItems([])
+    router.push('/')
+    toast.show('Your order has been saved in my orders', { type: 'success' })
   }
 
   return (
@@ -94,6 +130,7 @@ export default function ShoppingCartScreen() {
           <>
             {cartTotal > 0 && <OptionsPaymentView onPaymentOptionChange={handlePaymentOption} />}
             {cartTotal > 0 && <OptionsDeliveryView onDeliveryOptionChange={handleDeliveryOption} />}
+            {cartTotal > 0 && <OrderUserName onUserChange={handleUser} />}
             {cartTotal > 0 && <SelectedItemsTotal total={cartTotal} />}
             <View style={styles.actions}>
               {cartTotal > 0 &&
@@ -115,7 +152,7 @@ export default function ShoppingCartScreen() {
       />
     </View>
   )
-};
+}
 
 const styles = StyleSheet.create({
   container: {

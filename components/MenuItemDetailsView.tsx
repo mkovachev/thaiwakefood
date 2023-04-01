@@ -4,7 +4,6 @@ import { StyleSheet, Image, Platform, Switch } from "react-native"
 import { RadioButton } from "react-native-paper"
 import { View, Text } from "../ui/components/Themed"
 import colors from '../ui/colors'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import { parseCartItem } from '../utils/parseCartItem'
 import fontFamily from '../ui/fontFamily'
 import { formatInTHB } from '../utils/formatInTHB'

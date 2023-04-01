@@ -48,7 +48,7 @@ export default function OrderDetailsView({ order }: Props) {
       const updatedOrder = { ...order, items: updatedItems }
       setOrders(orders => [...orders.filter(o => o.id !== order.id), updatedOrder])
     }
-    toast.show(`${item.name} removed successfully`, { type: 'danger' })
+    toast.show(`${item.name} removed`, { type: 'danger' })
   }
 
   const handleAddToCart = (item: CartItem) => {
@@ -85,7 +85,7 @@ export default function OrderDetailsView({ order }: Props) {
     order.payment = paymentOption
     order.delivery = deliveryOption
     if (deliveryNote) order.delivery = deliveryNote
-    const html = generateOrderHTML(order)
+    const html = await generateOrderHTML(order)
     const { uri } = await printToFileAsync({ html })
 
     try {

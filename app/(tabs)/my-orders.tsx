@@ -15,7 +15,7 @@ export default function MyOrdersScreen() {
   const handleRemove = (order: Order) => {
     const filteredItems = orders.filter(i => i.id !== order.id)
     setOrders(filteredItems)
-    toast.show(`Order ${order.id} removed successfully`, { type: 'danger' })
+    toast.show(`Order ${order.id} removed`, { type: 'danger' })
   }
 
   return (
