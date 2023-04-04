@@ -50,6 +50,12 @@ export default function ShoppingCartScreen() {
     const updatedItems = cartItems.filter(i => i.id !== item.id)
     setCartItems(updatedItems)
     toast.show(`${item.name} removed`, { type: 'danger' })
+    if (cartItems.length === 1) {
+      toast.show(`${item.name} removed`, { type: 'danger' })
+      toast.show('Your cart is now empty', { type: 'danger' })
+    } else {
+      toast.show(`${item.name} removed`, { type: 'danger' })
+    }
   }
 
   const handleItemAmountChange = (item: CartItem, amountChange: number) => {

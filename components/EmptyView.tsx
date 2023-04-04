@@ -6,7 +6,7 @@ import Pressable from '../ui/components/Pressable'
 export const EmptyView = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.noItemsText}>No items found...</Text>
+      <Text style={styles.noItemsText}>No items found</Text>
       <Pressable url='/' text='Back to Menu' />
     </View>
   )
