@@ -5,15 +5,16 @@ import colors from '../ui/colors'
 import { useState } from 'react'
 
 interface Props {
+  user: string
   onUserChange: (user: string) => void
 }
 
-export const OrderUserName = ({ onUserChange }: Props) => {
-  const [user, setUser] = useState('')
+export const OrderUsernameInput = ({ user, onUserChange }: Props) => {
+  const [input, setInput] = useState(user)
   const [error, setError] = useState('')
 
   const handleInput = (input: string) => {
-    setUser(input)
+    setInput(input)
     if (input.trim() === '') {
       setError('Name is required')
     } else {
@@ -28,7 +29,7 @@ export const OrderUserName = ({ onUserChange }: Props) => {
         style={styles.input}
         label='Add your name...'
         placeholder='Add your name...'
-        value={user}
+        value={input}
         numberOfLines={1}
         maxLength={60}
         onChangeText={handleInput}

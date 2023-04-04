@@ -27,7 +27,7 @@ export default function FavoritesScreen() {
     } else {
       setCartItems(items => [...items, item])
     }
-    toast.show(`${item.name} added to cart`, { type: 'success' })
+    toast.show(`${item.name} ${item.option} added to cart`, { type: 'success' })
   }
 
   return (

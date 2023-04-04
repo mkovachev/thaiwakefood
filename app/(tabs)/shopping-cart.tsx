@@ -14,15 +14,15 @@ import { generateOrderHTML } from '../../utils/generateOrderHTML'
 import { useEffect, useState } from 'react'
 import { PaymentOptions } from '../../data/PaymentOptions'
 import { DeliveryOptions } from '../../data/DeliveryOptions'
-import { OptionsPaymentView } from '../../components/OptionsPaymentView'
 import { OptionsDeliveryView } from '../../components/OptionsDeliveryView'
 import { useRouter } from 'expo-router'
 import { parseOrder } from '../../utils/parseOrder'
 import Pressable from '../../ui/components/Pressable'
 import { AntDesign, Ionicons } from '@expo/vector-icons'
-import { OrderUserName } from '../../components/OrderUserName'
+import { OrderUsernameInput } from '../../components/OrderUsernameInput'
 import { Order } from '../../data/Order'
 import { parsePdfUri } from '../../utils/parsePdfUri'
+import { OptionsPaymentView } from '../../components/OptionsPaymentView'
 
 
 export default function ShoppingCartScreen() {
@@ -68,10 +68,7 @@ export default function ShoppingCartScreen() {
   }
 
   const handleUser = (user: string) => {
-    if (order && user) {
-      setUser(user)
-      order.user = user
-    }
+    if (order && user) setUser(user)
   }
 
   const handlePlaceOrder = async () => {
@@ -81,7 +78,7 @@ export default function ShoppingCartScreen() {
       return
     }
 
-    const html = await generateOrderHTML(order)
+    const html = generateOrderHTML(order)
     const { uri } = await printToFileAsync({ html })
     const pdfUri = parsePdfUri(uri, order)
     await FileSystem.moveAsync({ from: uri, to: pdfUri })
@@ -92,8 +89,6 @@ export default function ShoppingCartScreen() {
       toast.show('Failed to share order...', { type: 'danger' })
     }
 
-    console.log(uri)
-    console.log(pdfUri)
     if (uri) await FileSystem.deleteAsync(uri)
 
     setOrders(orders => [...orders, order])
@@ -130,7 +125,7 @@ export default function ShoppingCartScreen() {
           <>
             {cartTotal > 0 && <OptionsPaymentView onPaymentOptionChange={handlePaymentOption} />}
             {cartTotal > 0 && <OptionsDeliveryView onDeliveryOptionChange={handleDeliveryOption} />}
-            {cartTotal > 0 && <OrderUserName onUserChange={handleUser} />}
+            {cartTotal > 0 && <OrderUsernameInput user={user} onUserChange={handleUser} />}
             {cartTotal > 0 && <SelectedItemsTotal total={cartTotal} />}
             <View style={styles.actions}>
               {cartTotal > 0 &&

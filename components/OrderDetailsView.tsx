@@ -5,7 +5,6 @@ import { EmptyView } from '../components/EmptyView'
 import { SelectedItemsTotal } from './SelectedItemsTotal'
 import { Order } from '../data/Order'
 import { OptionsDeliveryView } from './OptionsDeliveryView'
-import { OptionsPaymentView } from './OptionsPaymentView'
 import { useRouter } from 'expo-router'
 import { printToFileAsync } from 'expo-print'
 import { shareAsync } from 'expo-sharing'
@@ -21,6 +20,8 @@ import { useState } from 'react'
 import { SelectedItemListView } from './SelectedItemListView'
 import Pressable from '../ui/components/Pressable'
 import { Ionicons } from '@expo/vector-icons'
+import { OrderUsernameInput } from './OrderUsernameInput'
+import { OptionsPaymentView } from './OptionsPaymentView'
 
 
 interface Props {
@@ -35,6 +36,7 @@ export default function OrderDetailsView({ order }: Props) {
   const [paymentOption, setPaymentOption] = useState(order.payment)
   const [deliveryOption, setDeliveryOption] = useState(order.delivery)
   const [deliveryNote, setDeliveryNote] = useState(order.deliveryNote || '')
+  const [user, setUser] = useState(order.user)
 
   const cartTotal = order.items.length > 0 ? order.items.reduce((total, item) => {
     return total + (item.price * item.quantity)
@@ -49,6 +51,7 @@ export default function OrderDetailsView({ order }: Props) {
       setOrders(orders => [...orders.filter(o => o.id !== order.id), updatedOrder])
     }
     toast.show(`${item.name} removed`, { type: 'danger' })
+    router.push('/my-orders')
   }
 
   const handleAddToCart = (item: CartItem) => {
@@ -59,7 +62,7 @@ export default function OrderDetailsView({ order }: Props) {
     } else {
       setCartItems(items => [...items, item])
     }
-    toast.show(`${item.name} added to cart`, { type: 'success' })
+    toast.show(`${item.name} ${item.option} added to cart`, { type: 'success' })
   }
 
   const handleItemAmountChange = (item: CartItem, amountChange: number) => {
@@ -80,12 +83,19 @@ export default function OrderDetailsView({ order }: Props) {
   }
 
   const handlePlaceOrder = async () => {
+    if (!order) return
+    if (!order.user) {
+      toast.show('Please add your name', { type: 'warning' })
+      return
+    }
+
     order.date = new Date()
     order.total = cartTotal
     order.payment = paymentOption
     order.delivery = deliveryOption
+    order.user = user
     if (deliveryNote) order.delivery = deliveryNote
-    const html = await generateOrderHTML(order)
+    const html = generateOrderHTML(order)
     const { uri } = await printToFileAsync({ html })
 
     try {
@@ -96,6 +106,11 @@ export default function OrderDetailsView({ order }: Props) {
     await FileSystem.deleteAsync(uri)
     router.push('/')
   }
+
+  const handleUser = (user: string) => {
+    if (order && user) setUser(user)
+  }
+
   return (
     <View style={styles.container}>
       <FlatList
@@ -111,6 +126,7 @@ export default function OrderDetailsView({ order }: Props) {
           <>
             {cartTotal > 0 && <OptionsPaymentView order={order} onPaymentOptionChange={handlePaymentOption} />}
             {cartTotal > 0 && <OptionsDeliveryView order={order} onDeliveryOptionChange={handleDeliveryOption} />}
+            {cartTotal > 0 && <OrderUsernameInput user={user} onUserChange={handleUser} />}
             {cartTotal > 0 && <SelectedItemsTotal total={cartTotal} />}
             <View style={styles.actions}>
               {cartTotal > 0 &&

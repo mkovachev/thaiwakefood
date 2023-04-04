@@ -39,7 +39,7 @@ export const MenuItemDetailsView = ({ item }: Props) => {
     } else {
       setCartItems(items => [...items, cartItem])
     }
-    toast.show(`${item.name} added to cart`, { type: 'success' })
+    toast.show(`${item.name} ${selectedOption} added to cart`, { type: 'success' })
   }
 
   const handleAddToFavorites = async () => {
@@ -55,7 +55,7 @@ export const MenuItemDetailsView = ({ item }: Props) => {
     } else {
       setFavoriteItems(items => [...items, cartItem])
     }
-    toast.show(`${item.name} added to favorites`, { type: 'success' })
+    toast.show(`${item.name} ${selectedOption} added to favorites`, { type: 'success' })
   }
 
   return (
