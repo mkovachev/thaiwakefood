@@ -51,11 +51,12 @@ export default function OrderDetailsView({ order }: Props) {
       setOrders(orders => [...orders.filter(o => o.id !== order.id), updatedOrder])
     }
 
+    toast.show(`${item.name} removed`, { type: 'danger' })
+
     if (order.items.length === 1) {
-      toast.show(`Order ${order.id} removed`, { type: 'danger' })
-    } else {
-      toast.show(`${item.name} removed`, { type: 'danger' })
+      toast.show(`All items have been removed. Order ${order.id} deleted`, { type: 'danger' })
     }
+
     router.push('/my-orders')
   }
 
