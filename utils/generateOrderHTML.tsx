@@ -106,7 +106,7 @@ export const generateOrderHTML = (order: Order) => {
   </div>
 
   <p>Thank you for your order. You will find your order details below.</p>
-  <p class="order-header"><strong>${order.user}'s order #${order.id}, ${formatOrderDate(order.date)}</strong></p>
+  <p class="order-header"><strong>${order.user}'s order #${order.id} from ${formatOrderDate(order.date)}</strong></p>
 
   <div class="separator"></div>
 
@@ -121,7 +121,7 @@ export const generateOrderHTML = (order: Order) => {
     <p class="info"Additional Information:</p>
     <li><strong>Payment method:</strong> ${order.payment}</li>
     <li><strong>Delivery method:</strong> ${order.delivery}</li>
-    ${order.deliveryNote !== '' ? `<li class="delivery-note"><strong>Delivery Note:</strong>*** ${order.deliveryNote}</li>`
+    ${order.deliveryNote !== '' ? `<li class="delivery-note"><strong>Delivery Note:</strong> ${order.deliveryNote}</li>`
       : ''}
     </ul>
     
