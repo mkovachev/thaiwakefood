@@ -9,10 +9,6 @@ export const formatOrderDate = (date: Date) => {
     hour12: false,
   }
 
-  const formattedDate = new Intl.DateTimeFormat('default', options).format(date).replace(", ", '_')
-  const formattedDateWithoutCommasOrSpaces = formattedDate.replace(/[\s,]+/g, '_')
-  return formattedDateWithoutCommasOrSpaces
+  return new Intl.DateTimeFormat('default', options).format(date)
 }
-
-
 

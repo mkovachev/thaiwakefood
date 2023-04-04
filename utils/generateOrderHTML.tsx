@@ -1,5 +1,6 @@
 import { Order } from '../data/Order'
 import { formatInTHB } from './formatInTHB'
+import { formatOrderDate } from './formatOrderDate'
 
 export const generateOrderHTML = (order: Order) => {
   const logoUrl = 'https://drive.google.com/uc?id=1C3nCO1QKDUPLKHRWn01_YMOmt2oD_XyL'
@@ -69,6 +70,10 @@ export const generateOrderHTML = (order: Order) => {
       font-size: 28px;
     }
 
+    .order-header {
+      color: #57B0E3;
+    }
+
     .total {
       font-size: 28px;
       margin-top: 20px;
@@ -101,7 +106,7 @@ export const generateOrderHTML = (order: Order) => {
   </div>
 
   <p>Thank you for your order. You will find your order details below.</p>
-  <p><strong>Order: ${order.id}, for ${order.user}, dated: ${order.date.toDateString()}</strong></p>
+  <p class="order-header"><strong>${order.user}'s order #${order.id}, ${formatOrderDate(order.date)}</strong></p>
 
   <div class="separator"></div>
 

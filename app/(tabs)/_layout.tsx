@@ -29,19 +29,19 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="shopping-cart"
-        options={{
-          title: 'Shopping Cart',
-          headerShown: true,
-          tabBarIcon: ({ color }) => <Feather size={24} name="shopping-bag" color={color} />
-        }}
-      />
-      <Tabs.Screen
         name="my-orders"
         options={{
           title: 'My Orders',
           headerShown: true,
           tabBarIcon: ({ color }) => <MaterialIcons size={24} name="view-list" color={color} />
+        }}
+      />
+      <Tabs.Screen
+        name="shopping-cart"
+        options={{
+          title: 'Shopping Cart',
+          headerShown: true,
+          tabBarIcon: ({ color }) => <Feather size={24} name="shopping-bag" color={color} />
         }}
       />
     </Tabs>
