@@ -20,7 +20,7 @@ const MenuItemDetailsScreen = () => {
         setItem(foundItem)
       }
     }
-  }, [id, menu])
+  }, [id, menu, item])
 
   if (menu.state === 'loading') {
     return <View>Loading...</View>
